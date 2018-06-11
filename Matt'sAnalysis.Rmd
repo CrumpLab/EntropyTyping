@@ -1,0 +1,117 @@
+---
+title: "Matt's Analysis"
+author: "Matt Crump"
+date: "6/11/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Mean IKSIs as a function of letter position and word length
+
+These are grand means not averaged over subject means
+
+```{r}
+library(data.table)
+library(dplyr)
+library(ggplot2)
+
+# mturk.txt is the unzipped mturk.txt.zip file
+the_data <- fread("~/Desktop/mturk.txt")
+
+################
+# Data-Exclusion
+# remove really long IKSIs
+the_data <- the_data[the_data$IKSIs < 2000,]
+
+# remove incorrect keystrokes, and keystrokes where n-1 was incorrect (remove post-error slowing)
+the_data <- the_data[the_data$PredBigramCorrect=="11",]
+
+# restrict to normal word paragraphs
+the_data <- the_data[the_data$ParagraphType=="N",]
+
+###############
+# Analysis
+# Get the means by word length and letter position
+sum_data <- the_data %>%
+              group_by(word_lengths,let_pos) %>%
+              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+
+# plot the data
+
+sum_data <- sum_data[sum_data$let_pos < 10, ]
+sum_data <- sum_data[sum_data$word_lengths < 10 &
+                     sum_data$word_lengths > 0, ]
+
+sum_data$let_pos<-as.factor(sum_data$let_pos)
+sum_data$word_lengths<-as.factor(sum_data$word_lengths)
+
+ggplot(sum_data,aes(x=let_pos,y=mean_IKSI,group=word_lengths,color=word_lengths))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
+
+```
+
+# Mean IKSIs as a function of letter position and word length
+
+First get individual subject means, then plot grand means averaging over individual subjects.
+
+The figure shows lots of evidence for the first letter slowing phenomena, where the first letter in a word is typed more slowly than the remaining letters. This has been interpreted in terms of planning time. People buffer an entire word as a part of planning to type the word. This time is reflected in the first keystroke, after they start typing, the remaining keystrokes are faster because they are more automatically rattling of the planned letter sequence.
+
+There is also evidence for mid-word slowing, where the IKSIs (interkeystroke intervals) are longer in the middle positions of the word compared to the earlier (excluding first position) and later positions. Not much attention has been paid to the explanation of mid-word slowing. Could also be interpreted in terms of the same buffering/planning process that produces first letter slowing. For example, people might also plan at the level of syllables, which are often in the middle of words. Mid-word slowing could reflect syllable-level buffering, which would typically slow down production of letters in the middle of a word.
+
+In the next analysis, we will explore a different interpretation of these slowing phenomena in terms of letter predictability. 
+
+```{r}
+library(Crump) #for standard error function and Van Selst and Jolicouer outlier elimination
+
+# mturk.txt is the unzipped mturk.txt.zip file
+the_data <- fread("~/Desktop/mturk.txt")
+
+################
+# Data-Exclusion
+# remove really long IKSIs
+the_data <- the_data[the_data$IKSIs < 2000,]
+
+# remove incorrect keystrokes, and keystrokes where n-1 was incorrect (remove post-error slowing)
+the_data <- the_data[the_data$PredBigramCorrect=="11",]
+
+# restrict to normal word paragraphs
+the_data <- the_data[the_data$ParagraphType=="N",]
+
+###############
+# Analysis
+# Get the means by word length and letter position for each subject
+subject_means <- the_data %>%
+              group_by(Subject,word_lengths,let_pos) %>%
+              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+
+# Get the grand means by averaging over subject means
+sum_data <- subject_means %>%
+              group_by(word_lengths,let_pos) %>%
+              summarize(mean_IKSIs = mean(mean_IKSI, na.rm = TRUE),
+                        SE = stde(mean_IKSI))
+
+# plot the data
+
+sum_data <- sum_data[sum_data$let_pos < 10, ]
+sum_data <- sum_data[sum_data$word_lengths < 10 &
+                     sum_data$word_lengths > 0, ]
+
+sum_data$let_pos<-as.factor(sum_data$let_pos)
+sum_data$word_lengths<-as.factor(sum_data$word_lengths)
+
+limits <- aes(ymax = mean_IKSIs + SE, ymin = mean_IKSIs - SE)
+
+ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths))+
+  geom_line()+
+  geom_point()+
+  geom_errorbar(limits,width=.2)+
+  theme_classic()+
+  ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
+
+```
