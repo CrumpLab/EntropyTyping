@@ -1,0 +1,131 @@
+---
+title             : "TBD"
+shorttitle        : "Entropy and Typing"
+
+author: 
+  - name          : "Matthew J. C. Crump"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Brooklyn College of CUNY, 2900 Bedford Avenue, Brooklyn, NY, 11210"
+    email         : "mcrump@brooklyn.cuny.edu"
+  - name          : "Walter Lai"
+    affiliation   : "1"
+  - name          : "Nicholaus Brosowsky"
+    affiliation   : "1"
+
+affiliation:
+  - id            : "1"
+    institution   : "Brooklyn College of the City University of New York"
+
+
+author_note: |
+  In this draft, listed authorship order simply indicates who is participating in the project
+
+abstract: |
+  Enter abstract here. Each new line herein must be indented, like this line.
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["r-references.bib"]
+
+figsintext        : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+lineno            : yes
+mask              : no
+
+class             : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r load_packages, include = FALSE}
+library("papaja")
+```
+
+```{r analysis_preferences}
+# Seed for random number generation
+set.seed(42)
+```
+
+Hicks Law refers to the noticeable slowing of responses in choice reaction experiments when the
+possible stimuli are less predictable.  
+
+Hicks in his experiment, "On the rate of gain of information", tested his reaction speed on a choice reaction test.  During each trial he had to determine which of n lights was turned on.  He manipulated the set size n, and found that the greater the number of alternatives the slower his response.  His data also suggested that reaction speed is linearly related to the predictability of responses; Trials in which certain responses were disproportionately more likely ellicited faster response times than those in which each response was equally likely.
+
+Hick's law at larger set sizes however does not have consistent experimental support.  
+
+Conrad (1962) in an experiment which required subjects to name 320 nonsense syllables within trials of variable number of distinct syllables (number of alternatives) found that the response time was linearly correlated with the logarithm of number of alternatives.  However, Pierce and Karlin in 1957 
+in an experiment which required subjects to read pages of words as quickly as possible, reported no differences in response times between trials with set sizes that ranged from 4 to 256 words.  
+Proctor and Schneider in a review of studies testing Hick's Law attributes the inconsistency in large set size experiments to differences in skill level or practice between subjects and the arbitrariness of Stimulus Response coding/mappings when creating more number of alternatives.
+
+Our experiment sought to test Hick's law on typing speeds.  
+
+In this study, we used typing data from 346 typists to analyze the effect of letter uncertainty on response times.  In essence, every letter typed represents one choice reaction test trial from Hick's experiment.  In Hick's experiment, the probability of each light turning on was manipulated to change the H value.  This is analagous to the probability of certain letters appearing at a specific position in a word. Peter Norvig analyzed words from numerous texts and has determined the probability for each letter appearing at a specific position in 2 to 9 letter words.
+
+For example, the first letter of a two letter long word is has a 9.44% chance to be an "a", 14.9% chance to be a "t", and a 25% chance to be an "i".  The third letter of a five letter long word is has a 13.5% chance as an "e", 4.91% chance as a "t", and a 11.4 % chance as a "a".  The H indices for each letter position - word length pair can be calculated.  The H for the 1st Letter, 2-letter-long word (abbreviated 1:2) is 2.85.  The H for the 3rd Letter, 5-letter-long word (abbreviated 3:5) is 3.94.  The differences in H tell us that 
+the first letter of a two letter long word has lower uncertainty ie. it is more predictable than the third letter of a five letter long word.  
+
+This combination of letter probabilities creates an H value for each unique pair of letter position and word length.  
+
+One potential problem that can hinder our experiment's ability to test the Hick's Law is the fact that our typists vary in terms of their skill level.  This means that differences in RT between subjects will generate noise that may hide the H effect on RTs.
+An advantage of testing Hick's Law with this data set is that the stimulus response coding is non-arbitrary.  The letters that typists see on the screen correspond exactly to the letters on their keyboards. 
+
+# Methods
+
+The uncertainty for each letter position in 1-9 letter long words was calculated using Norvig's ngrams1.xlsx from his website:http://norvig.com/mayzner.html.and using the equation H = N sigma (PlnP)
+where N is the number of alternatives (26 possible letters) and P is probability of a given letter occurring at a specific letter position in a word of specific length.  
+As an example, I demonstrate calculation of the H value of the 2nd letter of 3 letter words:
+H = N sigma (PlnP)
+Total number of 3 letter words observed by Norvig: 1.52* 10^11 three letter words
+P("a")2 position = 3.1*10^10 three letter words with "a" as 2nd letter/1.52* 10^11 three letter words
+P("b")2 position = 3.64*10^9 three letter words with "b" as 2nd letter/1.52* 10^11 three letter words
+:
+:
+P("z")2 position = 3.00*10^7 three letter words with "z" as 2nd letter/1.52* 10^11 three letter words
+H = 26 possible alternatives * sigma (as letter from "a" to "z") P"letter"2position *ln P"letter"2position
+H = 2.85 bits   
+The relationship between uncertainty and letter position is visualized in Graph #.  We observe a 
+trend of increasing uncertainty near the middle letter position of most words.  
+
+## Data analysis
+We used `r cite_r("r-references.bib")` for all our analyses.
+
+Interkeystroke intervals were recorded for each of the 4000 letters typed per typist.  The length of the
+interkeystroke interval immediately preceding a given letter was considered the response time for that letter.  Each cell contained the average response time for all the letters that shared a similar letter position in words of similar length for each subject (Subject*Letter Position * Word Length).    
+Outlier response times were removed on a cell by cell basis using the non-recursive with moving criterion procedure of Van Selst Jolicoeur (1994).   This procedure eliminated 4.9% of letters from further analysis.
+Uncertainty Effects on Response Times
+
+
+# Results
+
+We observed a general trend of increased response times in the middle letter positions of words.
+The increases in response time visually correspond to the increases in uncertainty at the middle letter positions of words with of 1 to 9 letters. 
+
+The correlation between response times and uncertainty was computed for each subject for each letter position for words of 1 to 9 letters.  The r squared values were averaged and a mean r squared of 0.118 was obtained.  
+
+# Discussion
+
+
+The takeaway from this experiment was that a typist types a letter faster when the letters commonly found at the given letter position are few.  These findings are consistent with Hick's Law.  As the alternatives become equiprobable, as it is observed in the middle of words, the number of bits required to process the choices increases.   
+
+# Conclusion
+
+Future studies should investigate the role of probability of repetition in regulating response times.  
+Kornblum in 1969 found that with constant H, trials that had higher chances of sequentially repeating stimuli experienced faster response times.  
+
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
