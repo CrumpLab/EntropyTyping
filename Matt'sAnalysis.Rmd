@@ -216,5 +216,31 @@ kable(skim(correlation_data),format="markdown")
 
 ```
 
+# Does sensitivity to positional uncertainty vary by expertise as measured by mean IKSI?
+
+```{r}
+Subject_Mean_IKSI <- the_data %>%
+              group_by(Subject) %>%
+              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+
+correlation_data <- cbind(correlation_data, mean_IKSI = Subject_Mean_IKSI$mean_IKSI)
+
+# plot
+
+ggplot(correlation_data, aes(x = mean_IKSI, y = pearson_r))+
+  geom_point()+
+  geom_smooth(method="lm")+
+  geom_hline(yintercept=0)+
+  theme_classic()+
+  ggtitle("Sensitivity to positional uncertainty as a function of mean IKSI")
+
+cor.test(correlation_data$pearson_r,correlation_data$mean_IKSI)
+
+summary(lm(mean_IKSI ~ pearson_r, data = correlation_data))
+
+
+
+```
+
 
 
