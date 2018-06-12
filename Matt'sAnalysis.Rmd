@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+
 ```
 
 
@@ -138,6 +139,10 @@ ggplot(sum_data,aes(x=H,y=mean_IKSIs, color=let_pos))+
   theme_classic()+
   ggtitle("Mean IKSI as a function of Entropy")
 
+# correlation
+cor.test(sum_data$mean_IKSIs,sum_data$H)
+cor(sum_data$mean_IKSIs,sum_data$H)^2
+
 ```
 
 ## facet_wrapping by word_lengths
@@ -167,6 +172,47 @@ ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
   theme_classic()+
   ggtitle("Mean IKSI as a function of Entropy, split by position")+
   facet_wrap(~let_pos)
+
+```
+
+# Get correlations between H and mean iksi (by position and length) for each subject
+
+```{r,results='asis'}
+#############
+# CHECK FIRST
+# are their empty cells for the subjects?
+
+subject_means <- the_data %>%
+              group_by(Subject,word_lengths,let_pos) %>%
+              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+
+subject_means <- subject_means[subject_means$let_pos < 10, ]
+subject_means <- subject_means[subject_means$word_lengths < 10 &
+                     subject_means$word_lengths > 0, ]
+
+test_missing <- table(subject_means$Subject)
+
+sum(test_missing==45)==length(unique(subject_means$Subject))
+dim(subject_means)[1]/45
+
+# no missing cells! Vector of H's can be appended to the subject_mean df using rep
+
+###############
+# Analysis
+
+subject_means <- cbind(subject_means,H=rep(uncertainty_df$H,length(unique(subject_means$Subject))))
+
+correlation_data <- subject_means %>%
+                      group_by(Subject) %>%
+                      summarize(pearson_r = cor(mean_IKSI,H),
+                                r_squared = cor(mean_IKSI,H)^2,
+                                p_value = cor.test(mean_IKSI,H)$p.value)
+
+library(skimr)
+
+skim_with(numeric=list(n=length,mean=mean,sd=sd,SE=stde),append=FALSE)
+kable(skim(correlation_data),format="markdown")
+
 
 ```
 
