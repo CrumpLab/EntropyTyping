@@ -1,0 +1,125 @@
+---
+title: "Walt'sAnalysis"
+author: "Walter"
+date: "June 12, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+##Same as Matt's Analysis but saved data to both a grand mean table and 
+# one that divided by subjects*letpos*length
+
+```{r}
+#Set working directory to folder containing Norvig's Analysis
+#MAKE THE EXPERTISE VS R GRAPH
+library(data.table)
+library(dplyr)
+library(ggplot2)
+the_data <- fread("C:/Users/Walt/Desktop/CognitionLab/mturk.txt")
+the_data <- the_data[the_data$IKSIs < 2000,]
+# remove incorrect keystrokes, and keystrokes where n-1 was incorrect (remove post-error slowing)
+the_data <- the_data[the_data$PredBigramCorrect=="11",]
+
+# restrict to normal word paragraphs
+the_data <- the_data[the_data$ParagraphType=="N",]
+# Get the means by word length and letter position and Subject
+sum_data <- the_data %>%
+  group_by(Subject,word_lengths,let_pos) %>%
+  summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+# plot the data
+
+sum_data <- sum_data[sum_data$let_pos < 10, ]
+sum_data <- sum_data[sum_data$word_lengths < 10 &
+                       sum_data$word_lengths > 0, ]
+
+sum_data$let_pos<-as.factor(sum_data$let_pos)
+sum_data$word_lengths<-as.factor(sum_data$word_lengths)
+
+grand_sum_data=sum_data %>%
+                group_by(let_pos,word_lengths) %>%
+                  summarise(mean_IKSI=mean(mean_IKSI))
+                  
+ggplot(grand_sum_data,aes(x=let_pos,y=mean_IKSI,group=word_lengths,color=word_lengths))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
+
+```
+##Expertise Effect on Sensitivity to H
+```{r}
+
+# THe remainder of this code will determine how Expertise influences sensitivity
+# to uncertainty  
+# Do experienced typists type letters at letter positions that have predictable letters
+# faster than unexperienced?
+
+# Get the Hs for each let pos first
+
+letterPosits<-read.csv('ngrams1.csv')
+# we will make table that has the H value for every letter position
+# in one to nine letter words
+unpredict<-c()
+wordPosits<-c()
+wordLengths<-c()
+
+for(wordLength in 1:9)
+{
+  for(wordPosit in 1:wordLength)
+  { #Norvig's Data lists letter frequency for 2nd letter of a 6 long word as
+    # X.6.2.2 so this will create the column name in excel file from which
+    # to grab letter frequencies for each letter position
+    nameCol=(paste("X",wordLength,".",wordPosit,".",wordPosit,sep=""))
+    # find the matching column name in excel and get the letter frequencies
+    letterz<-letterPosits[,which(colnames(letterPosits)==nameCol)]
+    letterz[which(letterz==0)]<-1E-10
+    # Hick's Law equation for uncertainty given the prob of each letter in given let pos
+    letterz<-(letterz/sum(letterz))*log2(letterz/sum(letterz))
+    wordLengths<-c(wordLengths,wordLength)
+    wordPosits<-c(wordPosits,wordPosit)
+    unpredict<-c(unpredict,-sum(letterz))
+  }
+}
+
+lgthPstnH<-data.frame(wordLengths,wordPosits,unpredict)
+# convert into proportions
+# Mid Word Peak in Uncertainty
+ggplot(lgthPstnH,aes(x=wordPosits,y=unpredict, group=wordLengths, color=wordLengths))+geom_point()+geom_line()
+
+# add the Hs to their respective letter positions in sum_data 
+
+H=c()
+#
+for( i in 1:nrow(sum_data))
+{
+  H=c(H,lgthPstnH[lgthPstnH$wordPosits==sum_data[i,]$let_pos
+                  &lgthPstnH$wordLengths==sum_data[i,]$word_lengths,]$unpredict)
+}
+sum_data$H=H
+
+
+# Correlate each subject's H values with their IKSIs in each let position
+correlations=sum_data%>%
+  group_by(Subject)%>%
+  summarise(r=cor(mean_IKSI,H),IKSIs=mean(mean_IKSI))
+# r is the proxy for sensitivity to predictability (uncertainty)
+expertiseH=ggplot(correlations,aes(y=correlations$r,x=correlations$IKSIs))+
+  geom_point(alpha=0.5)
+expertise.mod1 = lm(r ~ IKSIs, data = correlations)
+summary(expertise.mod1)
+
+ ggplot(expertise.mod1, aes(IKSIs,r)) + geom_point() + 
+  geom_hline(yintercept = 0, colour = "grey50", size = 0.5) +
+  geom_smooth(size = 0.5, se = F,method="lm") 
+
+ 
+#  Here is the average r^2 for IKSI vs H
+ mean(correlations$r^2)
+ 
+```
+
