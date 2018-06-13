@@ -10,4 +10,5 @@ We are attempting to use github as a collaborative platform for members of the l
 1. A pre-print of our manuscript (written using papaja in R)
 2. Databases used for the analyses
 3. R-scripts used for the analyses
-4. Hopefully some discussion of the things in our paper within the issues. Collaborators will be encouraged to have conversations about things that need be changed, added, tried out, etc. using the issues tab. Whether this catches on remains to be seen.
+4. [A record of our conversations about the project in the issues tab](https://github.com/CrumpLab/EntropyTyping/issues). 
+
