@@ -9,12 +9,115 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# instance theory
+# Instance theory of automatization for 1 S-R pair
 
-some things
+The idea:
+
+Everytime you practice this one stimulus-response pair (let's say seeing A, and typing A), you store a trace of that experience in memory. One trace for each each experience.
+
+Assumption: Cue-driven retrieval
+
+Every time to see the stimulus A, it causes the retrieval of the instances in memory of you previously responding to that stimulus. In this way, you can let your memory for your previous response guide your response to the current stimulus
+
+Assumption: Each trace has it's own retrieval time
+
+The speed of memory retrieval depends on a winner-takes-all face. When you see A, all of the traces in memory for A get retrieved. BUT, they all get retrieved with different speeds. Some traces come back faster, and some slower. Naturally, the fastest single trace comes back first.
+
+Modelling the practice curve:
+
+At each step in practice, you have one more memory trace in your memory. Each memory trace has a unique retrieval time that is sampled from some distribution. The fastes one always wins. In general, the more instances you have in memory, the more fast traces you will. So, if performance (that is driven by memory retrieval) depends on the speed of the fastest memory, then performance will gradually get faster with practice, because across practice people will have a higher probablility of storing a faster and faster memory trace.
+
+Some code:
 
 ```{r}
 
-hist(runif(100,0,1))
+performance <- c()
+
+for (traces in 1:500){
+  memory_retrieval_time <- min(rnorm(traces, mean = 500, sd = 100))
+  performance           <- c(performance,memory_retrieval_time)
+}
+
+plot(performance)
 
 ```
+
+The above get's the idea across, but it's a hacky approach. None of the individual memories are saved, here is a different way:
+
+```{r}
+
+# get 100 memory traces, across 100 practice attempts, each with their own retrieval time
+
+memory_retrieval_times <- rnorm(100, mean = 500, sd = 100) # we could use a differnet distribution if we wanted
+
+performance <- length(100)
+
+for(trial in 1:100){
+  performance[trial] <- min(memory_retrieval_times[1:trial]) # fastest one always wins
+}
+
+plot(performance)
+
+
+```
+
+Interesting, that this way of doing it produces step-functions. At any point in practice, whichever trace has the fastest retrieval time always wins and determines speed of performance. You can for stretches in practice where the new memories do not have faster retrieval times than the fastest existing memory. Let's look at this over 1,000 trials.
+
+```{r}
+
+memory_retrieval_times <- rnorm(1000, mean = 500, sd = 100) # we could use a differnet distribution if we wanted
+
+performance <- length(1000)
+
+for(trial in 1:1000){
+  performance[trial] <- min(memory_retrieval_times[1:trial]) # fastest one always wins
+}
+
+plot(performance)
+
+
+```
+
+Let's do the same as above, but now imagine we are doing it for many different participants, say 10 different participants.
+
+```{r}
+
+all_performance<-c()
+
+for (subjects in 1:10) {
+  
+  memory_retrieval_times <- rnorm(1000, mean = 500, sd = 100) # we could use a differnet distribution if we wanted
+  
+  performance <- length(1000)
+  
+  for(trial in 1:1000){
+    performance[trial] <- min(memory_retrieval_times[1:trial]) # fastest one always wins
+  }
+  
+all_performance<-c(all_performance,performance)
+  
+}
+
+subject_df <- data.frame(subject=rep(1:10,each=1000),
+                         trial = rep(1:1000,10),
+                         performance = all_performance)
+
+library(ggplot2)
+
+ggplot(subject_df, aes(x=trial,y=performance))+
+  geom_point()+
+  theme_classic()+
+  facet_wrap(~subject)
+
+
+```
+
+
+We can see that different simulated subjects in the model have different learning curves. Some subjects are faster from the beginning of practice, why does this occur? In the model, if a subject happened, by random chance, to have a first trace that had a fast retrieval time, this single trace would control performance for many trials, until a new memory trace with an even faster retrieval time happens to be sampled into memory.
+
+This notion shows an interesting implication of instance theory. You don't need practice, you just need a fast memory trace. If there was some subject who happened to store a memory trace with a really fast retrieval time on the first trial, say 100 ms, then they would not have much of a learning curve at all. They would be responding on at 100ms for the entire duration of practice, because that single memory trace would always win the race to control performance. 
+
+Logan and Klapp, wrote a paper on this and showed some evidence in support of this kind of single-trial learning. Neato.
+
+Logan, G. D., & Klapp, S. T. (1991). Automatizing alphabet arithmetic: I. Is extended practice necessary to produce automaticity?. Journal of Experimental Psychology: Learning, Memory, and Cognition, 17(2), 179.
+

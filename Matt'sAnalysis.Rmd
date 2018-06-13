@@ -171,7 +171,6 @@ ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
 cor.test(sum_data$mean_IKSIs,sum_data$H)
 cor(sum_data$mean_IKSIs,sum_data$H)^2
 
-
 ####################
 # First letter only
 
