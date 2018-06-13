@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+knitr::opts_chunk$set(echo = TRUE, message=FALSE,fig.path='Matt_figures/', dev=c('png', 'pdf'))
 
 ```
 
@@ -34,21 +34,29 @@ the_data <- fread("~/Desktop/mturk.txt")
 
 ################
 # Data-Exclusion
-# remove really long IKSIs
-the_data <- the_data[the_data$IKSIs < 2000,]
 
-# remove incorrect keystrokes, and keystrokes where n-1 was incorrect (remove post-error slowing)
-the_data <- the_data[the_data$PredBigramCorrect=="11",]
+the_data[grepl("[[:punct:]]",substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths=the_data[grepl("[[:punct:]]",substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths-1
 
-# restrict to normal word paragraphs
-the_data <- the_data[the_data$ParagraphType=="N",]
+the_data <- the_data %>%
+             filter (
+                      Letters != " ",                 #removes spaces (just in case they were assigned a letter position)
+                      !grepl("[[:punct:]]",Letters),  #removes punctuation
+                      !grepl("[0-9]",Letters),        #removes numbers
+                      !grepl("[[A-Z]]*",Letters),   #removes Letters that have a capital letter
+                      ParagraphType == "N",
+                      PredBigramCorrect == "11",
+                      IKSIs < 2000
+             )
+
 
 ###############
 # Analysis
 # Get the means by word length and letter position for each subject
+# Use Van Selst and Jolicouer non-recursive_moving procedure from Crump
+
 subject_means <- the_data %>%
               group_by(Subject,word_lengths,let_pos) %>%
-              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+              summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
 
 # Get the grand means by averaging over subject means
 sum_data <- subject_means %>%
@@ -130,18 +138,94 @@ There is a general trend for mean letter IKSI to increase as a function of H. No
 
 ```{r}
 
+#########
+# All positions together
+
 sum_data<-cbind(sum_data,H=uncertainty_df$H)
 
 #plot
 
-ggplot(sum_data,aes(x=H,y=mean_IKSIs, color=let_pos))+
-  geom_point()+
+lm_eqn = function(m) {
+
+  l <- list(a = format(coef(m)[1], digits = 2),
+      b = format(abs(coef(m)[2]), digits = 2),
+      r2 = format(summary(m)$r.squared, digits = 3));
+
+  if (coef(m)[2] >= 0)  {
+    eq <- substitute(italic(y) == a + b %.% italic(x)*","~~italic(r)^2~"="~r2,l)
+  } else {
+    eq <- substitute(italic(y) == a - b %.% italic(x)*","~~italic(r)^2~"="~r2,l)    
+  }
+
+  as.character(as.expression(eq));                 
+}
+
+ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
+  geom_point(aes(color=let_pos))+
+  geom_smooth(method="lm")+
+  geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, sum_data))), parse = TRUE)+
   theme_classic()+
   ggtitle("Mean IKSI as a function of Entropy")
 
 # correlation
 cor.test(sum_data$mean_IKSIs,sum_data$H)
 cor(sum_data$mean_IKSIs,sum_data$H)^2
+
+
+####################
+# First letter only
+
+fl_data <- sum_data[sum_data$let_pos==1,]
+
+ggplot(fl_data,aes(x=H,y=mean_IKSIs, color=let_pos))+
+  geom_point()+
+   geom_smooth(method="lm")+
+  geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, fl_data))), parse = TRUE)+
+  theme_classic()+
+  ggtitle("Mean IKSI by H for First Position Letters")
+
+# correlation
+cor.test(fl_data$mean_IKSIs,fl_data$H)
+cor(fl_data$mean_IKSIs,fl_data$H)^2
+
+#####################################
+# middle letters
+
+ml_data <- sum_data[sum_data$let_pos!=1,]
+
+ggplot(ml_data,aes(x=H,y=mean_IKSIs ))+
+  geom_point(aes(color=let_pos))+
+  geom_smooth(method="lm")+
+  geom_text(aes(x = 3.5, y = 190, label = lm_eqn(lm(mean_IKSIs ~ H, ml_data))), parse = TRUE)+
+  theme_classic()+
+  ggtitle("Mean IKSI by H for Middle Position Letters")
+
+# correlation
+cor.test(ml_data$mean_IKSIs,ml_data$H)
+cor(ml_data$mean_IKSIs,ml_data$H)^2
+
+
+##########
+# Grouped by first or other letter
+
+letter_group <- as.character(sum_data$let_pos)
+letter_group[letter_group=="1"] <- "First"
+letter_group[letter_group!="First"] <- "Middle"
+letter_group<-as.factor(letter_group)
+
+sum_data <- cbind(sum_data,letter_type=letter_group)
+
+ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
+  geom_point(aes(color=let_pos))+
+  geom_smooth(method="lm")+
+  theme_classic()+
+  ggtitle("Mean IKSI by H for Middle Position Letters")+facet_wrap(~letter_type)
+
+summary(lm(mean_IKSIs ~ H*letter_type, sum_data))
+
+summary(lm(mean_IKSIs ~ H*let_pos, sum_data))
+
+
 
 ```
 
@@ -184,7 +268,7 @@ ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
 
 subject_means <- the_data %>%
               group_by(Subject,word_lengths,let_pos) %>%
-              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+              summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
 
 subject_means <- subject_means[subject_means$let_pos < 10, ]
 subject_means <- subject_means[subject_means$word_lengths < 10 &
@@ -221,7 +305,7 @@ kable(skim(correlation_data),format="markdown")
 ```{r}
 Subject_Mean_IKSI <- the_data %>%
               group_by(Subject) %>%
-              summarize(mean_IKSI = mean(IKSIs, na.rm = TRUE))
+              summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
 
 correlation_data <- cbind(correlation_data, mean_IKSI = Subject_Mean_IKSI$mean_IKSI)
 
@@ -235,12 +319,11 @@ ggplot(correlation_data, aes(x = mean_IKSI, y = pearson_r))+
   ggtitle("Sensitivity to positional uncertainty as a function of mean IKSI")
 
 cor.test(correlation_data$pearson_r,correlation_data$mean_IKSI)
-
 summary(lm(mean_IKSI ~ pearson_r, data = correlation_data))
 
-
-
 ```
+
+
 
 
 
