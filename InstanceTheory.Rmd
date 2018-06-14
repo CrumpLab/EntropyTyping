@@ -455,3 +455,239 @@ Wow, those graphs look a lot like the plots for H from norvig's letter frequency
 
 Next step, make prettier graphs and compute R^2 between H and simulated predictions. Would be pretty neat if that R^2 was large. If it is very large, maybe Instance theory = Information Theory. That would be cool.
 
+# How well do instance theory predictions conform to H
+
+Let's compute the correlation between instance theory predictions and H
+
+```{r}
+# from Matt's analysis let's compute H for letter uncertainty across position and word length
+library(bit64)
+# load in the excel file from Norvig:
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+
+letter_probabilities <- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_entropies <- apply(letter_probabilities,2,function(x){-1*sum(x*log2(x))})
+
+position<-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length<-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+uncertainty_df<-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
+
+cor(all_sims_df[all_sims_df$amount_of_practice==50,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+cor(all_sims_df[all_sims_df$amount_of_practice==100,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+cor(all_sims_df[all_sims_df$amount_of_practice==200,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+cor(all_sims_df[all_sims_df$amount_of_practice==500,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+```
+
+Intuition confirmed. H explains nearly all of the variance in Instance theory predictions. Cool. There is noise in these simulations, so R^2 might even be higher if the monte carlo runs to get instance theory predictions were made much larger. I am not up to the task of proving formal equivalence analytically, but seems like something that might be possible.
+
+More important, now we have a cognitive process model that gives a working account of a learning and memory process that could become sensitive letter uncertainty and allow that sensitivity to be revealed in performance. 
+
+# trying again with more monte-carlo runs.
+
+```{r}
+# run natural language entropy sim
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+letter_probabilities <- apply(letter_freqs[,12:(12+44)],2,function(x){x/sum(x)})
+
+
+all_sims_df <- data.frame()
+
+position <-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length <-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+for (l in 1:45){
+  letter_probs <- letter_probabilities[,l]
+  amount_of_practice <- c(50,100,200,500)
+  
+  mean_letter_retrieval_time <- length(length(amount_of_practice))
+  for (i in 1:length(amount_of_practice)){
+    letter_trace_frequencies <- floor(letter_probs*amount_of_practice[i])
+    letter_trace_frequencies[letter_trace_frequencies==0] <- 1 # for convenience, we always assume there is 1 trace
+    letter_retrieval_times     <- unlist(lapply(letter_trace_frequencies,
+                                                function(x) {get_retrieval_time(x,10000,500,100)}))
+    # reset letter_trace_frequencies to include zeros for computing grand_mean
+    letter_trace_frequencies <- floor(letter_probs*amount_of_practice[i])
+    mean_letter_retrieval_time[i] <- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+  }
+  
+  sim_df_natural <- data.frame(amount_of_practice,
+                                 position = position[l],
+                                 word_length = word_length[l],
+                       mean_letter_retrieval_time)
+  all_sims_df <- rbind(all_sims_df,sim_df_natural)
+}
+
+all_sims_df$position<-as.factor(all_sims_df$position)
+all_sims_df$word_length<-as.factor(all_sims_df$word_length)
+
+ggplot(all_sims_df,aes(x=position,y=mean_letter_retrieval_time,group=word_length,color=word_length))+
+  geom_point()+
+  geom_line()+
+  theme_classic()+
+  facet_wrap(~amount_of_practice)
+
+
+# from Matt's analysis let's compute H for letter uncertainty across position and word length
+library(bit64)
+# load in the excel file from Norvig:
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+
+letter_probabilities <- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_entropies <- apply(letter_probabilities,2,function(x){-1*sum(x*log2(x))})
+
+position<-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length<-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+uncertainty_df<-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
+
+cor(all_sims_df[all_sims_df$amount_of_practice==50,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+cor(all_sims_df[all_sims_df$amount_of_practice==100,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+cor(all_sims_df[all_sims_df$amount_of_practice==200,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+cor(all_sims_df[all_sims_df$amount_of_practice==500,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+```
+
+Trend looks pretty clear, we got past .99.
+
+Instance theory = Information Theory
+
+
+# make a nice graph to show Typists, H, and instance theory predictions all together
+
+```{r}
+# step 1 pull in typing data from matt's analysis
+
+library(data.table)
+library(dplyr)
+library(ggplot2)
+library(Crump) #for standard error function and Van Selst and Jolicouer outlier elimination
+
+# mturk.txt is the unzipped mturk.txt.zip file
+the_data <- fread("~/Desktop/mturk.txt")
+
+################
+# Data-Exclusion
+
+the_data[grepl("[[:punct:]]",substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths=the_data[grepl("[[:punct:]]",substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths-1
+
+the_data <- the_data %>%
+             filter (
+                      Letters != " ",                 #removes spaces (just in case they were assigned a letter position)
+                      !grepl("[[:punct:]]",Letters),  #removes punctuation
+                      !grepl("[0-9]",Letters),        #removes numbers
+                      !grepl("[[A-Z]]*",Letters),   #removes Letters that have a capital letter
+                      ParagraphType == "N",
+                      PredBigramCorrect == "11",
+                      IKSIs < 2000
+             )
+
+
+###############
+# Analysis
+# Get the means by word length and letter position for each subject
+# Use Van Selst and Jolicouer non-recursive_moving procedure from Crump
+
+subject_means <- the_data %>%
+              group_by(Subject,word_lengths,let_pos) %>%
+              summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
+
+# Get the grand means by averaging over subject means
+sum_data <- subject_means %>%
+              group_by(word_lengths,let_pos) %>%
+              summarize(mean_IKSIs = mean(mean_IKSI, na.rm = TRUE),
+                        SE = stde(mean_IKSI))
+
+# plot the data
+
+sum_data <- sum_data[sum_data$let_pos < 10, ]
+sum_data <- sum_data[sum_data$word_lengths < 10 &
+                     sum_data$word_lengths > 0, ]
+
+sum_data$let_pos<-as.factor(sum_data$let_pos)
+sum_data$word_lengths<-as.factor(sum_data$word_lengths)
+
+limits <- aes(ymax = mean_IKSIs + SE, ymin = mean_IKSIs - SE)
+
+typists <- ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths))+
+  geom_line()+
+  geom_point()+
+  geom_errorbar(limits,width=.2)+
+  theme_classic()+
+  ggtitle("Mean IKSI by Letter Position and Word Length")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+instance <- ggplot(all_sims_df[all_sims_df$amount_of_practice==50,],aes(x=position,y=mean_letter_retrieval_time,group=word_length,color=word_length))+
+  geom_point()+
+  geom_line()+
+  theme_classic()+
+  ggtitle("Retrieval time by Letter Position and Word Length")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+information <- ggplot(uncertainty_df,aes(x=position,y=H,group=word_length,color=word_length))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  ggtitle("H by Letter Position and Word Length")+
+  theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+```{r,fig.height=8,fig.width=7.5}
+library(ggpubr)
+
+ggarrange(typists, information, instance + rremove("x.text"), 
+          labels = c("Typists", "Entropy", "Instance"),
+          ncol = 1, nrow = 3)
+
+#ggarrange(ggarrange(typists, information, ncol = 2, labels = c("Typist's", "Entropy")),
+#          ggarrange(instance, ncol = 1, labels = c("Instance")),
+#          nrow = 2, 
+#          heights = c(1,2),
+#          labels = "C"                                        # Labels of the scatter plot
+#          ) 
+
+
+```
+
+
+
+
+
+
+
