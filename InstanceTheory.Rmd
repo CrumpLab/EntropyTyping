@@ -238,8 +238,220 @@ mean(save_z)
 
 Hmm, this above code seems rather complicated for trying to get the point across. But, so far, when we fit a power function to a high, low, and lower entropy choice set, the exponent z gets more negative, indicating a steeper learning curve. In other words, the simulation shows that instance theory learns faster as entropy decreases.
 
-It would be nice a more clever and concise function, where we could take a probability distribution for say 26 items, and then just compute expected levels of average performance for that whole given some number for total practice.
+# instance model for learning to type letters: max entropy vs. natural english
+
+As stated from the github thread issue #14:
+
+Goal: Create an instance model that learns to type letters drawn from high vs. low entropy distributions.
+
+Get two letter probability distributions as follows:
+High entropy (max entropy distribution) = Every letter (a-z) occurs equally frequently. We can model this with a 26 length probability distribution, where each element = 1/26, or 0.03846154. We know H is at a max for this distribution, and is ~ 4.7.
+
+Lower entropy distribution (could be any letter distribution where the probabilities of letter occurence are not equal). Let's use the frequency distribution of letters as they occur in natural english. For example, we could use the letter probabilities listed in this wikipedia article: https://en.wikipedia.org/wiki/Letter_frequency
+
+Or, even easier just use the first column in norvig's excel file, ngrams1.csv (it has the total frequency counts for each letter collapsed across position etc.)
+
+Create simulated subjects who have some fixed amount of practice (e.g., have typed 10,000 letters, or 20,000 letters). If we multiply the practice amount by the probability distributions then we get the number of times each simulated subject has experienced each letter, and this also tells us how many traces for each letter each simulated subject has.
+
+Run instance model predictions for how fast each simulated subject should be for typing each letter (given their current number of traces). Do this for the high entropy and low entropy conditions.
+
+Compute mean simulated typing time for simulated subjects in high and low entropy conditions. If instance theory is sensitive to letter uncertainty, we should be able to find evidence that the model has faster mean typing times for low (natural english statistics) entropy letter distributions compared to high (random).
+
+If we can do the above, then we can apply the model to all of the letter distributions for position and word length described by norvig, then we can complete the full model.
+
+```{r}
+library(matrixStats)
+# Declare functions
+
+# function to compute expected retrieval time given number of traces
+# num_traces is the number of memory traces 
+# monte_sim_number is the number of monte_carlo simulations to run
+# rnorm_mean is mean of normal distribution of retrieval times
+# rnorm_sd is standard deviation of normal distribution of retrieval times
+
+get_retrieval_time <- function(num_traces,monte_sim_number,rnorm_mean,rnorm_sd) {
+  sampled_retrieval_times <- matrix(rnorm(num_traces*monte_sim_number,rnorm_mean,rnorm_sd),
+                                    ncol=num_traces,
+                                    nrow=monte_sim_number)
+  min_retrieval_times <- rowMins(sampled_retrieval_times)
+  return(mean(min_retrieval_times))
+}
+
+# Example
+#get_retrieval_time(10,100,500,100)
+
+# example plot a learning curve for 1 to 100 trials
+
+learning_trials <- 1:100
+performance     <- unlist(lapply(learning_trials,function(x) {get_retrieval_time(x,100,500,100)}))
+plot(performance)
+
+# learning max entropy letter distribution
+
+# run max entropy sim
+letter_probs <- rep(1/26,26)
+amount_of_practice <- c(50,100,200,500)
+
+mean_letter_retrieval_time <- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies <- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] <- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     <- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] <- mean(letter_retrieval_times)
+}
+
+sim_df_max <- data.frame(amount_of_practice,
+                     entropy=rep("max",length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+# run natural language entropy sim
+library(bit64)
+library(data.table)
+
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+letter_probabilities <- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_probs <- letter_probabilities[,1]
+amount_of_practice <- c(50,100,200,500)
+
+mean_letter_retrieval_time <- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies <- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] <- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     <- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] <- mean(letter_retrieval_times)
+}
+
+sim_df_natural <- data.frame(amount_of_practice,
+                     entropy=rep("natural_english",length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+all_sims_df <- rbind(sim_df_max,sim_df_natural)
+
+ggplot(all_sims_df, aes(x=amount_of_practice, y=mean_letter_retrieval_time, group=entropy,color=entropy))+
+  geom_point()+
+  geom_line()+
+  theme_classic()
+
+```
+
+Fascinating, this way of doing to shows faster learning for max entropy letter distributions compared to natural english letter distributions. Wasn't expecting this, but this could be an averaging issue. The above does not take a weighted average of retrieval times for each letter. So, these mean retrieval times for the natural english condition treat the mean retrieval time for each letter equally. The next code will take a weighted grand-mean, taking into account the fact that some letters are typed more than others.
+
+## weighted means version
+
+```{r}
+# learning max entropy letter distribution
+
+# run max entropy sim
+letter_probs <- rep(1/26,26)
+amount_of_practice <- c(50,100,200,500)
+
+mean_letter_retrieval_time <- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies <- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] <- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     <- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] <- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+}
+
+sim_df_max <- data.frame(amount_of_practice,
+                     entropy=rep("max",length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+# run natural language entropy sim
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+letter_probabilities <- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_probs <- letter_probabilities[,1]
+amount_of_practice <- c(50,100,200,500)
+
+mean_letter_retrieval_time <- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies <- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] <- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     <- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] <- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+}
+
+sim_df_natural <- data.frame(amount_of_practice,
+                     entropy=rep("natural_english",length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+all_sims_df <- rbind(sim_df_max,sim_df_natural)
+
+ggplot(all_sims_df, aes(x=amount_of_practice, y=mean_letter_retrieval_time, group=entropy,color=entropy))+
+  geom_point()+
+  geom_line()+
+  theme_classic()
+
+```
+
+And, the natural order of the universe is restored!!!
+
+And, we have a clear demonstration that instance theory is sensitive to H! Next step, apply this to all of the letter frequency distributions as a function of letter position and word length...
+
+# An instance theory model of influences of letter uncertainty across position and word length on mean typing time.
+
+```{r}
+# run natural language entropy sim
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+letter_probabilities <- apply(letter_freqs[,12:(12+44)],2,function(x){x/sum(x)})
 
 
+all_sims_df <- data.frame()
 
+position <-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length <-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+for (l in 1:45){
+  letter_probs <- letter_probabilities[,l]
+  amount_of_practice <- c(50,100,200,500)
+  
+  mean_letter_retrieval_time <- length(length(amount_of_practice))
+  for (i in 1:length(amount_of_practice)){
+    letter_trace_frequencies <- floor(letter_probs*amount_of_practice[i])
+    letter_trace_frequencies[letter_trace_frequencies==0] <- 1 # for convenience, we always assume there is 1 trace
+    letter_retrieval_times     <- unlist(lapply(letter_trace_frequencies,
+                                                function(x) {get_retrieval_time(x,100,500,100)}))
+    # reset letter_trace_frequencies to include zeros for computing grand_mean
+    letter_trace_frequencies <- floor(letter_probs*amount_of_practice[i])
+    mean_letter_retrieval_time[i] <- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+  }
+  
+  sim_df_natural <- data.frame(amount_of_practice,
+                                 position = position[l],
+                                 word_length = word_length[l],
+                       mean_letter_retrieval_time)
+  all_sims_df <- rbind(all_sims_df,sim_df_natural)
+}
+
+all_sims_df$position<-as.factor(all_sims_df$position)
+all_sims_df$word_length<-as.factor(all_sims_df$word_length)
+
+ggplot(all_sims_df,aes(x=position,y=mean_letter_retrieval_time,group=word_length,color=word_length))+
+  geom_point()+
+  geom_line()+
+  theme_classic()+
+  facet_wrap(~amount_of_practice)
+
+
+```
+
+Wow, those graphs look a lot like the plots for H from norvig's letter frequency distributions across position and word length. TIL Instance theory = Information Theory (maybe a stretch).
+
+Next step, make prettier graphs and compute R^2 between H and simulated predictions. Would be pretty neat if that R^2 was large. If it is very large, maybe Instance theory = Information Theory. That would be cool.
 
