@@ -89,21 +89,36 @@ H = 2.85 bits
 The relationship between uncertainty and letter position is visualized in Graph #.  We observe a 
 trend of increasing uncertainty near the middle letter position of most words.  
 
-## Data analysis
+## Data analysis and pre-processing
 We used `r cite_r("r-references.bib")` for all our analyses.
 
-Interkeystroke intervals were recorded for each of the 4000 letters typed per typist.  The length of the
-interkeystroke interval immediately preceding a given letter was considered the response time for that letter.  Each cell contained the average response time for all the letters that shared a similar letter position in words of similar length for each subject (Subject*Letter Position * Word Length).    
-Outlier response times were removed on a cell by cell basis using the non-recursive with moving criterion procedure of Van Selst Jolicoeur (1994).   This procedure eliminated 4.9% of letters from further analysis.
-Uncertainty Effects on Response Times
-
+For each subject, we recorded timestamps for each keystroke using JavaScript. We applied the following pre-processing steps. We included IKSIs only for keystrokes involving a lower case letter, and only for correct keystrokes that were preceded by a correct keystroke. Outlier IKSIs were removed for each subject, on a cell-by-cell basis, using Van Selst & Jolicoeur's (1994) non-recursive moving criterion procedure, which eliminated approximately X% of IKSIs from further analysis.
 
 # Results
 
-We observed a general trend of increased response times in the middle letter positions of words.
-The increases in response time visually correspond to the increases in uncertainty at the middle letter positions of words with of 1 to 9 letters. 
+```{r, echo=FALSE,messages=FALSE, warning=F}
+library(knitr)
+read_chunk('Entropy_typing_analysis.r')
+```
 
-The correlation between response times and uncertainty was computed for each subject for each letter position for words of 1 to 9 letters.  The r squared values were averaged and a mean r squared of 0.118 was obtained.  
+```{r load_functions,messages=FALSE, warning=F}
+```
+
+```{r typing_mean_iksis_aov, messages=FALSE, warning=F}
+```
+
+For each subject, we calculated mean IKSIs as a function of letter position and word length. The letter position and word length factors were not factorially crossed. To determine whether there were differences among the means we submitted the means to a single factor repeated measures design with 45 levels (e.g., letter position|word length: 1|1, 1|2, 2|2, ... 9|9). Figure 1 shows mean IKSIs collapsed over subjects, as a function of letter position and word length.
+
+```{r typing_mean_iksis_plot, messages=FALSE, warning=F}
+```
+
+The omnibus test indicated differences among the means were significantly different from chance, F (`r Exp1_ANOVA$df1`,`r Exp1_ANOVA$df2`) = `r Exp1_ANOVA$f`, MSE = `r Exp1_ANOVA$mse`, p < .001. Visual inspection of figure shows several trends across the means consistent with first-letter slowing and mid-word slowing reported by Ostry (1983).
+
+```{r typing_mean_iksis_comparisons, messages=FALSE, warning=F}
+```
+
+Our more important aim was to determine whether variation among these means can be explained by variation in letter uncertainty. For this reason we do not exhaustively discuss all of the possible 990 differences among these 45 conditions. Nevertheless, we did conduct all 990 comparisons using bonferroni corrected paired samples t-tests. The results are displayed Figure 2, which shows absolute mean differences between conditions color coded for significance (light grey is significant).
+
 
 # Discussion
 

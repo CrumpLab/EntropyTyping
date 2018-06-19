@@ -82,6 +82,13 @@ ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths
   theme_classic()+
   ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
 
+# try lme4
+#library(lme4)
+#subject_means<-cbind(subject_means,H=rep(uncertainty_df$H,346))
+#lmeModel = lmer(mean_IKSI ~ let_pos*word_lengths + (1|Subject), data=subject_means[1:(45*346),])
+#summary(lmeModel)
+#anova(lmeModel)
+
 ```
 
 # Letter uncertainty (H) as a function of position and word length
@@ -318,7 +325,10 @@ ggplot(correlation_data, aes(x = mean_IKSI, y = pearson_r))+
   ggtitle("Sensitivity to positional uncertainty as a function of mean IKSI")
 
 cor.test(correlation_data$pearson_r,correlation_data$mean_IKSI)
-summary(lm(mean_IKSI ~ pearson_r, data = correlation_data))
+summary(lm(pearson_r ~ mean_IKSI, data = correlation_data))
+
+cor.test(correlation_data$mean_IKSI,correlation_data$pearson_r,)
+summary(lm(mean_IKSI~pearson_r, data = correlation_data))
 
 ```
 

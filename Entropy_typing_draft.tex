@@ -64,6 +64,15 @@
 \endgroup}
 
 
+  \usepackage{graphicx}
+  \makeatletter
+  \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+  \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+  \makeatother
+  % Scale images if necessary, so that they will not overflow the page
+  % margins by default, and it is still possible to overwrite the defaults
+  % using explicit options in \includegraphics[width, height, ...]{}
+  \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -141,16 +150,16 @@ line.}
 
 
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{corollary}{Corollary}[section]
-\newtheorem{proposition}{Proposition}[section]
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
 \theoremstyle{definition}
-\newtheorem{example}{Example}[section]
+\newtheorem{example}{Example}
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
+\newtheorem{exercise}{Exercise}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
@@ -250,33 +259,66 @@ The relationship between uncertainty and letter position is visualized
 in Graph \#. We observe a trend of increasing uncertainty near the
 middle letter position of most words.
 
-\subsection{Data analysis}\label{data-analysis}
+\subsection{Data analysis and
+pre-processing}\label{data-analysis-and-pre-processing}
 
-We used R (Version 3.4.3; R Core Team, 2017) and the R-package
-\emph{papaja} (Version 0.1.0.9709; Aust \& Barth, 2018) for all our
-analyses.
+We used R (Version 3.4.2; R Core Team, 2017) and the R-packages
+\emph{bindrcpp} (Version 0.2.2; Müller, 2018), \emph{Crump} (Version
+1.0; Crump, 2017), \emph{data.table} (Version 1.10.4.3; Dowle \&
+Srinivasan, 2017), \emph{dplyr} (Version 0.7.4; Wickham, Francois,
+Henry, \& Müller, 2017), \emph{ggplot2} (Version 2.2.1; Wickham, 2009),
+\emph{knitr} (Version 1.20; Xie, 2015), \emph{papaja} (Version
+0.1.0.9655; Aust \& Barth, 2018), \emph{Rcpp} (Eddelbuettel, 2017;
+Eddelbuettel \& Balamuta, 2017; Version 0.12.16; Eddelbuettel \&
+François, 2011), \emph{RcppZiggurat} (Version 0.1.4; Eddelbuettel,
+2017), and \emph{Rfast} (Version 1.8.8; Papadakis et al., 2018) for all
+our analyses.
 
-Interkeystroke intervals were recorded for each of the 4000 letters
-typed per typist. The length of the interkeystroke interval immediately
-preceding a given letter was considered the response time for that
-letter. Each cell contained the average response time for all the
-letters that shared a similar letter position in words of similar length
-for each subject (Subject\emph{Letter Position } Word Length).\\
-Outlier response times were removed on a cell by cell basis using the
-non-recursive with moving criterion procedure of Van Selst Jolicoeur
-(1994). This procedure eliminated 4.9\% of letters from further
-analysis. Uncertainty Effects on Response Times
+For each subject, we recorded timestamps for each keystroke using
+JavaScript. We applied the following pre-processing steps. We included
+IKSIs only for keystrokes involving a lower case letter, and only for
+correct keystrokes that were preceded by a correct keystroke. Outlier
+IKSIs were removed for each subject, on a cell-by-cell basis, using Van
+Selst \& Jolicoeur's (1994) non-recursive moving criterion procedure,
+which eliminated approximately X\% of IKSIs from further analysis.
 
 \section{Results}\label{results}
 
-We observed a general trend of increased response times in the middle
-letter positions of words. The increases in response time visually
-correspond to the increases in uncertainty at the middle letter
-positions of words with of 1 to 9 letters.
+For each subject, we calculated mean IKSIs as a function of letter
+position and word length. The letter position and word length factors
+were not factorially crossed. To determine whether there were
+differences among the means we submitted the means to a single factor
+repeated measures design with 45 levels (e.g., letter
+position\textbar{}word length: 1\textbar{}1, 1\textbar{}2, 2\textbar{}2,
+\ldots{} 9\textbar{}9). Figure 1 shows mean IKSIs collapsed over
+subjects, as a function of letter position and word length.
 
-The correlation between response times and uncertainty was computed for
-each subject for each letter position for words of 1 to 9 letters. The r
-squared values were averaged and a mean r squared of 0.118 was obtained.
+\begin{figure}[htbp]
+\centering
+\includegraphics{Entropy_typing_draft_files/figure-latex/typing_mean_iksis_plot-1.pdf}
+\caption{}
+\end{figure}
+
+The omnibus test indicated differences among the means were
+significantly different from chance, F (44,15180) = 276.74, MSE =
+1,269.66, p \textless{} .001. Visual inspection of figure shows several
+trends across the means consistent with first-letter slowing and
+mid-word slowing reported by Ostry (1983).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Entropy_typing_draft_files/figure-latex/typing_mean_iksis_comparisons-1.pdf}
+\caption{}
+\end{figure}
+
+Our more important aim was to determine whether variation among these
+means can be explained by variation in letter uncertainty. For this
+reason we do not exhaustively discuss all of the possible 990
+differences among these 45 conditions. Nevertheless, we did conduct all
+990 comparisons using bonferroni corrected paired samples t-tests. The
+results are displayed Figure 2, which shows absolute mean differences
+between conditions color coded for significance (light grey is
+significant).
 
 \section{Discussion}\label{discussion}
 
@@ -306,10 +348,60 @@ times.
 Aust, F., \& Barth, M. (2018). \emph{papaja: Create APA manuscripts with
 R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
 
+\hypertarget{ref-R-Crump}{}
+Crump, M. (2017). \emph{Crump: Crump lab functions}.
+
+\hypertarget{ref-R-data.table}{}
+Dowle, M., \& Srinivasan, A. (2017). \emph{Data.table: Extension of
+`data.frame`}. Retrieved from
+\url{https://CRAN.R-project.org/package=data.table}
+
+\hypertarget{ref-R-RcppZiggurat}{}
+Eddelbuettel, D. (2017). \emph{RcppZiggurat: 'Rcpp' integration of
+different ``ziggurat'' normal rng implementations}. Retrieved from
+\url{https://CRAN.R-project.org/package=RcppZiggurat}
+
+\hypertarget{ref-R-Rcpp_b}{}
+Eddelbuettel, D., \& Balamuta, J. J. (2017). Extending extitR with
+extitC++: A Brief Introduction to extitRcpp. \emph{PeerJ Preprints},
+\emph{5}, e3188v1.
+doi:\href{https://doi.org/10.7287/peerj.preprints.3188v1}{10.7287/peerj.preprints.3188v1}
+
+\hypertarget{ref-R-Rcpp_a}{}
+Eddelbuettel, D., \& François, R. (2011). Rcpp: Seamless R and C++
+integration. \emph{Journal of Statistical Software}, \emph{40}(8),
+1--18.
+doi:\href{https://doi.org/10.18637/jss.v040.i08}{10.18637/jss.v040.i08}
+
+\hypertarget{ref-R-bindrcpp}{}
+Müller, K. (2018). \emph{Bindrcpp: An 'rcpp' interface to active
+bindings}. Retrieved from
+\url{https://CRAN.R-project.org/package=bindrcpp}
+
+\hypertarget{ref-R-Rfast}{}
+Papadakis, M., Tsagris, M., Dimitriadis, M., Fafalios, S., Tsamardinos,
+I., Fasiolo, M., \ldots{} Lakiotaki, K. (2018). \emph{Rfast: A
+collection of efficient and extremely fast r functions}. Retrieved from
+\url{https://CRAN.R-project.org/package=Rfast}
+
 \hypertarget{ref-R-base}{}
 R Core Team. (2017). \emph{R: A language and environment for statistical
 computing}. Vienna, Austria: R Foundation for Statistical Computing.
 Retrieved from \url{https://www.R-project.org/}
+
+\hypertarget{ref-R-ggplot2}{}
+Wickham, H. (2009). \emph{Ggplot2: Elegant graphics for data analysis}.
+Springer-Verlag New York. Retrieved from \url{http://ggplot2.org}
+
+\hypertarget{ref-R-dplyr}{}
+Wickham, H., Francois, R., Henry, L., \& Müller, K. (2017). \emph{Dplyr:
+A grammar of data manipulation}. Retrieved from
+\url{https://CRAN.R-project.org/package=dplyr}
+
+\hypertarget{ref-R-knitr}{}
+Xie, Y. (2015). \emph{Dynamic documents with R and knitr} (2nd ed.).
+Boca Raton, Florida: Chapman; Hall/CRC. Retrieved from
+\url{https://yihui.name/knitr/}
 
 \endgroup
 

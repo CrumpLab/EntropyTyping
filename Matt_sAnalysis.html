@@ -140,9 +140,9 @@ library(Crump) #for standard error function and Van Selst and Jolicouer outlier 
 # mturk.txt is the unzipped mturk.txt.zip file
 the_data &lt;- fread(&quot;~/Desktop/mturk.txt&quot;)</code></pre>
 <pre><code>## 
-Read 22.8% of 1933914 rows
-Read 51.7% of 1933914 rows
-Read 83.3% of 1933914 rows
+Read 11.9% of 1933914 rows
+Read 44.5% of 1933914 rows
+Read 77.0% of 1933914 rows
 Read 1933914 rows and 27 (of 27) columns from 0.302 GB file in 00:00:05</code></pre>
 <pre class="r"><code>################
 # Data-Exclusion
@@ -587,23 +587,23 @@ ggplot(correlation_data, aes(x = mean_IKSI, y = pearson_r))+
 ## sample estimates:
 ##        cor 
 ## -0.2577211</code></pre>
-<pre class="r"><code>summary(lm(mean_IKSI ~ pearson_r, data = correlation_data))</code></pre>
+<pre class="r"><code>summary(lm(pearson_r ~ mean_IKSI, data = correlation_data))</code></pre>
 <pre><code>## 
 ## Call:
-## lm(formula = mean_IKSI ~ pearson_r, data = correlation_data)
+## lm(formula = pearson_r ~ mean_IKSI, data = correlation_data)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -130.172  -30.679   -5.883   27.525  164.410 
+## -0.44554 -0.09184  0.00596  0.10833  0.36788 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  200.946      7.194  27.932  &lt; 2e-16 ***
-## pearson_r    -75.805     15.323  -4.947 1.18e-06 ***
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.5891506  0.0307569  19.155  &lt; 2e-16 ***
+## mean_IKSI   -0.0008762  0.0001771  -4.947 1.18e-06 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 44.75 on 344 degrees of freedom
+## Residual standard error: 0.1521 on 344 degrees of freedom
 ## Multiple R-squared:  0.06642,    Adjusted R-squared:  0.06371 
 ## F-statistic: 24.47 on 1 and 344 DF,  p-value: 1.181e-06</code></pre>
 </div>
