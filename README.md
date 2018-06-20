@@ -12,3 +12,4 @@ We are attempting to use github as a collaborative platform for members of the l
 3. R-scripts used for the analyses
 4. [A record of our conversations about the project in the issues tab](https://github.com/CrumpLab/EntropyTyping/issues). 
 
+notes: .rmd files contain R-scripts usually for analysis, or for writing the paper. We compile the .rmd files into .md files which can be viewed in Github along with graphs. The compiled .html files can be downloaded and viewed in a browser
