@@ -190,4 +190,113 @@ ggplot(all_mdiffs, aes(condition, variable)) +
 
 
 
-## @knitr plot
+## @knitr letter_uncertainty
+
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
+
+letter_probabilities <- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_entropies <- apply(letter_probabilities,2,function(x){-1*sum(x*log2(x))})
+
+position<-as.factor(c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9))
+word_length<-as.factor(c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9)))
+
+uncertainty_df<-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
+
+#plot
+
+ggplot(uncertainty_df,aes(x=position,y=H,group=word_length,color=word_length))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  ggtitle("Mean Entropy (H) by Letter Position and Word Length")
+
+## @knitr letter_uncertainty_by_IKSI
+
+sum_data<-cbind(sum_data,H=uncertainty_df$H)
+
+ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
+  geom_point(aes(color=let_pos))+
+  #geom_smooth(method="lm")+
+  #geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, sum_data))), parse = TRUE)+
+  theme_classic()+
+  ggtitle("Mean IKSI as a function of Entropy")
+
+cor_test_results <- cor.test(sum_data$mean_IKSIs,sum_data$H)
+
+
+
+
+library(lme4)
+subject_means <- the_data %>%
+  group_by(Subject,word_lengths,let_pos) %>%
+  summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
+
+#restrict to 1-9 positions and word lengths
+subject_means <- subject_means[subject_means$let_pos < 10, ]
+subject_means <- subject_means[subject_means$word_lengths < 10 &
+                                 subject_means$word_lengths > 0, ]
+
+# make sure numbers are factors
+subject_means$Subject <- as.factor(subject_means$Subject)
+subject_means$let_pos <- as.factor(subject_means$let_pos)
+subject_means$word_lengths <- as.factor(subject_means$word_lengths)
+categorical_position <- subject_means$let_pos
+categorical_position[categorical_position==1] <- "first_letter"
+categorical_position[categorical_position!="first_letter"] <- "other_letter"
+categorical_position<-as.factor(categorical_position)
+subject_means<-cbind(subject_means,categorical_position=categorical_position)
+
+subject_means<-cbind(subject_means,H=rep(uncertainty_df$H,346))
+model1 = lmer(mean_IKSI ~ H * categorical_position * word_lengths + (1|Subject), data = subject_means, REML=FALSE)
+model2 = lmer(mean_IKSI ~ categorical_position * word_lengths * H + (1|Subject), data = subject_means, REML=FALSE)
+summary(model1)
+summary(model2)
+
+library(MuMIn)
+r.squaredGLMM(model1)
+library(r2glmm)
+r2beta(model1,partial=T)
+r2beta(model2,partial=T)
+r2dt(r2beta(model1,partial=F),r2beta(model2,partial=F))
+
+model1<-lmer(mean_IKSI ~ (1|Subject) +H, data=subject_means, REML=FALSE)
+summary(model1)
+
+model2<-lmer(mean_IKSI ~ (1|Subject) +H + (0 + H|Subject), data=subject_means, REML=FALSE)
+summary(model2)
+
+model3<-lmer(mean_IKSI ~ (1+H|Subject) +H , data=subject_means, REML=FALSE)
+summary(model3)
+
+model4<-lmer(mean_IKSI ~ (1+categorical_position*H|Subject) +categorical_position*H , data=subject_means, REML=FALSE)
+summary(model4)
+
+r2beta(model1,partial=T)
+r2beta(model2,partial=T)
+r2beta(model3,partial=T)
+r2beta(model4,partial=T)
+
+anova(model1,model2,model3,model4)
+
+test<-data.table(subject_means[1:(45*20),])
+
+test %>% 
+  # save predicted values
+  mutate(pred_dist = fitted(model4)[1:(45*20)]) %>% 
+  # graph
+  ggplot(aes(x=H, y=pred_dist, group=categorical_position, color=categorical_position)) + theme_classic() +
+  geom_line(size=1) +
+  geom_point(aes(y=mean_IKSI),size=.5)+
+  facet_wrap(~Subject)
+
+cs<-coef(model4)$Subject
+rs<-ranef(model4)$Subject

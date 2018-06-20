@@ -29,11 +29,11 @@ wordcount         : "X"
 
 bibliography      : ["r-references.bib"]
 
-figsintext        : no
+figsintext        : yes
 figurelist        : no
 tablelist         : no
 footnotelist      : no
-lineno            : yes
+lineno            : no
 mask              : no
 
 class             : "man"
@@ -74,20 +74,6 @@ An advantage of testing Hick's Law with this data set is that the stimulus respo
 
 # Methods
 
-The uncertainty for each letter position in 1-9 letter long words was calculated using Norvig's ngrams1.xlsx from his website:http://norvig.com/mayzner.html.and using the equation H = N sigma (PlnP)
-where N is the number of alternatives (26 possible letters) and P is probability of a given letter occurring at a specific letter position in a word of specific length.  
-As an example, I demonstrate calculation of the H value of the 2nd letter of 3 letter words:
-H = N sigma (PlnP)
-Total number of 3 letter words observed by Norvig: 1.52* 10^11 three letter words
-P("a")2 position = 3.1*10^10 three letter words with "a" as 2nd letter/1.52* 10^11 three letter words
-P("b")2 position = 3.64*10^9 three letter words with "b" as 2nd letter/1.52* 10^11 three letter words
-:
-:
-P("z")2 position = 3.00*10^7 three letter words with "z" as 2nd letter/1.52* 10^11 three letter words
-H = 26 possible alternatives * sigma (as letter from "a" to "z") P"letter"2position *ln P"letter"2position
-H = 2.85 bits   
-The relationship between uncertainty and letter position is visualized in Graph #.  We observe a 
-trend of increasing uncertainty near the middle letter position of most words.  
 
 ## Data analysis and pre-processing
 We used `r cite_r("r-references.bib")` for all our analyses.
@@ -95,6 +81,8 @@ We used `r cite_r("r-references.bib")` for all our analyses.
 For each subject, we recorded timestamps for each keystroke using JavaScript. We applied the following pre-processing steps. We included IKSIs only for keystrokes involving a lower case letter, and only for correct keystrokes that were preceded by a correct keystroke. Outlier IKSIs were removed for each subject, on a cell-by-cell basis, using Van Selst & Jolicoeur's (1994) non-recursive moving criterion procedure, which eliminated approximately X% of IKSIs from further analysis.
 
 # Results
+
+## Typing Performance
 
 ```{r, echo=FALSE,messages=FALSE, warning=F}
 library(knitr)
@@ -118,6 +106,30 @@ The omnibus test indicated differences among the means were significantly differ
 ```
 
 Our more important aim was to determine whether variation among these means can be explained by variation in letter uncertainty. For this reason we do not exhaustively discuss all of the possible 990 differences among these 45 conditions. Nevertheless, we did conduct all 990 comparisons using bonferroni corrected paired samples t-tests. The results are displayed Figure 2, which shows absolute mean differences between conditions color coded for significance (light grey is significant).
+
+## Letter Uncertainty
+
+The primary question of interest was whether natural variation in letter uncertainty by position and word length explains variance in mean IKSI by position and word length. We estimated letter uncertainty by position and word length from google's ngram database, which provides frequency counts of letters and words occuring in Google's massive corpus (X million) of digitized books. Letter frequency counts for letters a to z, for each position in words from length one to nine, were obtained from Norvig ().
+
+For each letter frequency distribution, we computed Shannon's H (entropy) to quantify letter uncertainty. Shannon's H is defined as:
+
+$H = -\sum p \log_2 p$
+
+where, p is the probability of occurence for each letter in a given distribution. H is the number of bits needed to represent the distribution. We considered only the set of the 26 lowercase letters from a to z. For this set, H can range from 0 to ~4.7. H approaches 4.7 as letter probabilities approach a uniform distribution, indicating all letters are equiprobable, $H = -\sum \frac{1}{26} \log_2 \frac{1}{26} = 4.7004$. H by definition less than 4.7 for all unequal letter probability distributions, where some letters occur with higher/lower probabilities than others.
+
+We converted each letter frequency distribution to a probability distribution then calculated H for each distribution. Figure 3 displays estimates of letter uncertainty (H) as a function of letter position and word length. Visual inspection of the graph shows that variation in letter uncertainty maps closely onto variation in mean IKSI (Figure 1) as a function of position and word length. In particular, letter uncertainty and mean IKSI for position one as a function of word length appear highly similar. And for the remaining positions, letter uncertainty shows an inverted U- shape with greater letter uncertainty in the middle rather than the beginning and endings of words. This suggests that natural variation of letter uncertainty across position and word in English may account for aspects of the first-letter and mid-word slowing phenomena in typing.
+
+```{r letter_uncertainty, messages=FALSE, warning=F}
+```
+
+# Letter Uncertainty and Mean IKSI
+
+If the Hick-Hyman law applied to continuous typing we would expect a neat linear relationship between mean IKSIs and letter uncertainty. Figure 4 shows a plot of mean IKSIs taken from all positions and word lengths against letter uncertainty. The scatterplot shows a general trend for mean IKSI to increase as a function of letter uncertainty.
+
+```{r letter_uncertainty_by_IKSI, messages=FALSE, warning=F}
+```
+
+A linear regression using mean IKSIs collapsed over subjects as the dependent variable, and letter uncertainty as the independent variable showed a significant positive correlation, r = `r cor_test_results$estimate`, r^2 = `r cor_test_results$estimate^2` , p = `r sprintf(as.character(signif(cor_test_results$p.value,digits=2)))`. We obtained a similar average correlation when the regression was applied separately to each subject.
 
 
 # Discussion
