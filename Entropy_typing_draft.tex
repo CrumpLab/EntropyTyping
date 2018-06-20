@@ -232,15 +232,20 @@ exactly to the letters on their keyboards.
 pre-processing}\label{data-analysis-and-pre-processing}
 
 We used R (Version 3.4.2; R Core Team, 2017) and the R-packages
-\emph{bindrcpp} (Version 0.2.2; Müller, 2018), \emph{Crump} (Version
-1.0; Crump, 2017), \emph{data.table} (Version 1.10.4.3; Dowle \&
-Srinivasan, 2017), \emph{dplyr} (Version 0.7.4; Wickham, Francois,
-Henry, \& Müller, 2017), \emph{ggplot2} (Version 2.2.1; Wickham, 2009),
-\emph{knitr} (Version 1.20; Xie, 2015), \emph{papaja} (Version
-0.1.0.9655; Aust \& Barth, 2018), \emph{Rcpp} (Eddelbuettel, 2017;
-Eddelbuettel \& Balamuta, 2017; Version 0.12.16; Eddelbuettel \&
+\emph{bindrcpp} (Version 0.2.2; Müller, 2018), \emph{bit} (Oehlschlägel,
+2017, Version 1.1.14; 2018), \emph{bit64} (Version 0.9.7; Oehlschlägel,
+2017), \emph{Crump} (Version 1.0; Crump, 2017), \emph{data.table}
+(Version 1.10.4.3; Dowle \& Srinivasan, 2017), \emph{dplyr} (Version
+0.7.4; Wickham, Francois, Henry, \& Müller, 2017), \emph{ggplot2}
+(Version 2.2.1; Wickham, 2009), \emph{ggpubr} (Version 0.1.6;
+Kassambara, 2017), \emph{knitr} (Version 1.20; Xie, 2015),
+\emph{magrittr} (Version 1.5; Bache \& Wickham, 2014), \emph{papaja}
+(Version 0.1.0.9655; Aust \& Barth, 2018), \emph{Rcpp} (Eddelbuettel,
+2017; Eddelbuettel \& Balamuta, 2017; Version 0.12.16; Eddelbuettel \&
 François, 2011), \emph{RcppZiggurat} (Version 0.1.4; Eddelbuettel,
-2017), and \emph{Rfast} (Version 1.8.8; Papadakis et al., 2018) for all
+2017), \emph{Rfast} (Version 1.8.8; Papadakis et al., 2018),
+\emph{rlist} (Version 0.4.6.1; Ren, 2016), and \emph{skimr} (Version
+1.0.3; McNamara, Arino de la Rubia, Zhu, Ellis, \& Quinn, 2018) for all
 our analyses.
 
 For each subject, we recorded timestamps for each keystroke using
@@ -270,11 +275,11 @@ subjects, as a function of letter position and word length.
 \caption{}
 \end{figure}
 
-The omnibus test indicated differences among the means were
-significantly different from chance, F (44,15180) = 276.74, MSE =
-1,269.66, p \textless{} .001. Visual inspection of figure shows several
-trends across the means consistent with first-letter slowing and
-mid-word slowing reported by Ostry (1983).
+The omnibus test indicated differences among the means were not likely
+due to chance, F (44,15180) = 276.74, MSE = 1,269.66, p \textless{}
+.001. Visual inspection of figure X shows several trends across the
+means consistent with first-letter slowing and mid-word slowing reported
+by Ostry (1983).
 
 \begin{figure}[htbp]
 \centering
@@ -291,16 +296,16 @@ results are displayed Figure 2, which shows absolute mean differences
 between conditions color coded for significance (light grey is
 significant).
 
-\subsection{Letter Uncertainty}\label{letter-uncertainty}
+\subsection{Letter Uncertainty by position and word
+length}\label{letter-uncertainty-by-position-and-word-length}
 
 The primary question of interest was whether natural variation in letter
-uncertainty by position and word length explains variance in mean IKSI
-by position and word length. We estimated letter uncertainty by position
-and word length from google's ngram database, which provides frequency
-counts of letters and words occuring in Google's massive corpus (X
-million) of digitized books. Letter frequency counts for letters a to z,
-for each position in words from length one to nine, were obtained from
-Norvig ().
+uncertainty explains variance in mean IKSI by position and word length.
+We estimated letter uncertainty by position and word length from
+google's ngram database, which provides frequency counts of letters and
+words occuring in Google's massive corpus (X million) of digitized
+books. Letter frequency counts for letters a to z, for each position in
+words from length one to nine, were obtained from Norvig ().
 
 For each letter frequency distribution, we computed Shannon's H
 (entropy) to quantify letter uncertainty. Shannon's H is defined as:
@@ -331,13 +336,7 @@ suggests that natural variation of letter uncertainty across position
 and word in English may account for aspects of the first-letter and
 mid-word slowing phenomena in typing.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{Entropy_typing_draft_files/figure-latex/letter_uncertainty-1.pdf}
-\caption{}
-\end{figure}
-
-\section{Letter Uncertainty and Mean
+\subsection{Letter Uncertainty and Mean
 IKSI}\label{letter-uncertainty-and-mean-iksi}
 
 If the Hick-Hyman law applied to continuous typing we would expect a
@@ -352,12 +351,107 @@ trend for mean IKSI to increase as a function of letter uncertainty.
 \caption{}
 \end{figure}
 
-A linear regression on the mean IKSIs collapsed over subjects as the
-dependent variable, and letter uncertainty as the independent variable
-showed a significant positive correlation, r = 0.46, r\^{}2 = 0.22 , p =
-0.0013
+A linear regression with group mean IKSIs (collapsed over subjects) as
+the dependent variable, and letter uncertainty as the independent
+variable showed a significant positive trend, F(1, 43) = 11.82, p =
+0.0013, \(R^2 =\) 0.22 ( meanIKSI = 59.75 \(+\) 30.49 \(* H\) ). We also
+conducted separate linear regressions for each subject and found similar
+results. For example, the mean correlation was r = 0.44 (SE = 0.0085);
+mean \(R^2\) = 0.22 (SE = 0.0072); and mean p = 0.047 (SE = 0.0072).
+
+\subsection{Interim Discussion}\label{interim-discussion}
+
+We can conclude that letter uncertainty as a function of position and
+length explains a small amount variation in mean IKSIs during continuous
+typing. The present analysis does not provide strong evidence that a
+process sensitive to letter uncertainty causes both first-letter and
+mid-word slowing. For example, all of the first position mean IKSIs are
+longer than mean IKSIs for other positions at comparables levels of
+letter uncertainty. And, a linear regression on the group mean IKSIs
+including letter uncertainty and position (first letter vs.~other
+letter) as independent variables explains much more variance, \(R^2\) =
+0.86, p \textless{} .001, than the regression only including letter
+uncertainty.
+
+This pattern invites a dual-process interpretation. For example,
+first-letter slowing could be explained by a planning process that
+increases first position IKSIs as a function of word length. Longer
+words have more letters, thus plan construction and buffering is assumed
+to take more time before sequence production begins. At the same time,
+the finding that letter uncertainty does explain some variance in mean
+IKSI across position suggests that sequence production is also
+influenced by a process sensitive to letter uncertainty.
+
+\subsection{Letter Uncertainty by position, word length, and n-1 letter
+identity}\label{letter-uncertainty-by-position-word-length-and-n-1-letter-identity}
+
+Determining whether first-letter and mid-word slowing could emerge from
+a process sensitive to letter uncertainty depends on how letter
+uncertainty is calculated. Letter uncertainty can be calculated from any
+discrete probability distribution of letters. In the previous section we
+somewhat arbitrarily calculated letter uncertainty separately for each
+letter position in words of length one to nine. However, the number of
+alternative schemes is vast. For example, we could further
+conditionalize our postion by word length probability distributions by
+the letter identities of letters occuring in any position n-1 to n-x, or
+n+1 to n+y of a specific position. Furthermore, we could conditionalize
+letter distributions upon any permissible number of preceding or
+succeeding n-grams (groups of letters).
+
+Although an exhaustive calculation of letter uncertainty is beyond the
+scope of this paper, we nevertheless took one further step and
+calculated letter uncertainty by position and word length,
+conditionalizing upon n-1 letter identity. Fortunately, Norvig () also
+provided bigram frequency counts from the google ngram corpus as a
+function of position and word length. We calculated letter uncertainty
+in the following manner. First position letters have no preceding
+letter, so H as a function of word length was identical to our prior
+calculation. For letters in positions two to nine, for all word lengths,
+we calculated H for every n-1 letter identity, and then took the mean H
+for each position and length. For example, the second position of a
+two-letter word has a maximum of 26 letter probability distributions,
+one for each possible n-1 letter (a to z). We calculated H for all n-1
+distributions, then took the mean H as our measure of letter uncertainty
+for each position and word length. Figure X shows mean H conditionalized
+by n-1 letter identity, as a function of letter position and word
+length.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Entropy_typing_draft_files/figure-latex/letter_uncertainty_bigram-1.pdf}
+\caption{}
+\end{figure}
+
+Unsurprisingly, letter identity becomes more predictable when n-1 letter
+identity is known. Compared to the letter uncertainty measures in Figure
+X, we see that H for letters in positions two to nine is much lower when
+n-1 letter identity is taken into account. More important, the pattern
+of H in Figure X much more closely resembles the pattern of mean IKSIs
+in Figure X.
+
+Figure X displays a scatterplot of mean IKSIs as a function of letter
+uncertainty conditionalized by letter n-1 identity across positions and
+word length. A linear regression on mean IKSIs using our new measure of
+letter uncertainty as the independent variable showed a strong positive
+relationship, F(1, 43) = 182.44, p = 4.5e-17, \(R^2 =\) 0.81 ( meanIKSI
+= 73.72 \(+\) 39.31 \(* H\) ).
 
 \section{Discussion}\label{discussion}
+
+\section{An instance-based model}\label{an-instance-based-model}
+
+We have shown that variation in mean IKSIs as a function of letter
+position and word length can be well explained by natural variation in
+letter uncertainty conditionalized by letter n-1 identity by letter
+position and word length. This finding licenses consideration of the
+claim that first-letter and mid-word slowing are caused by a single
+process sensitive to letter uncertainty. However, the plausibility of
+this causal claim is empty in the absence of a working process model.
+Next, we establish theoretical plausibility by showing that letter
+uncertainty influences on performance can be explained in terms of
+Logan's (1988) instance-based memory model of automatization.
+
+However, the analysis so far does not articulate a working process model
 
 The takeaway from this experiment was that a typist types a letter
 faster when the letters commonly found at the given letter position are
@@ -385,6 +479,11 @@ times.
 Aust, F., \& Barth, M. (2018). \emph{papaja: Create APA manuscripts with
 R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
 
+\hypertarget{ref-R-magrittr}{}
+Bache, S. M., \& Wickham, H. (2014). \emph{Magrittr: A forward-pipe
+operator for r}. Retrieved from
+\url{https://CRAN.R-project.org/package=magrittr}
+
 \hypertarget{ref-R-Crump}{}
 Crump, M. (2017). \emph{Crump: Crump lab functions}.
 
@@ -410,10 +509,27 @@ integration. \emph{Journal of Statistical Software}, \emph{40}(8),
 1--18.
 doi:\href{https://doi.org/10.18637/jss.v040.i08}{10.18637/jss.v040.i08}
 
+\hypertarget{ref-R-ggpubr}{}
+Kassambara, A. (2017). \emph{Ggpubr: 'Ggplot2' based publication ready
+plots}. Retrieved from \url{https://CRAN.R-project.org/package=ggpubr}
+
+\hypertarget{ref-R-skimr}{}
+McNamara, A., Arino de la Rubia, E., Zhu, H., Ellis, S., \& Quinn, M.
+(2018). \emph{Skimr: Compact and flexible summaries of data}. Retrieved
+from \url{https://CRAN.R-project.org/package=skimr}
+
 \hypertarget{ref-R-bindrcpp}{}
 Müller, K. (2018). \emph{Bindrcpp: An 'rcpp' interface to active
 bindings}. Retrieved from
 \url{https://CRAN.R-project.org/package=bindrcpp}
+
+\hypertarget{ref-R-bit64}{}
+Oehlschlägel, J. (2017). \emph{Bit64: A s3 class for vectors of 64bit
+integers}. Retrieved from \url{https://CRAN.R-project.org/package=bit64}
+
+\hypertarget{ref-R-bit}{}
+Oehlschlägel, J. (2018). \emph{Bit: A class for vectors of 1-bit
+booleans}. Retrieved from \url{https://CRAN.R-project.org/package=bit}
 
 \hypertarget{ref-R-Rfast}{}
 Papadakis, M., Tsagris, M., Dimitriadis, M., Fafalios, S., Tsamardinos,
@@ -425,6 +541,11 @@ collection of efficient and extremely fast r functions}. Retrieved from
 R Core Team. (2017). \emph{R: A language and environment for statistical
 computing}. Vienna, Austria: R Foundation for Statistical Computing.
 Retrieved from \url{https://www.R-project.org/}
+
+\hypertarget{ref-R-rlist}{}
+Ren, K. (2016). \emph{Rlist: A toolbox for non-tabular data
+manipulation}. Retrieved from
+\url{https://CRAN.R-project.org/package=rlist}
 
 \hypertarget{ref-R-ggplot2}{}
 Wickham, H. (2009). \emph{Ggplot2: Elegant graphics for data analysis}.

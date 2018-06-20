@@ -213,29 +213,36 @@ uncertainty_df<-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
 
 #plot
 
-ggplot(uncertainty_df,aes(x=position,y=H,group=word_length,color=word_length))+
+letter_uncertainty_plot1 <- ggplot(uncertainty_df,aes(x=position,y=H,group=word_length,color=word_length))+
   geom_line()+
   geom_point()+
-  theme_classic()+
-  ggtitle("Mean Entropy (H) by Letter Position and Word Length")
+  theme_classic(base_size = 10)+
+  theme(plot.title = element_text(size = rel(1)))+
+  theme(legend.position="bottom")+
+  ggtitle("Letter Uncertainty (H) by Position and Length")
 
 ## @knitr letter_uncertainty_by_IKSI
 
 sum_data<-cbind(sum_data,H=uncertainty_df$H)
 
-ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
+letter_uncertainty_plot2 <- ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
   geom_point(aes(color=let_pos))+
-  #geom_smooth(method="lm")+
+  geom_smooth(method="lm")+
   #geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, sum_data))), parse = TRUE)+
-  theme_classic()+
-  ggtitle("Mean IKSI as a function of Entropy")
+  theme_classic(base_size = 10)+
+  theme(plot.title = element_text(size = rel(1)))+
+  theme(legend.position="bottom")+
+  ggtitle("Mean IKSI by Letter Uncertainty (H)")
 
-cor_test_results <- cor.test(sum_data$mean_IKSIs,sum_data$H)
+library(ggpubr)
+
+ggarrange(letter_uncertainty_plot1, letter_uncertainty_plot2, 
+          labels = c("A", "B"),
+          ncol = 2, nrow = 1)
+
+lr_results<-summary(lm(mean_IKSIs~H, sum_data))
 
 
-
-
-library(lme4)
 subject_means <- the_data %>%
   group_by(Subject,word_lengths,let_pos) %>%
   summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
@@ -245,58 +252,175 @@ subject_means <- subject_means[subject_means$let_pos < 10, ]
 subject_means <- subject_means[subject_means$word_lengths < 10 &
                                  subject_means$word_lengths > 0, ]
 
-# make sure numbers are factors
-subject_means$Subject <- as.factor(subject_means$Subject)
-subject_means$let_pos <- as.factor(subject_means$let_pos)
-subject_means$word_lengths <- as.factor(subject_means$word_lengths)
-categorical_position <- subject_means$let_pos
-categorical_position[categorical_position==1] <- "first_letter"
-categorical_position[categorical_position!="first_letter"] <- "other_letter"
+subject_means <- cbind(subject_means,H=rep(uncertainty_df$H,length(unique(subject_means$Subject))))
+
+correlation_data <- subject_means %>%
+  group_by(Subject) %>%
+  summarize(pearson_r = cor(mean_IKSI,H),
+            r_squared = cor(mean_IKSI,H)^2,
+            p_value = cor.test(mean_IKSI,H)$p.value)
+
+library(skimr)
+
+skim_with(numeric=list(n=length,mean=mean,sd=sd,SE=stde),append=FALSE)
+skim_out<-skim_to_list(correlation_data)
+
+#Means
+#p = skim_out$numeric$mean[1]
+#r = skim_out$numeric$mean[2]
+#r^2 = skim_out$numeric$mean[3]
+
+#SE
+#p = skim_out$numeric$SE[1]
+#r = skim_out$numeric$SE[2]
+#r^2 = skim_out$numeric$SE[3]
+
+## @knitr letter_uncertainty_by_IKSI_dual
+
+categorical_position<-as.character(sum_data$let_pos)
+categorical_position[categorical_position=="1"]<-"first"
+categorical_position[categorical_position!="first"]<-"other"
 categorical_position<-as.factor(categorical_position)
-subject_means<-cbind(subject_means,categorical_position=categorical_position)
+sum_data<-cbind(sum_data,cp=categorical_position)
 
-subject_means<-cbind(subject_means,H=rep(uncertainty_df$H,346))
-model1 = lmer(mean_IKSI ~ H * categorical_position * word_lengths + (1|Subject), data = subject_means, REML=FALSE)
-model2 = lmer(mean_IKSI ~ categorical_position * word_lengths * H + (1|Subject), data = subject_means, REML=FALSE)
-summary(model1)
-summary(model2)
+lr_results_dual<-summary(lm(mean_IKSIs~cp+H, sum_data))
 
-library(MuMIn)
-r.squaredGLMM(model1)
-library(r2glmm)
-r2beta(model1,partial=T)
-r2beta(model2,partial=T)
-r2dt(r2beta(model1,partial=F),r2beta(model2,partial=F))
+## @knitr letter_uncertainty_bigram
 
-model1<-lmer(mean_IKSI ~ (1|Subject) +H, data=subject_means, REML=FALSE)
-summary(model1)
+library(dplyr)
+library(rlist)
+library(ggplot2)
+library(bit64)
 
-model2<-lmer(mean_IKSI ~ (1|Subject) +H + (0 + H|Subject), data=subject_means, REML=FALSE)
-summary(model2)
+# GET LETTER POSITION 1 H
+# load in the excel file from Norvig:
+letter_freqs <- fread("ngrams1.csv",integer64="numeric")
+letter_freqs[letter_freqs==0]<-1
 
-model3<-lmer(mean_IKSI ~ (1+H|Subject) +H , data=subject_means, REML=FALSE)
-summary(model3)
+get_prob<- function(df) {apply(df,2,function(x){x/sum(x)})}
+get_entropies <- function(df){apply(df,2,function(x){-1*sum(x*log2(x))})}
 
-model4<-lmer(mean_IKSI ~ (1+categorical_position*H|Subject) +categorical_position*H , data=subject_means, REML=FALSE)
-summary(model4)
+letter_probabilities<-get_prob(letter_freqs[,2:74])
+letter_entropies<-get_entropies(letter_probabilities)
 
-r2beta(model1,partial=T)
-r2beta(model2,partial=T)
-r2beta(model3,partial=T)
-r2beta(model4,partial=T)
 
-anova(model1,model2,model3,model4)
+let_pos<-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_lengths<-c(1,rep(2,2),
+                rep(3,3),
+                rep(4,4),
+                rep(5,5),
+                rep(6,6),
+                rep(7,7),
+                rep(8,8),
+                rep(9,9))
 
-test<-data.table(subject_means[1:(45*20),])
+uncertainty_df<-data.frame(H=letter_entropies[11:(11+44)],let_pos,word_lengths)
+uncertainty_df_pos1<-uncertainty_df %>%
+  filter(
+    let_pos == 1
+  )
 
-test %>% 
-  # save predicted values
-  mutate(pred_dist = fitted(model4)[1:(45*20)]) %>% 
-  # graph
-  ggplot(aes(x=H, y=pred_dist, group=categorical_position, color=categorical_position)) + theme_classic() +
-  geom_line(size=1) +
-  geom_point(aes(y=mean_IKSI),size=.5)+
-  facet_wrap(~Subject)
+# GET LETTER POSITION > 1 H
+# read in n-gram tsv and clean up
+gram_2 <- read.table('2-gram.txt',header=TRUE,sep="\t")
+colnames(gram_2)<- scan(file="2-gram.txt",what="text",nlines=1,sep="\t")
 
-cs<-coef(model4)$Subject
-rs<-ranef(model4)$Subject
+# fix NA level
+levels(gram_2$`2-gram`)<-c(levels(gram_2$`2-gram`),as.character("NA"))
+gram_2[is.na(gram_2$`2-gram`),]$`2-gram` = as.character("NA")
+
+
+# find and replace missing combos with 0 
+allLet<-c("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
+allCombos<-c()
+for (i in 1:length(allLet)){
+  for(j in 1:length(allLet)){
+    allCombos<-c(allCombos,paste(allLet[i],allLet[j],sep=""))
+  }
+}
+
+missing<-allCombos[!allCombos%in%gram_2$`2-gram`]
+missing<-cbind(missing,matrix(0,nrow = length(missing), ncol = ncol(gram_2)-1))
+colnames(missing)<-colnames(gram_2)
+gram_2<-rbind(gram_2,missing)
+
+# change 0s to 1s
+gram_2[gram_2 == 0] <- 1
+
+#split bigrams into letter 1 & 2
+letters <- data.frame(do.call('rbind', strsplit(as.character(gram_2$`2-gram`),'',fixed=TRUE)))
+colnames(letters)<-c('n-1','n')
+names(gram_2)[names(gram_2) == '2-gram'] <- 'bigram'
+gram_2<-cbind(letters,gram_2)
+
+#remove unnecessary columns
+gram_2<-gram_2[,-4:-12]
+gram_2<-gram_2[,-40:-56]
+gram_2[,4:39]<-apply(gram_2[,4:39],2,function(x){as.numeric(x)})
+
+# GET ENTROPIES
+get_prob<- function(df) {apply(df,2,function(x){x/sum(x)})}
+get_entropies <- function(df){apply(df,2,function(x){-1*sum(x*log2(x))})}
+
+letter_probabilities<-(with(gram_2,
+                            by(gram_2[,4:39],gram_2[,'n-1'], get_prob,simplify= TRUE)
+))
+
+letter_entropies<-lapply(letter_probabilities,get_entropies)
+letter_entropies<-list.rbind(letter_entropies)
+
+# column means
+means<-colMeans(letter_entropies)
+
+# create data frame
+let_pos<-c(2:2,2:3,2:4,2:5,2:6,2:7,2:8,2:9)
+word_lengths<-c(rep(2,1),
+                rep(3,2),
+                rep(4,3),
+                rep(5,4),
+                rep(6,5),
+                rep(7,6),
+                rep(8,7),
+                rep(9,8))
+
+uncertainty_df<-data.frame(H=means,let_pos,word_lengths)
+uncertainty_df<-rbind(uncertainty_df,uncertainty_df_pos1)
+#gram_2_test<-merge.data.frame(gram_2,letter_entropies,by.x=('n-1'),by.y=('n-1'))
+
+uncertainty_df$let_pos<-as.factor(uncertainty_df$let_pos)
+uncertainty_df$word_lengths<-as.factor(uncertainty_df$word_lengths)
+
+uncertainty_df<-uncertainty_df[order(uncertainty_df$let_pos),]
+uncertainty_df<-uncertainty_df[order(uncertainty_df$word_lengths),]
+
+sum_data <- cbind(sum_data,H_bigram=uncertainty_df$H)
+
+# plot
+
+uncertainty_bigram_plot1 <- ggplot(sum_data,aes(x=position,y=H_bigram,group=word_length,color=word_length))+
+  geom_line()+
+  geom_point()+
+  theme_classic(base_size = 10)+
+  theme(plot.title = element_text(size = rel(1)))+
+  theme(legend.position="bottom")+
+  ggtitle("Letter Uncertaint (H, n-1) by Position Length")
+
+# analysis
+
+lr_results_bigram<-summary(lm(mean_IKSIs~H_bigram, sum_data))
+
+uncertainty_bigram_plot2 <-ggplot(sum_data,aes(x=H_bigram,y=mean_IKSIs))+
+  geom_point(aes(color=let_pos))+
+  geom_smooth(method="lm")+
+  #geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, sum_data))), parse = TRUE)+
+  theme_classic(base_size = 10)+
+  theme(plot.title = element_text(size = rel(1)))+
+  theme(legend.position="bottom")+
+  ggtitle("Mean IKSIs by Letter Uncertainty (n-1)")
+
+ggarrange(uncertainty_bigram_plot1, uncertainty_bigram_plot2, 
+          labels = c("A", "B"),
+          ncol = 2, nrow = 1)
+
+
+

@@ -177,6 +177,7 @@ ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
 # correlation
 cor.test(sum_data$mean_IKSIs,sum_data$H)
 cor(sum_data$mean_IKSIs,sum_data$H)^2
+lm.sum<-summary(lm(mean_IKSIs ~ H, sum_data))
 
 ####################
 # First letter only
@@ -327,12 +328,81 @@ ggplot(correlation_data, aes(x = mean_IKSI, y = pearson_r))+
 cor.test(correlation_data$pearson_r,correlation_data$mean_IKSI)
 summary(lm(pearson_r ~ mean_IKSI, data = correlation_data))
 
-cor.test(correlation_data$mean_IKSI,correlation_data$pearson_r,)
+cor.test(correlation_data$mean_IKSI,correlation_data$pearson_r)
 summary(lm(mean_IKSI~pearson_r, data = correlation_data))
 
 ```
 
 
+# some mixed modelling
 
+```{r, eval=F}
+
+library(lme4)
+subject_means <- the_data %>%
+  group_by(Subject,word_lengths,let_pos) %>%
+  summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
+
+#restrict to 1-9 positions and word lengths
+subject_means <- subject_means[subject_means$let_pos < 10, ]
+subject_means <- subject_means[subject_means$word_lengths < 10 &
+                                 subject_means$word_lengths > 0, ]
+
+# make sure numbers are factors
+subject_means$Subject <- as.factor(subject_means$Subject)
+subject_means$let_pos <- as.factor(subject_means$let_pos)
+subject_means$word_lengths <- as.factor(subject_means$word_lengths)
+categorical_position <- subject_means$let_pos
+categorical_position[categorical_position==1] <- "first_letter"
+categorical_position[categorical_position!="first_letter"] <- "other_letter"
+categorical_position<-as.factor(categorical_position)
+subject_means<-cbind(subject_means,categorical_position=categorical_position)
+
+subject_means<-cbind(subject_means,H=rep(uncertainty_df$H,346))
+model1 = lmer(mean_IKSI ~ H * categorical_position * word_lengths + (1|Subject), data = subject_means, REML=FALSE)
+model2 = lmer(mean_IKSI ~ categorical_position * word_lengths * H + (1|Subject), data = subject_means, REML=FALSE)
+summary(model1)
+summary(model2)
+
+library(MuMIn)
+r.squaredGLMM(model1)
+library(r2glmm)
+r2beta(model1,partial=T)
+r2beta(model2,partial=T)
+r2dt(r2beta(model1,partial=F),r2beta(model2,partial=F))
+
+model1<-lmer(mean_IKSI ~ (1|Subject) +H, data=subject_means, REML=FALSE)
+summary(model1)
+
+model2<-lmer(mean_IKSI ~ (1|Subject) +H + (0 + H|Subject), data=subject_means, REML=FALSE)
+summary(model2)
+
+model3<-lmer(mean_IKSI ~ (1+H|Subject) +H , data=subject_means, REML=FALSE)
+summary(model3)
+
+model4<-lmer(mean_IKSI ~ (1+categorical_position*H|Subject) +categorical_position*H , data=subject_means, REML=FALSE)
+summary(model4)
+
+r2beta(model1,partial=T)
+r2beta(model2,partial=T)
+r2beta(model3,partial=T)
+r2beta(model4,partial=T)
+
+anova(model1,model2,model3,model4)
+
+test<-data.table(subject_means[1:(45*20),])
+
+test %>% 
+  # save predicted values
+  mutate(pred_dist = fitted(model4)[1:(45*20)]) %>% 
+  # graph
+  ggplot(aes(x=H, y=pred_dist, group=categorical_position, color=categorical_position)) + theme_classic() +
+  geom_line(size=1) +
+  geom_point(aes(y=mean_IKSI),size=.5)+
+  facet_wrap(~Subject)
+
+cs<-coef(model4)$Subject
+rs<-ranef(model4)$Subject
+```
 
 
