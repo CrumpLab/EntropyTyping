@@ -1,28 +1,4 @@
----
-title: "Nicks's Analysis"
-author: "Nick Brosowsky"
-date: "6/19/2018"
-output:
-  md_document:
-    variant: markdown_github
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message=FALSE,fig.path='Nick_figures/', dev=c('png', 'pdf'))
-
-library(data.table)
-library(dplyr)
-library(ggplot2)
-library(Crump) #for standard error function and Van Selst and Jolicouer outlier elimination
-library(rlist)
-library(bit64)
-
-```
-
-
-
-```{r}
-
+``` r
 # mturk.txt is the unzipped mturk.txt.zip file
 the_data <- fread("mturk.txt")
 
@@ -30,7 +6,18 @@ the_data <- fread("mturk.txt")
 # Data-Exclusion
 
 the_data[grepl("[[:punct:]]",substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths=the_data[grepl("[[:punct:]]",substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths-1
+```
 
+    ## Warning in `[<-.data.table`(`*tmp*`, grepl("[[:punct:]]", substr(the_data
+    ## $whole_word, : Coerced 'double' RHS to 'integer' to match the column's
+    ## type; may have truncated precision. Either change the target column
+    ## ['word_lengths'] to 'double' first (by creating a new 'double' vector
+    ## length 1933914 (nrows of entire table) and assign that; i.e. 'replace'
+    ## column), or coerce RHS to 'integer' (e.g. 1L, NA_[real|integer]_, as.*,
+    ## etc) to make your intent clear and for speed. Or, set the column type
+    ## correctly up front when you create the table and stick to it, please.
+
+``` r
 the_data <- the_data %>%
              filter (
                       Letters != " ",                 #removes spaces (just in case they were assigned a letter position)
@@ -75,16 +62,14 @@ ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths
   geom_errorbar(limits,width=.2)+
   theme_classic()+
   ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
-
-
 ```
 
+![](Nick_figures/unnamed-chunk-1-1.png)
 
-# NEW letter uncertainty
+NEW letter uncertainty
+======================
 
-```{r}
-
-
+``` r
 ## GET LETTER POSITION 1 H
 # load in the excel file from Norvig:
 letter_freqs <- fread("ngrams1.csv",integer64="numeric")
@@ -115,7 +100,7 @@ uncertainty_df_pos1<-uncertainty_df %>%
 #######
 ```
 
-```{r}
+``` r
 ##### GET LETTER POSITION 2 - H
 ## read in n-gram tsv and clean up
 gram_2 <- read.table('2-gram.txt',header=TRUE,sep="\t")
@@ -183,153 +168,11 @@ word_lengths<-c(rep(2,1),
 
 uncertainty_df_pos2<-data.frame(H=means,let_pos,word_lengths)
 
-uncertainty_df_pos2<-uncertainty_df_pos2[uncertainty_df_pos2$let_pos == 2,]
+#uncertainty_df_pos2<-uncertainty_df_pos2[uncertainty_df_pos2$let_pos == 2,]
 ```
 
-```{r}
-##### GET LETTER POSITION > 3 H
-## read in n-gram tsv and clean up
-gram_3 <- read.table('3-gram.txt',header=TRUE,sep="\t")
-colnames(gram_3)<- scan(file="3-gram.txt",what="text",nlines=1,sep="\t")
-
-
-
-  ## find and replace missing combos with 0 
-  allLet<-c("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z")
-  allCombos<-c()
-    for (i in 1:length(allLet)){
-      for(j in 1:length(allLet)){
-        for(k in 1:length(allLet)){
-          allCombos<-c(allCombos,paste(allLet[i],paste(allLet[j],allLet[k],sep=""),sep=""))
-        }
-        
-      }
-    }
-  
-  missing<-allCombos[!allCombos%in%gram_3$`3-gram`]
-  missing<-cbind(missing,matrix(0,nrow = length(missing), ncol = ncol(gram_3)-1))
-  colnames(missing)<-colnames(gram_3)
-  gram_3<-rbind(gram_3,missing)
-
-  ## change 0s to 1s
-  gram_3[gram_3 == 0] <- 1
-
-  #split bigrams into letter 1 & 2
-  letters <- data.frame(do.call('rbind', strsplit(as.character(gram_3$`3-gram`),'',fixed=TRUE)))
-  colnames(letters)<-c('n-2','n-1','n')
-  letters$`n-1`<-paste(letters$`n-2`,letters$`n-1`,sep="")
-  letters<-letters[,-1]
-  names(gram_3)[names(gram_3) == '3-gram'] <- 'trigram'
-  gram_3<-cbind(letters,gram_3)
-  
-  #remove unnecessary columns
-  gram_3<-gram_3[,-4:-11]
-  gram_3<-gram_3[,-32:-47]
-  gram_3[,4:31]<-apply(gram_3[,4:31],2,function(x){as.numeric(x)})
-
-#############
-  
-  ## GET ENTROPIES
-  get_prob<- function(df) {apply(df,2,function(x){x/sum(x)})}
-  get_entropies <- function(df){apply(df,2,function(x){-1*sum(x*log2(x))})}
-  
-  letter_probabilities<-(with(gram_3,
-       by(gram_3[,4:31],gram_3[,'n-1'], get_prob,simplify= TRUE)
-  ))
-  
-  letter_entropies<-lapply(letter_probabilities,get_entropies)
-  letter_entropies<-list.rbind(letter_entropies)
-
-  #column means
-  means<-colMeans(letter_entropies)
-  
-  #create data frame
- let_pos<-c(3:3,3:4,3:5,3:6,3:7,3:8,3:9)
-word_lengths<-c(
-               rep(3,1),
-               rep(4,2),
-               rep(5,3),
-               rep(6,4),
-               rep(7,5),
-               rep(8,6),
-               rep(9,7))
-
-uncertainty_df_pos3<-data.frame(H=means,let_pos,word_lengths)
-uncertainty_df_pos3<-uncertainty_df_pos3[uncertainty_df_pos3$let_pos == 3,]
-```
-
-```{r}
-library(tidyr)
-
-##### GET LETTER POSITION > 3 H
-## read in n-gram tsv and clean up
-gram_4 <- read.table('4-gram.txt',header=TRUE,sep="\t")
-colnames(gram_4)<- scan(file="4-gram.txt",what="text",nlines=1,sep="\t")
-
-library(gtools)
-allCombos<-permutations(26, 4, LETTERS[1:26], repeats.allowed=TRUE)
-allCombos<-apply( allCombos[ , 1:4] , 1 , paste , collapse = "" )
-
-  
-  missing<-allCombos[!allCombos%in%gram_4$`4-gram`]
-  missing<-cbind(missing,matrix(0,nrow = length(missing), ncol = ncol(gram_4)-1))
-  colnames(missing)<-colnames(gram_4)
-  gram_4<-rbind(gram_4,missing)
-
-  ## change 0s to 1s
-  gram_4[gram_4 == 0] <- 1
-
-  #split bigrams into letter 1 & 2
-  letters <- data.frame(do.call('rbind', strsplit(as.character(gram_4$`4-gram`),'',fixed=TRUE)))
-  colnames(letters)<-c('n-3','n-2','n-1','n')
-  letters$`n-1`<-paste(letters$'n-3',paste(letters$`n-2`,letters$`n-1`,sep=""),sep="")
-  letters<-letters[,-1:-2]
-  names(gram_4)[names(gram_4) == '4-gram'] <- 'quadgram'
-  gram_4<-cbind(letters,gram_4)
-  
-  #remove unnecessary columns
-  gram_4<-gram_4[,-4:-10]
-  gram_4<-gram_4[,-25:-45]
-  gram_4[,4:24]<-apply(gram_4[,4:24],2,function(x){as.numeric(x)})
-
-  avg<-apply(gram_4[,4:24],1,mean)
-  gram_4<-cbind(gram_4,avg)
-  gram_4<-gram_4[gram_4$avg > 1,]
-#############
-  
-  ## GET ENTROPIES
-  get_prob<- function(df) {apply(df,2,function(x){x/sum(x)})}
-  get_entropies <- function(df){apply(df,2,function(x){-1*sum(x*log2(x))})}
-  
-  letter_probabilities<-(with(gram_4,
-       by(gram_4[,4:24],gram_4[,'n-1'], get_prob,simplify= TRUE)
-  ))
-  
-  letter_entropies<-lapply(letter_probabilities,get_entropies)
-  letter_entropies<-list.rbind(letter_entropies)
-
-  #column means
-  means<-colMeans(letter_entropies)
-  
-  #create data frame
- let_pos<-c(4:4,4:5,4:6,4:7,4:8,4:9)
-word_lengths<-c(
-               rep(4,1),
-               rep(5,2),
-               rep(6,3),
-               rep(7,4),
-               rep(8,5),
-               rep(9,6))
-
-uncertainty_df_pos4<-data.frame(H=means,let_pos,word_lengths)
-
-
-
-```
-
-```{r}
-uncertainty_df<-rbind(uncertainty_df_pos1,uncertainty_df_pos2,uncertainty_df_pos3,uncertainty_df_pos4)
-  #gram_2_test<-merge.data.frame(gram_2,letter_entropies,by.x=('n-1'),by.y=('n-1'))
+``` r
+uncertainty_df<-rbind(uncertainty_df_pos1,uncertainty_df_pos2)
 
 uncertainty_df$let_pos<-as.factor(uncertainty_df$let_pos)
 uncertainty_df$word_lengths<-as.factor(uncertainty_df$word_lengths)
@@ -344,23 +187,33 @@ ggplot(uncertainty_df,aes(x=let_pos,y=H,group=word_lengths,color=word_lengths))+
   geom_point()+
   theme_classic()+
   ggtitle("Mean Entropy (H) as a Function of Letter Position and Word Length")
+```
 
+![](Nick_figures/unnamed-chunk-4-1.png)
 
+``` r
 ggplot(uncertainty_df,aes(x=let_pos,y=H, color=word_lengths,group=word_lengths))+
   geom_line()+
   geom_point()+
   theme_classic()+
   ggtitle("Mean Entropy (H) as a Function of Letter Position and Word Length") + 
   facet_wrap(~word_lengths)
+```
 
+![](Nick_figures/unnamed-chunk-4-2.png)
 
+``` r
 ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,color=word_lengths,group=word_lengths))+
   geom_line()+
   geom_point()+
   theme_classic()+
   ggtitle("Mean IKSI as a Function of Letter Position and Word Length")+
   facet_wrap(~word_lengths)
+```
 
+![](Nick_figures/unnamed-chunk-4-3.png)
+
+``` r
 total_df<-merge.data.frame(uncertainty_df,sum_data)
 
 ggplot(total_df,aes(x=H,y=mean_IKSIs))+
@@ -368,15 +221,14 @@ ggplot(total_df,aes(x=H,y=mean_IKSIs))+
   geom_point()+
   theme_classic()+
   ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
-
-
-
 ```
 
+![](Nick_figures/unnamed-chunk-4-4.png)
 
-# group level R squared
+group level R squared
+=====================
 
-```{r}
+``` r
 # Analysis
 # Get the means by word length and letter position for each subject
 subject_means <- the_data %>%
@@ -404,14 +256,24 @@ sum_data$word_lengths<-as.factor(sum_data$word_lengths)
 group_means<-merge(sum_data,uncertainty_df, by= c("let_pos","word_lengths"))
 
 cor.test(group_means$mean_IKSIs,group_means$H)
-
-
 ```
 
-# subject level R squared
+    ## 
+    ##  Pearson's product-moment correlation
+    ## 
+    ## data:  group_means$mean_IKSIs and group_means$H
+    ## t = 13.206, df = 43, p-value < 2.2e-16
+    ## alternative hypothesis: true correlation is not equal to 0
+    ## 95 percent confidence interval:
+    ##  0.8168979 0.9416343
+    ## sample estimates:
+    ##       cor 
+    ## 0.8956632
 
-```{r}
+subject level R squared
+=======================
 
+``` r
 # Analysis
 # Get the means by word length and letter position for each subject
 subject_means <- the_data %>%
@@ -444,6 +306,9 @@ summary<-subject_means %>%
   )
   
 print(summary)
-
-
 ```
+
+    ## # A tibble: 1 x 3
+    ##   mean_p.value mean_correlation mean_rsquared
+    ##          <dbl>            <dbl>         <dbl>
+    ## 1       0.0309            0.658         0.482
