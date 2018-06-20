@@ -6,6 +6,7 @@ library(data.table)
 library(dplyr)
 library(ggplot2)
 library(Crump)  #for standard error function and Van Selst and Jolicouer outlier elimination
+library(ggpubr)
 
 
 ## @knitr load_pre_process
@@ -116,11 +117,12 @@ sum_data$word_lengths<-as.factor(sum_data$word_lengths)
 
 limits <- aes(ymax = mean_IKSIs + SE, ymin = mean_IKSIs - SE)
 
-ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths))+
+typing_plot1 <- ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths))+
   geom_line()+
   geom_point()+
   geom_errorbar(limits,width=.2)+
   theme_classic()+
+  theme(legend.position="bottom")+
   ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
 
 ## @knitr typing_mean_iksis_comparisons
@@ -174,9 +176,9 @@ all_mdiffs$condition <- as.factor(all_mdiffs$condition)
 levels(all_mdiffs$condition) <- the_labels
 
 
-ggplot(all_mdiffs, aes(condition, variable)) +
+typing_plot2 <- ggplot(all_mdiffs, aes(condition, variable)) +
   ggtitle('Mean Absolute Differences') +
-  theme_classic(base_size = 7) +
+  theme_classic(base_size = 6) +
   xlab('Condition') +
   ylab('Condition') +
   geom_tile(aes(fill = sig), color='white') +
@@ -185,8 +187,13 @@ ggplot(all_mdiffs, aes(condition, variable)) +
         axis.ticks=element_blank(),
         axis.line=element_blank(),
         panel.border=element_blank(),
-        panel.grid.major=element_line(color='#eeeeee'))+
-  geom_text(aes(label=abs(round(value))),size=1.5)
+        panel.grid.major=element_line(color='#eeeeee'))+ 
+  theme(legend.position="none")
+  #geom_text(aes(label=abs(round(value))),size=1.5)
+
+ggarrange(typing_plot1, typing_plot2, 
+          labels = c("A", "B"),
+          ncol = 2, nrow = 1)
 
 
 
@@ -234,7 +241,7 @@ letter_uncertainty_plot2 <- ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
   theme(legend.position="bottom")+
   ggtitle("Mean IKSI by Letter Uncertainty (H)")
 
-library(ggpubr)
+
 
 ggarrange(letter_uncertainty_plot1, letter_uncertainty_plot2, 
           labels = c("A", "B"),

@@ -269,12 +269,6 @@ position\textbar{}word length: 1\textbar{}1, 1\textbar{}2, 2\textbar{}2,
 \ldots{} 9\textbar{}9). Figure 1 shows mean IKSIs collapsed over
 subjects, as a function of letter position and word length.
 
-\begin{figure}[htbp]
-\centering
-\includegraphics{Entropy_typing_draft_files/figure-latex/typing_mean_iksis_plot-1.pdf}
-\caption{}
-\end{figure}
-
 The omnibus test indicated differences among the means were not likely
 due to chance, F (44,15180) = 276.74, MSE = 1,269.66, p \textless{}
 .001. Visual inspection of figure X shows several trends across the
@@ -451,13 +445,89 @@ Next, we establish theoretical plausibility by showing that letter
 uncertainty influences on performance can be explained in terms of
 Logan's (1988) instance-based memory model of automatization.
 
-However, the analysis so far does not articulate a working process model
+Instance theory provides an account of how performance becomes
+automatized with practice. Among other things, it provides a theoretical
+explanation of learning curves that follow a power function (). We will
+show that the instance theory process also develops sensitivity to
+uncertainty in the stimuli it encounters over practice. More
+specifically, instance theories predictions for performance are nearly
+identical to the hick-hyman law which posits that reaction times are a
+linear function of the uncertainty in a choice set.
 
-The takeaway from this experiment was that a typist types a letter
-faster when the letters commonly found at the given letter position are
-few. These findings are consistent with Hick's Law. As the alternatives
-become equiprobable, as it is observed in the middle of words, the
-number of bits required to process the choices increases.
+Instance theory models learning as a function of practice in terms of
+cue-driven retrieval of stored memory traces. A new unique trace is
+preserved in memory every time a response is given to a stimulus. When a
+familiar stimulus is encountered again, it automatically triggers the
+retrieval of all stored instances of the stimulus. The timing of the
+memory-based response to a current stimulus is treated as a race.
+Whichever memory trace is retrieved first wins the race. As a result,
+the memory-based reaction time to respond to a stimulus is determined by
+the retrieval time associated with the fastest memory trace for that
+stimulus. The retrieval times for every memory trace are assumed to
+vary, and can be sampled from any desired distribution.
+
+So, instance theory models practice based performance speed-ups in terms
+of sampling extreme values from a growing retrieval time distribution.
+As the number of memory traces grows the range of the retrieval time
+distribution also grows. As a result, the minimum value of the
+distribution (fastest retrieval) is more likely to be smaller for
+distributions with more than fewer memory traces. In other words,
+reaction times will tend to be faster for higher than lower frequency
+stimuli.
+
+We can now draw a more transparent connection between instance theory
+and information theory. Information theory provides H as a summary
+statistic of probability distributions for any discrete set of stimuli.
+Empirical probability distributions for natural occuring stimuli, such
+as letters, are found by counting stimulus frequencies, and then
+dividing a stimulus frequency distribution by it's sum. Instance
+theories predictions for response times in a stimulus set will be
+monotonically decreasing as a function of each stimulus frequencies. We
+should also expect that a summary statistic of instance theories
+predictions for mean reaction time, collapsing across all items in the
+set, will behave in a similar manner to information theory's summary
+statistic, which also collapses over the expected frequency of each item
+in the set. We demonstrate these relationships by monte-carlo
+simulation.
+
+Our goal was to model instance theory predictions for keystroke
+production times for typing natural english sentences as a function of
+letter position and word length. We treated all 26 letters that could
+possibly occur in any position for any word length as completely unique
+and independent stimuli. We modeled the structure of natural english
+using the 45 letter probability distributions derived from Norvig's
+letter frequence counts by position and word length, from Google's
+n-gram corpus.
+
+We modelled keystroke times for specific letters in the following
+manner. At different practice intervals each letter, occuring in each
+position for each word length, had occured in the model's history with
+specific frequency. We estimated reaction time as a function of
+frequency by monte-carlo simulation. We assumed that the retrieval time
+distribution for each stimulus was sampled from a normal distribution
+with mean = 500, and standard deviation = 100. Using R, we sampled
+retrieval times from the normal distribution n times, where n was the
+current number of memory traces. Then we took the minimum value from the
+sampling distribution as the reaction time. We repeated this process
+1000 times to estimate the expected mean reaction time (expected minimum
+retrieval time) for the given frequency value. In this way, we estimated
+mean keystroke production times for every letter position across
+different word lengths. Last, we evaluated model predictions across four
+practice intervals.
+
+Figure X displays the instance model predictions, across increasing
+amounts of practice, for mean keystroke production times as a function
+of letter position and word length. As expected, simulated keystroke
+times shorten with practice. More imporant, at each stage in practice,
+simulated keystroke times show the same qualitative pattern of variation
+across letter postion and word length. Notably, these appear very
+similar to human typing performance, and to letter uncertainty as a
+function of position and word length.
+
+Finally, we conducted linear regressions on simulated mean typing times
+using letter uncertainty as the independent variable. We found that
+letter uncertainty nearly perfectly explains the variance in simulated
+keystroke time, with R\^{}2 increasing across practice.
 
 \section{Conclusion}\label{conclusion}
 
