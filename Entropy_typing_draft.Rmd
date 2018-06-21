@@ -78,7 +78,16 @@ We chose these phenomena for two reasons. First, both phenomena have been explai
 
 First-letter slowing has been explained in terms of planning and buffering processes associated with typing a whole word. For example, the time associated with retrieving a motor program for a word, parsing the word into letters, planning the sequence, or initiating the execution of the sequence after it is buffered, could cause the first letter in a word to be produced more slowly than other letters. Mid-word slowing has been explained in terms of rising interference from ongoing sequencing, or from micro-planning of syllables which often occur in the middle of words [@will_linguistic_2006]. These explanations rely on largely unspecified planning and execution processes that are reverse-engineered by imputing hypotheses about their operation from typing data.
 
+<!--Propose a more general learning and memory process explanation
+   - Establish plausibility by describing prior evidence supporting the idea that general learning and memory processes are involved in typing (e.g., prior evidence that typists are sensitive to frequency effects).
+   - Describe how the first-letter and mid-word slowing phenomena could emerge from a process sensitive to letter uncertainty
+   - Describe what would be required for this to work...e.g., letter uncertainty would have to roughly follow the pattern of first-letter and mid-word slowing
+   - Describe that a model would be needed to explain how a general learning and memory process could learn from experience, and produce performance that was constrained by letter uncertainty (ie., the structure in the natural language).
+-->
 
+To develop an alternative, we entertained a simple question: are more predictable letters typed faster than less predictable letters? More specifically, we wondered whether natural variation letter uncertainty as a function of letter position and word length would magically (in the sense of ) correspond to the observed variation in interkeystroke intervals as a function of letter position and word length. Such a demonstration would license consideration of how a general learning process sensitive to letter uncertainty could explain effects of letter position and word length on interkeystroke intervals.
+
+Prior work shows that typists are sensitive to structures in the text the type. For example, IKSIs are negatively correlated with letter frequency, bigram frequency, and trigram frequency. Individual keystroke times are influenced by the immediate letter context in which they occur. IKSIs are also influenced by orthographic structure. Finally, IKSIs are much faster for letter strings from a natural language, compared to random letter strings. These demonstrations suggest that typing performance may be in part determined by a learning process sensitive to structure inherent to natural texts.
 
 <!-- Information theory and reaction time
    - explain what entropy means, how to calculate it
@@ -86,12 +95,21 @@ First-letter slowing has been explained in terms of planning and buffering proce
    - end with where we at, and how it can be useful
 -->
 
-<!--Propose a more general learning and memory process explanation
-   - Establish plausibility by describing prior evidence supporting the idea that general learning and memory processes are involved in typing (e.g., prior evidence that typists are sensitive to frequency effects).
-   - Describe how the first-letter and mid-word slowing phenomena could emerge from a process sensitive to letter uncertainty
-   - Describe what would be required for this to work...e.g., letter uncertainty would have to roughly follow the pattern of first-letter and mid-word slowing
-   - Describe that a model would be needed to explain how a general learning and memory process could learn from experience, and produce performance that was constrained by letter uncertainty (ie., the structure in the natural language).
--->
+
+Following Shannon (), we use information theory as a tool to measure structure in natural texts. Information theory provides the summary statistic H to measure the entropy or uncertainty in any discrete probability distribution of a set of items. H goes to 0 for distributions that are perfectly predictable (e.g., when one item occurs 100% of the time). H goes to it's maximum value for distributions that are completely unpredictable, fully entropic, or maximally uncertain (e.g., when all items occur with equal probability). Shannon's H is defined as:
+
+$H = -\sum p \log_2 p$
+
+where, p is the probability of occurence for each item in a given distribution. H is the number of bits needed to represent the distribution. To apply this to letter uncertainty, consider the set of the 26 lowercase letters from a to z. For this set, H can range from 0 to ~4.7. H approaches 4.7 as letter probabilities approach a uniform distribution, indicating all letters are equiprobable, $H = -\sum \frac{1}{26} \log_2 \frac{1}{26} = 4.7004$. H by definition is less than 4.7 for all unequal letter probability distributions, where some letters occur with higher/lower probabilities than others. 
+
+Most important, H can be calculated for any letter probability distribution. For example, if separate letter probability distributions for every letter position across words of every length could be obtained, then the letter uncertainty for each position by word length could be calculated. Then, correspondence between letter uncertainty and interkeystroke intervals as a funciton letter position and word length could be evaluated.
+
+Our empirical question also ties into the well known application of information theory to choice-reaction time performance. For example, Hick and Hyman showed that choice reaction time, which was known to increase as a function of set-size, increases linearly as a function of choice uncertainty in the set (measured by H), rather than set-size persay. Although there are numerous exceptions to the Hick-Hyman law (for a review see), we are not aware of any work that has determined whether typing performance (a continuous 26-AFC choice-task, assuming lower case for convenience) depends on letter uncertainty. If typing performance does depend on letter uncertainty, then a model based explanation of the dependency is required.
+
+## Overview of present study
+
+We first replicate Ostry's (1983) analysis of interkeystroke intervals as a function of letter position and word length. We used the dataset collected by Crump & Behmer, who had 346 typists copy type five paragraphs of natural english text. Then we estimated letter uncertainty in natural english for each letter position in words of different lengths. We used letter frequency counts from google's ngram project provided by Peter Norvig, which gave us letter uncertainty estimates for each position in words of length one to nine. Next, we show that natural variation in letter uncertainty can explain large portions of variance in interkeystroke intervals as a function of letter position and word length. Finally, we show that Logan's (1988) instance theory of automatization provides a working process model explaining how a general memory process could cause typing performance to be constrained by letter uncertainty.
+
 
 <!-- Roadmap what will we do in the paper
    - Part 1: Show that we can replicate the phenomena (Experiment 1)
@@ -162,11 +180,7 @@ Our more important aim was to determine whether variation among these means can 
 
 The primary question of interest was whether natural variation in letter uncertainty explains variance in mean IKSI by position and word length. We estimated letter uncertainty by position and word length from google's ngram database, which provides frequency counts of letters and words occuring in Google's massive corpus (X million) of digitized books. Letter frequency counts for letters a to z, for each position in words from length one to nine, were obtained from Norvig ().
 
-For each letter frequency distribution, we computed Shannon's H (entropy) to quantify letter uncertainty. Shannon's H is defined as:
-
-$H = -\sum p \log_2 p$
-
-where, p is the probability of occurence for each letter in a given distribution. H is the number of bits needed to represent the distribution. We considered only the set of the 26 lowercase letters from a to z. For this set, H can range from 0 to ~4.7. H approaches 4.7 as letter probabilities approach a uniform distribution, indicating all letters are equiprobable, $H = -\sum \frac{1}{26} \log_2 \frac{1}{26} = 4.7004$. H by definition less than 4.7 for all unequal letter probability distributions, where some letters occur with higher/lower probabilities than others.
+For each letter frequency distribution, we computed Shannon's H (entropy) to quantify letter uncertainty. 
 
 We converted each letter frequency distribution to a probability distribution then calculated H for each distribution. Figure 3 displays estimates of letter uncertainty (H) as a function of letter position and word length. Visual inspection of the graph shows that variation in letter uncertainty maps closely onto variation in mean IKSI (Figure 1) as a function of position and word length. In particular, letter uncertainty and mean IKSI for position one as a function of word length appear highly similar. And for the remaining positions, letter uncertainty shows an inverted U- shape with greater letter uncertainty in the middle rather than the beginning and endings of words. This suggests that natural variation of letter uncertainty across position and word in English may account for aspects of the first-letter and mid-word slowing phenomena in typing.
 

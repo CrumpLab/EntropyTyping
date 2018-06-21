@@ -244,6 +244,86 @@ explanations rely on largely unspecified planning and execution
 processes that are reverse-engineered by imputing hypotheses about their
 operation from typing data.
 
+To develop an alternative, we entertained a simple question: are more
+predictable letters typed faster than less predictable letters? More
+specifically, we wondered whether natural variation letter uncertainty
+as a function of letter position and word length would magically (in the
+sense of ) correspond to the observed variation in interkeystroke
+intervals as a function of letter position and word length. Such a
+demonstration would license consideration of how a general learning
+process sensitive to letter uncertainty could explain effects of letter
+position and word length on interkeystroke intervals.
+
+Prior work shows that typists are sensitive to structures in the text
+the type. For example, IKSIs are negatively correlated with letter
+frequency, bigram frequency, and trigram frequency. Individual keystroke
+times are influenced by the immediate letter context in which they
+occur. IKSIs are also influenced by orthographic structure. Finally,
+IKSIs are much faster for letter strings from a natural language,
+compared to random letter strings. These demonstrations suggest that
+typing performance may be in part determined by a learning process
+sensitive to structure inherent to natural texts.
+
+Following Shannon (), we use information theory as a tool to measure
+structure in natural texts. Information theory provides the summary
+statistic H to measure the entropy or uncertainty in any discrete
+probability distribution of a set of items. H goes to 0 for
+distributions that are perfectly predictable (e.g., when one item occurs
+100\% of the time). H goes to it's maximum value for distributions that
+are completely unpredictable, fully entropic, or maximally uncertain
+(e.g., when all items occur with equal probability). Shannon's H is
+defined as:
+
+\(H = -\sum p \log_2 p\)
+
+where, p is the probability of occurence for each item in a given
+distribution. H is the number of bits needed to represent the
+distribution. To apply this to letter uncertainty, consider the set of
+the 26 lowercase letters from a to z. For this set, H can range from 0
+to \textasciitilde{}4.7. H approaches 4.7 as letter probabilities
+approach a uniform distribution, indicating all letters are
+equiprobable, \(H = -\sum \frac{1}{26} \log_2 \frac{1}{26} = 4.7004\). H
+by definition is less than 4.7 for all unequal letter probability
+distributions, where some letters occur with higher/lower probabilities
+than others.
+
+Most important, H can be calculated for any letter probability
+distribution. For example, if separate letter probability distributions
+for every letter position across words of every length could be
+obtained, then the letter uncertainty for each position by word length
+could be calculated. Then, correspondence between letter uncertainty and
+interkeystroke intervals as a funciton letter position and word length
+could be evaluated.
+
+Our empirical question also ties into the well known application of
+information theory to choice-reaction time performance. For example,
+Hick and Hyman showed that choice reaction time, which was known to
+increase as a function of set-size, increases linearly as a function of
+choice uncertainty in the set (measured by H), rather than set-size
+persay. Although there are numerous exceptions to the Hick-Hyman law
+(for a review see), we are not aware of any work that has determined
+whether typing performance (a continuous 26-AFC choice-task, assuming
+lower case for convenience) depends on letter uncertainty. If typing
+performance does depend on letter uncertainty, then a model based
+explanation of the dependency is required.
+
+\subsection{Overview of present study}\label{overview-of-present-study}
+
+We first replicate Ostry's (1983) analysis of interkeystroke intervals
+as a function of letter position and word length. We used the dataset
+collected by Crump \& Behmer, who had 346 typists copy type five
+paragraphs of natural english text. Then we estimated letter uncertainty
+in natural english for each letter position in words of different
+lengths. We used letter frequency counts from google's ngram project
+provided by Peter Norvig, which gave us letter uncertainty estimates for
+each position in words of length one to nine. Next, we show that natural
+variation in letter uncertainty can explain large portions of variance
+in interkeystroke intervals as a function of letter position and word
+length. Finally, we show that Logan's (1988) instance theory of
+automatization provides a working process model explaining how a general
+memory process could cause typing performance to be constrained by
+letter uncertainty.
+
 Hicks Law refers to the noticeable slowing of responses in choice
 reaction experiments when the possible stimuli are less predictable.
 
@@ -384,19 +464,7 @@ books. Letter frequency counts for letters a to z, for each position in
 words from length one to nine, were obtained from Norvig ().
 
 For each letter frequency distribution, we computed Shannon's H
-(entropy) to quantify letter uncertainty. Shannon's H is defined as:
-
-\(H = -\sum p \log_2 p\)
-
-where, p is the probability of occurence for each letter in a given
-distribution. H is the number of bits needed to represent the
-distribution. We considered only the set of the 26 lowercase letters
-from a to z. For this set, H can range from 0 to \textasciitilde{}4.7. H
-approaches 4.7 as letter probabilities approach a uniform distribution,
-indicating all letters are equiprobable,
-\(H = -\sum \frac{1}{26} \log_2 \frac{1}{26} = 4.7004\). H by definition
-less than 4.7 for all unequal letter probability distributions, where
-some letters occur with higher/lower probabilities than others.
+(entropy) to quantify letter uncertainty.
 
 We converted each letter frequency distribution to a probability
 distribution then calculated H for each distribution. Figure 3 displays
