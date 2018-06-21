@@ -76,7 +76,7 @@
 \fi
 \hypersetup{breaklinks=true,
             pdfauthor={},
-            pdftitle={TBD},
+            pdftitle={Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics},
             colorlinks=true,
             citecolor=blue,
             urlcolor=blue,
@@ -104,9 +104,10 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Essential manuscript parts
-  \title{TBD}
+  \title{Instance theory predicts information theory: Episodic uncertainty as a
+determinant of keystroke dynamics}
 
-  \shorttitle{Entropy and Typing}
+  \shorttitle{Episodic Uncertainty and Performance}
 
 
   \author{Matthew J. C. Crump\textsuperscript{1}, Walter Lai\textsuperscript{1}, \& Nicholaus Brosowsky\textsuperscript{1}}
@@ -131,7 +132,8 @@
 
   \abstract{Enter abstract here. Each new line herein must be indented, like this
 line.}
-  \keywords{keywords \\
+  \keywords{Instance Theory, Information Theory, Entropy, Uncertainty, Typing,
+Performance \\
 
     \indent Word count: X
   }
@@ -161,6 +163,86 @@ line.}
 \setcounter{secnumdepth}{0}
 
 
+
+Theories of cognitive processes run along a continuum. On one extreme,
+cognitive phenomena are explained in terms specialized and dedicated
+modules (Fodor, 1983) that give rise to cognition by the principles of
+their internal processing architecture. On the other extreme, cognitive
+phenomena are explained in terms of general learning and memory
+processes (Jacoby \& Brooks, 1984; Kolers \& Roediger, 1984; Rumelhart
+\& McClelland, 1986) that give rise to cognition through their
+experience with a structured environment (Clark, 2008). Valid theories
+produce explanations of phenomena by deduction from their processing
+assumptions, and then compete with other valid theories on the basis of
+parsimony. When a phenomena is explained by a general process,
+specialized accounts become sufficient, but not necessary; and, vice
+versa. We continue in this tradtion by proposing and validating a
+general process account of keystroke dynamics in skilled typing
+performance. We show that keystroke dynamics can emerge from a general
+memory process sensitive to structure (uncertainty) in the natural
+language environment.
+
+We identified the following pre-requisites as necessary for our
+approach. We follow the assumption that specialized or general processes
+of cognition are constrained to operate upon the structure of their
+environmental inputs. So, we require a tool for describing the structure
+of environmental inputs. We assume that performance is driven by
+learning processes sensitive to the structure in the environment. So, we
+require a model that articulates how learning about the structure of an
+environment produces performance. Finally, we require a task where the
+relation between performance and a structured environment can be
+measured. We use information theory (Shannon \& Weaver, 1998) to measure
+the structure of the letters that typists' type, instance theory (Logan,
+1988) to model how typists' performance is shaped by the typing
+environment, and the task of continuous typing (Logan \& Crump, 2011) to
+measure keystroke dynamics as a function of the structure in the typing
+environment.
+
+There are many typing phenomena to explain (Salthouse, 1986), and
+several existing models of typing (Heath \& Willcox, 1990; John, 1996;
+Rumelhart \& Norman, 1982; Wu \& Liu, 2008). Our goal here was not to
+provide another general model of typing, and we expect that our model
+will fail to explain many aspects of typing performance. Instead, we
+focus our efforts empirically and theoretically as follows. Empirically,
+we examine whether typing performance is constrained by structure in the
+natural language. Theoretically, we propose a general processing account
+that predicts how structure in the natural language should constrain
+typing performance. These aims contribute to the broader goals (beyond
+the scope of this paper) of determining whether specialized or general
+accounts are neccessary or sufficient to explain typing performance, and
+then adjucating between them.
+
+We focused on two typing phenomena, the word-initiation/first-letter
+slowing effect, and the mid-word slowing effect, which are both observed
+in continuous copy-typing of words presented in sentences. First-letter
+slowing refers to longer keystroke times for letters in the first
+position of a word compared to other letters. Mid-word slowing refers to
+an inverted U shaped pattern, with longer interkeystroke intervals for
+letters in the middle of a word compared to letters at the beginning and
+ending of a word. First-letter and mid-word slowing were clearly
+demonstrated by Ostry (1983), who showed systematic effects of letter
+position and word length on interkeystroke intervals.
+
+We chose these phenomena for two reasons. First, both phenomena have
+been explained in terms of specialized processes, and it remains unclear
+whether those accounts are necessary to explain the phenomena. Second,
+we have not found work replicating Ostry's (1983) results, and Salthouse
+(1986) suggested that effects of word length do not systematically
+influence interkeystroke intervals, so the effects of letter position
+and word length on interkeystroke interval remain unclear.
+
+First-letter slowing has been explained in terms of planning and
+buffering processes associated with typing a whole word. For example,
+the time associated with retrieving a motor program for a word, parsing
+the word into letters, planning the sequence, or initiating the
+execution of the sequence after it is buffered, could cause the first
+letter in a word to be produced more slowly than other letters. Mid-word
+slowing has been explained in terms of rising interference from ongoing
+sequencing, or from micro-planning of syllables which often occur in the
+middle of words (Will, Nottbusch, \& Weingarten, 2006). These
+explanations rely on largely unspecified planning and execution
+processes that are reverse-engineered by imputing hypotheses about their
+operation from typing data.
 
 Hicks Law refers to the noticeable slowing of responses in choice
 reaction experiments when the possible stimuli are less predictable.
@@ -234,7 +316,7 @@ pre-processing}\label{data-analysis-and-pre-processing}
 We used R (Version 3.4.2; R Core Team, 2017) and the R-packages
 \emph{bindrcpp} (Version 0.2.2; Müller, 2018), \emph{bit} (Oehlschlägel,
 2017, Version 1.1.14; 2018), \emph{bit64} (Version 0.9.7; Oehlschlägel,
-2017), \emph{Crump} (Version 1.0; Crump, 2017), \emph{data.table}
+2017), \emph{Crump} (Version 1.0; M. Crump, 2017), \emph{data.table}
 (Version 1.10.4.3; Dowle \& Srinivasan, 2017), \emph{dplyr} (Version
 0.7.4; Wickham, Francois, Henry, \& Müller, 2017), \emph{ggplot2}
 (Version 2.2.1; Wickham, 2009), \emph{ggpubr} (Version 0.1.6;
@@ -554,6 +636,11 @@ Bache, S. M., \& Wickham, H. (2014). \emph{Magrittr: A forward-pipe
 operator for r}. Retrieved from
 \url{https://CRAN.R-project.org/package=magrittr}
 
+\hypertarget{ref-clark_supersizing_2008}{}
+Clark, A. (2008). \emph{Supersizing the mind: Embodiment, action, and
+cognitive extension}. OUP USA. Retrieved from
+\url{https://books.google.com/books?hl=en\&lr=\&id=n5wRDAAAQBAJ\&oi=fnd\&pg=PR9\&dq=andy+clark\&ots=_Cpl448Qox\&sig=SC8xkxJaEf7G8EZaGPS0zSDEQX8}
+
 \hypertarget{ref-R-Crump}{}
 Crump, M. (2017). \emph{Crump: Crump lab functions}.
 
@@ -579,9 +666,44 @@ integration. \emph{Journal of Statistical Software}, \emph{40}(8),
 1--18.
 doi:\href{https://doi.org/10.18637/jss.v040.i08}{10.18637/jss.v040.i08}
 
+\hypertarget{ref-fodor_modularity_1983}{}
+Fodor, J. A. (1983). \emph{The modularity of mind: An essay on faculty
+psychology}. Cambridge, Mass.: MIT Press.
+
+\hypertarget{ref-heath_stochastic_1990}{}
+Heath, R. A., \& Willcox, C. H. (1990). A stochastic model for
+inter-keypress times in a typing task. \emph{Acta Psychologica},
+\emph{75}(1), 13--39.
+
+\hypertarget{ref-JacobyNonanalyticcognitionMemory1984}{}
+Jacoby, L. L., \& Brooks, L. R. (1984). Nonanalytic cognition: Memory,
+perception, and concept learning. \emph{The Psychology of Learning and
+Motivation}, \emph{18}, 1--47.
+
+\hypertarget{ref-john_typist:_1996}{}
+John, B. E. (1996). TYPIST: A theory of performance in skilled typing.
+\emph{Human-Computer Interaction}, \emph{11}(4), 321--355.
+
 \hypertarget{ref-R-ggpubr}{}
 Kassambara, A. (2017). \emph{Ggpubr: 'Ggplot2' based publication ready
 plots}. Retrieved from \url{https://CRAN.R-project.org/package=ggpubr}
+
+\hypertarget{ref-KolersProceduresmind1984}{}
+Kolers, P. A., \& Roediger, H. L. (1984). Procedures of mind.
+\emph{Journal of Verbal Learning and Verbal Behavior}, \emph{23}(4),
+425--449.
+
+\hypertarget{ref-logan_toward_1988}{}
+Logan, G. D. (1988). Toward an instance theory of automatization.
+\emph{Psychological Review}, \emph{95}(4), 492--527. Retrieved from
+\url{http://psycnet.apa.org/journals/rev/95/4/492/}
+
+\hypertarget{ref-logan_hierarchical_2011}{}
+Logan, G. D., \& Crump, M. J. C. (2011). Hierarchical control of
+cognitive processes: The case for skilled typewriting. In B. H. Ross
+(Ed.), \emph{Psychology of Learning and Motivation} (Vol. 54, pp.
+1--27). Elsevier. Retrieved from
+\href{https://CrumpLab.github.io/CognitionPerformanceLab/CrumpPubs/Logan\%20and\%20Crump\%20-\%202011.pdf}{https://CrumpLab.github.io/CognitionPerformanceLab/CrumpPubs/Logan and Crump - 2011.pdf}
 
 \hypertarget{ref-R-skimr}{}
 McNamara, A., Arino de la Rubia, E., Zhu, H., Ellis, S., \& Quinn, M.
@@ -601,6 +723,10 @@ integers}. Retrieved from \url{https://CRAN.R-project.org/package=bit64}
 Oehlschlägel, J. (2018). \emph{Bit: A class for vectors of 1-bit
 booleans}. Retrieved from \url{https://CRAN.R-project.org/package=bit}
 
+\hypertarget{ref-OstryDeterminantsinterkeytimes1983}{}
+Ostry, D. J. (1983). Determinants of interkey times in typing.
+\emph{Cognitive Aspects of Skilled Typewriting}, 225--246.
+
 \hypertarget{ref-R-Rfast}{}
 Papadakis, M., Tsagris, M., Dimitriadis, M., Fafalios, S., Tsamardinos,
 I., Fasiolo, M., \ldots{} Lakiotaki, K. (2018). \emph{Rfast: A
@@ -617,6 +743,25 @@ Ren, K. (2016). \emph{Rlist: A toolbox for non-tabular data
 manipulation}. Retrieved from
 \url{https://CRAN.R-project.org/package=rlist}
 
+\hypertarget{ref-rumelhart_parallel_1986}{}
+Rumelhart, D. E., \& McClelland, J. L. (1986). \emph{Parallel
+distributed processing, Explorations in the microstructure of cognition,
+Volume 1: Foundations}. Cambridge, Mass. {[}u.a.{]}: MIT Press.
+
+\hypertarget{ref-RumelhartSimulatingskilledtypist1982}{}
+Rumelhart, D. E., \& Norman, D. A. (1982). Simulating a skilled typist:
+A study of skilled cognitive-motor performance. \emph{Cognitive
+Science}, \emph{6}(1), 1--36.
+
+\hypertarget{ref-salthouse_perceptual_1986}{}
+Salthouse, T. A. (1986). Perceptual, cognitive, and motoric aspects of
+transcription typing. \emph{Psychological Bulletin}, \emph{99}(3),
+303--319.
+
+\hypertarget{ref-Shannonmathematicaltheorycommunication1998}{}
+Shannon, C. E., \& Weaver, W. (1998). \emph{The mathematical theory of
+communication}. University of Illinois press.
+
 \hypertarget{ref-R-ggplot2}{}
 Wickham, H. (2009). \emph{Ggplot2: Elegant graphics for data analysis}.
 Springer-Verlag New York. Retrieved from \url{http://ggplot2.org}
@@ -625,6 +770,17 @@ Springer-Verlag New York. Retrieved from \url{http://ggplot2.org}
 Wickham, H., Francois, R., Henry, L., \& Müller, K. (2017). \emph{Dplyr:
 A grammar of data manipulation}. Retrieved from
 \url{https://CRAN.R-project.org/package=dplyr}
+
+\hypertarget{ref-will_linguistic_2006}{}
+Will, U., Nottbusch, G., \& Weingarten, R. (2006). Linguistic units in
+word typing: Effects of word presentation modes and typing delay.
+\emph{Written Language \& Literacy}, \emph{9}(1), 153--176.
+
+\hypertarget{ref-wu_queuing_2008}{}
+Wu, C., \& Liu, Y. (2008). Queuing Network Modeling of Transcription
+Typing. \emph{ACM Transactions on Computer-Human Interaction},
+\emph{15}(1), 1--45.
+doi:\href{https://doi.org/10.1145/1352782.1352788}{10.1145/1352782.1352788}
 
 \hypertarget{ref-R-knitr}{}
 Xie, Y. (2015). \emph{Dynamic documents with R and knitr} (2nd ed.).

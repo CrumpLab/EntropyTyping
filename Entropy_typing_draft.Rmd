@@ -1,6 +1,6 @@
 ---
-title             : "TBD"
-shorttitle        : "Entropy and Typing"
+title             : "Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics"
+shorttitle        : "Episodic Uncertainty and Performance"
 
 author: 
   - name          : "Matthew J. C. Crump"
@@ -24,10 +24,10 @@ author_note: |
 abstract: |
   Enter abstract here. Each new line herein must be indented, like this line.
   
-keywords          : "keywords"
+keywords          : "Instance Theory, Information Theory, Entropy, Uncertainty, Typing, Performance"
 wordcount         : "X"
 
-bibliography      : ["r-references.bib"]
+bibliography      : ["r-references.bib","EntropyTypingRefs.bib"]
 
 figsintext        : yes
 figurelist        : no
@@ -48,6 +48,57 @@ library("papaja")
 # Seed for random number generation
 set.seed(42)
 ```
+
+<!-- Big issues: how people learn about the structure of their environment
+   - need to have a way to measure the structure in the environment (information theory)
+   - need to have a theory/model about how structure in the enviroment is learned (instance theory
+   - need to have laboratory/real-world environment where behavior in interaction with environment can be measured (typing) -->
+   
+Theories of cognitive processes run along a continuum. On one extreme, cognitive phenomena are explained in terms specialized and dedicated modules [@fodor_modularity_1983] that give rise to cognition by the principles of their internal processing architecture. On the other extreme, cognitive phenomena are explained in terms of general learning and memory processes [@JacobyNonanalyticcognitionMemory1984; @KolersProceduresmind1984; @rumelhart_parallel_1986] that give rise to cognition through their experience with a structured environment [@clark_supersizing_2008]. Valid theories produce explanations of phenomena by deduction from their processing assumptions, and then compete with other valid theories on the basis of parsimony. When a phenomena is explained by a general process, specialized accounts become sufficient, but not necessary; and, vice versa. We continue in this tradtion by proposing and validating a general process account of keystroke dynamics in skilled typing performance. We show that keystroke dynamics can emerge from a general memory process sensitive to structure (uncertainty) in the natural language environment.
+
+<!-- Current aims and broader implications of what we are doing beyond typing domain
+   - What we are trying to do here, using typing (which measures learning about a structured natural language environment) as a laboratory tool to develop explanatory models of how people learn from the structure of the environment
+   - brief foreshadowing of how this can be achieved (e.g., by focusing on phenomena such as first-letter and mid-word slowing, and thinking about whether this phenomena emerges naturally from learning about the structure of the typing environment, or requires special process explanations) -->
+
+We identified the following pre-requisites as necessary for our approach. We follow the assumption that specialized or general processes of cognition are constrained to operate upon the structure of their environmental inputs. So, we require a tool for describing the structure of environmental inputs. We assume that performance is driven by learning processes sensitive to the structure in the environment. So, we require a model that articulates how learning about the structure of an environment produces performance. Finally, we require a task where the relation between performance and a structured environment can be measured. We use information theory [@Shannonmathematicaltheorycommunication1998] to measure the structure of the letters that typists' type, instance theory [@logan_toward_1988] to model how typists' performance is shaped by the typing environment, and the task of continuous typing [@logan_hierarchical_2011] to measure keystroke dynamics as a function of the structure in the typing environment.
+
+There are many typing phenomena to explain [@salthouse_perceptual_1986], and several existing models of typing [@heath_stochastic_1990; @john_typist:_1996; @RumelhartSimulatingskilledtypist1982; @wu_queuing_2008]. Our goal here was not to provide another general model of typing, and we expect that our model will fail to explain many aspects of typing performance. Instead, we focus our efforts empirically and theoretically as follows. Empirically, we examine whether typing performance is constrained by structure in the natural language. Theoretically, we propose a general processing account that predicts how structure in the natural language should constrain typing performance. These aims contribute to the broader goals (beyond the scope of this paper) of determining whether specialized or general accounts are neccessary or sufficient to explain typing performance, and then adjucating between them.
+
+<!-- Typing phenomena (first-letter and mid-word slowing)
+   - introduce each (Ostry, 1983)
+-->
+
+We focused on two typing phenomena, the word-initiation/first-letter slowing effect, and the mid-word slowing effect, which are both observed in continuous copy-typing of words presented in sentences. First-letter slowing refers to longer keystroke times for letters in the first position of a word compared to other letters. Mid-word slowing refers to an inverted U shaped pattern, with longer interkeystroke intervals for letters in the middle of a word compared to letters at the beginning and ending of a word. First-letter and mid-word slowing were clearly demonstrated by @OstryDeterminantsinterkeytimes1983, who showed systematic effects of letter position and word length on interkeystroke intervals.
+
+We chose these phenomena for two reasons. First, both phenomena have been explained in terms of specialized processes, and it remains unclear whether those accounts are necessary to explain the phenomena. Second, we have not found work replicating Ostry's (1983) results, and @salthouse_perceptual_1986 suggested that effects of word length do not systematically influence interkeystroke intervals, so the effects of letter position and word length on interkeystroke interval remain unclear.
+
+<!-- Existing explanations of typing phenomena
+   - brief review of existing explanations. These are likely to be special process explanations (e.g., a word-buffereing planning process)
+-->
+
+First-letter slowing has been explained in terms of planning and buffering processes associated with typing a whole word. For example, the time associated with retrieving a motor program for a word, parsing the word into letters, planning the sequence, or initiating the execution of the sequence after it is buffered, could cause the first letter in a word to be produced more slowly than other letters. Mid-word slowing has been explained in terms of rising interference from ongoing sequencing, or from micro-planning of syllables which often occur in the middle of words [@will_linguistic_2006]. These explanations rely on largely unspecified planning and execution processes that are reverse-engineered by imputing hypotheses about their operation from typing data.
+
+
+
+<!-- Information theory and reaction time
+   - explain what entropy means, how to calculate it
+   - brief history of importance in reaction time research
+   - end with where we at, and how it can be useful
+-->
+
+<!--Propose a more general learning and memory process explanation
+   - Establish plausibility by describing prior evidence supporting the idea that general learning and memory processes are involved in typing (e.g., prior evidence that typists are sensitive to frequency effects).
+   - Describe how the first-letter and mid-word slowing phenomena could emerge from a process sensitive to letter uncertainty
+   - Describe what would be required for this to work...e.g., letter uncertainty would have to roughly follow the pattern of first-letter and mid-word slowing
+   - Describe that a model would be needed to explain how a general learning and memory process could learn from experience, and produce performance that was constrained by letter uncertainty (ie., the structure in the natural language).
+-->
+
+<!-- Roadmap what will we do in the paper
+   - Part 1: Show that we can replicate the phenomena (Experiment 1)
+   - Part 2: Show that we can measure letter uncertainty, and that it does explain some of the variance in the behavioral data
+   - Part 3: Show that we can model the relationship between mean_iksi and letter uncertainty with an instance theory
+   - Part 4: Discuss
+-->
 
 Hicks Law refers to the noticeable slowing of responses in choice reaction experiments when the
 possible stimuli are less predictable.  
