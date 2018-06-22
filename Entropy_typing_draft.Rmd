@@ -255,9 +255,9 @@ An important remaining question is to characterize the functional envelope of co
 
 # Broader implications and Conlusions
 
+We are optimistic that the tools and approach used here could be succesfully applied to other domains beyond skilled typing. We found that information theory, despite it's flexibility, was a useful measure of structure in the typing environment. Generalist models of cognitive processes assume that cogniton arises through interaction with a structured environment. In addition to specifying the learning and memory rules that extract the structure, it is equally valuable to improve measurement of structure in the environment. Information theory provides one flexible measurement framework for describing the amount of correlated or redundant structure within any set of units in the environment. When applied judiciously, it becomes theoretically possible to define the limits of what a general learning process could learn from an environment. These limits could be useful for testing generalist theories against special process theories, especially when it can be shown that a cognitive process has more knowledge than the structure in an environment could provide.
 
-
-
+Information theory spurred the cognitive revolution [@hick_rate_1952; @hyman_stimulus_1953; @miller_magical_1956], and although it was roundly criticized [see @procter_hicks_2018], we think it has descriptive value useful for characterizing the structure in big data turning the next revolution [@griffiths_manifesto_2015]. Our demonstration of correspondence between instance theory [@logan_toward_1988] and measures of uncertainty adds to the process models capable of accounting for uncertainty mediated phenomena [for a review see, @procter_hicks_2018], and offers principled and falsifiable predictions for future work.
 
 \newpage
 
