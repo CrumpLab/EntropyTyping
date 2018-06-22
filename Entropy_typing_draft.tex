@@ -246,13 +246,13 @@ operation from typing data.
 
 To develop an alternative, we entertained a simple question: are more
 predictable letters typed faster than less predictable letters? More
-specifically, we wondered whether natural variation letter uncertainty
-as a function of letter position and word length would magically (in the
-sense of ) correspond to the observed variation in interkeystroke
-intervals as a function of letter position and word length. Such a
-demonstration would license consideration of how a general learning
-process sensitive to letter uncertainty could explain effects of letter
-position and word length on interkeystroke intervals.
+specifically, we wondered whether natural variation in letter
+uncertainty as a function of letter position and word length would
+magically (in the sense of ) correspond to the observed variation in
+interkeystroke intervals as a function of letter position and word
+length. Such a demonstration would license consideration of how a
+general learning process sensitive to letter uncertainty could explain
+effects of letter position and word length on interkeystroke intervals.
 
 Prior work shows that typists are sensitive to structures in the text
 the type. For example, IKSIs are negatively correlated with letter
@@ -289,11 +289,11 @@ than others.
 
 Most important, H can be calculated for any letter probability
 distribution. For example, if separate letter probability distributions
-for every letter position across words of every length could be
-obtained, then the letter uncertainty for each position by word length
-could be calculated. Then, correspondence between letter uncertainty and
-interkeystroke intervals as a funciton letter position and word length
-could be evaluated.
+for every letter position across words of every length in natural
+English text could be obtained, then the letter uncertainty for each
+position by word length could be calculated; and, correspondence between
+letter uncertainty and interkeystroke intervals as a function of letter
+position and word length could be evaluated.
 
 Our empirical question also ties into the well known application of
 information theory to choice-reaction time performance. For example,
@@ -309,9 +309,9 @@ explanation of the dependency is required.
 
 \subsection{Overview of present study}\label{overview-of-present-study}
 
-We first replicate Ostry's (1983) analysis of interkeystroke intervals
+We first reproduce Ostry's (1983) analysis of interkeystroke intervals
 as a function of letter position and word length. We used the dataset
-collected by Crump \& Behmer, who had 346 typists copy type five
+collected by Crump \& Behmer (2016), who had 346 typists copy type five
 paragraphs of natural english text. Then we estimated letter uncertainty
 in natural english for each letter position in words of different
 lengths. We used letter frequency counts from google's ngram project
@@ -324,71 +324,41 @@ automatization provides a working process model explaining how a general
 memory process could cause typing performance to be constrained by
 letter uncertainty.
 
-Hicks Law refers to the noticeable slowing of responses in choice
-reaction experiments when the possible stimuli are less predictable.
-
-Hicks in his experiment, \enquote{On the rate of gain of information},
-tested his reaction speed on a choice reaction test. During each trial
-he had to determine which of n lights was turned on. He manipulated the
-set size n, and found that the greater the number of alternatives the
-slower his response. His data also suggested that reaction speed is
-linearly related to the predictability of responses; Trials in which
-certain responses were disproportionately more likely ellicited faster
-response times than those in which each response was equally likely.
-
-Hick's law at larger set sizes however does not have consistent
-experimental support.
-
-Conrad (1962) in an experiment which required subjects to name 320
-nonsense syllables within trials of variable number of distinct
-syllables (number of alternatives) found that the response time was
-linearly correlated with the logarithm of number of alternatives.
-However, Pierce and Karlin in 1957 in an experiment which required
-subjects to read pages of words as quickly as possible, reported no
-differences in response times between trials with set sizes that ranged
-from 4 to 256 words.\\
-Proctor and Schneider in a review of studies testing Hick's Law
-attributes the inconsistency in large set size experiments to
-differences in skill level or practice between subjects and the
-arbitrariness of Stimulus Response coding/mappings when creating more
-number of alternatives.
-
-Our experiment sought to test Hick's law on typing speeds.
-
-In this study, we used typing data from 346 typists to analyze the
-effect of letter uncertainty on response times. In essence, every letter
-typed represents one choice reaction test trial from Hick's experiment.
-In Hick's experiment, the probability of each light turning on was
-manipulated to change the H value. This is analagous to the probability
-of certain letters appearing at a specific position in a word. Peter
-Norvig analyzed words from numerous texts and has determined the
-probability for each letter appearing at a specific position in 2 to 9
-letter words.
-
-For example, the first letter of a two letter long word is has a 9.44\%
-chance to be an \enquote{a}, 14.9\% chance to be a \enquote{t}, and a
-25\% chance to be an \enquote{i}. The third letter of a five letter long
-word is has a 13.5\% chance as an \enquote{e}, 4.91\% chance as a
-\enquote{t}, and a 11.4 \% chance as a \enquote{a}. The H indices for
-each letter position - word length pair can be calculated. The H for the
-1st Letter, 2-letter-long word (abbreviated 1:2) is 2.85. The H for the
-3rd Letter, 5-letter-long word (abbreviated 3:5) is 3.94. The
-differences in H tell us that the first letter of a two letter long word
-has lower uncertainty ie. it is more predictable than the third letter
-of a five letter long word.
-
-This combination of letter probabilities creates an H value for each
-unique pair of letter position and word length.
-
-One potential problem that can hinder our experiment's ability to test
-the Hick's Law is the fact that our typists vary in terms of their skill
-level. This means that differences in RT between subjects will generate
-noise that may hide the H effect on RTs. An advantage of testing Hick's
-Law with this data set is that the stimulus response coding is
-non-arbitrary. The letters that typists see on the screen correspond
-exactly to the letters on their keyboards.
-
 \section{Methods}\label{methods}
+
+\subsection{Participants}\label{participants}
+
+400 participants were recruited from Amazon's mechanical turk
+(restricted to people from the USA, with over 90\% completion rate).
+Data were only analyzed for the 346 participants who successfully
+completed the task (98 men, 237 women, 11 no response). Additional
+demographic information is reported in Crump \& Behmer (2016). The
+procedure was approved by the institutional review board at Brooklyn
+College of the City University of New York.
+
+\subsection{Stimuli and Apparatus}\label{stimuli-and-apparatus}
+
+From Behmer \& Crump, \enquote{Typists copy-typed five normal paragraphs
+from the Simple English Wiki, a version of the online encyclopedia
+Wikipedia written in basic English. Four of the paragraphs were from the
+entry about cats (\url{http://simple.wikipedia}. org/wiki/Cat), and one
+paragraph was from the entry for music
+(\url{http://simple.wikipedia.org/wiki/Music}). Each normal paragraph
+had an average of 131 words (range 124--137).}
+
+The apparatus was a website displaying textbox containing a single
+paragraph. Paragraph text was black, presented in 14 pt, Helvetica font.
+JavaScript was used to record keystroke timestamps in milliseconds.
+
+\subsection{Design and Procedure}\label{design-and-procedure}
+
+From Behmer \& Crump, \enquote{Participants were instructed to begin
+typing with the first letter in the paragraph. Correctly typed letters
+turned green, and typists could only proceed to the next by typing the
+current letter correctly. After completing the task, participants were
+presented with a debriefing, and a form to provide any feedback about
+the task. The task took around 30 to 45 minutes to complete.
+Participants who completed the task were paid \$1.}
 
 \subsection{Data analysis and
 pre-processing}\label{data-analysis-and-pre-processing}
@@ -410,17 +380,23 @@ François, 2011), \emph{RcppZiggurat} (Version 0.1.4; Eddelbuettel,
 1.0.3; McNamara, Arino de la Rubia, Zhu, Ellis, \& Quinn, 2018) for all
 our analyses.
 
-For each subject, we recorded timestamps for each keystroke using
-JavaScript. We applied the following pre-processing steps. We included
-IKSIs only for keystrokes involving a lower case letter, and only for
-correct keystrokes that were preceded by a correct keystroke. Outlier
-IKSIs were removed for each subject, on a cell-by-cell basis, using Van
-Selst \& Jolicoeur's (1994) non-recursive moving criterion procedure,
-which eliminated approximately X\% of IKSIs from further analysis.
+For each subject, we applied the following pre-processing steps. We
+included IKSIs only for keystrokes involving a lower case letter, and
+only for correct keystrokes that were preceded by a correct keystroke.
+Outlier IKSIs were removed for each subject, on a cell-by-cell basis,
+using Van Selst \& Jolicoeur's (1994) non-recursive moving criterion
+procedure, which eliminated approximately X\% of IKSIs from further
+analysis.
 
 \section{Results}\label{results}
 
 \subsection{Typing Performance}\label{typing-performance}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Entropy_typing_draft_files/figure-latex/typing_mean_iksis_comparisons-1.pdf}
+\caption{}
+\end{figure}
 
 For each subject, we calculated mean IKSIs as a function of letter
 position and word length. The letter position and word length factors
@@ -436,12 +412,6 @@ due to chance, F (44,15180) = 276.74, MSE = 1,269.66, p \textless{}
 .001. Visual inspection of figure X shows several trends across the
 means consistent with first-letter slowing and mid-word slowing reported
 by Ostry (1983).
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{Entropy_typing_draft_files/figure-latex/typing_mean_iksis_comparisons-1.pdf}
-\caption{}
-\end{figure}
 
 Our more important aim was to determine whether variation among these
 means can be explained by variation in letter uncertainty. For this
@@ -464,21 +434,19 @@ books. Letter frequency counts for letters a to z, for each position in
 words from length one to nine, were obtained from Norvig ().
 
 For each letter frequency distribution, we computed Shannon's H
-(entropy) to quantify letter uncertainty.
-
-We converted each letter frequency distribution to a probability
-distribution then calculated H for each distribution. Figure 3 displays
-estimates of letter uncertainty (H) as a function of letter position and
-word length. Visual inspection of the graph shows that variation in
-letter uncertainty maps closely onto variation in mean IKSI (Figure 1)
-as a function of position and word length. In particular, letter
-uncertainty and mean IKSI for position one as a function of word length
-appear highly similar. And for the remaining positions, letter
-uncertainty shows an inverted U- shape with greater letter uncertainty
-in the middle rather than the beginning and endings of words. This
-suggests that natural variation of letter uncertainty across position
-and word in English may account for aspects of the first-letter and
-mid-word slowing phenomena in typing.
+(entropy) to quantify letter uncertainty. We converted each letter
+frequency distribution to a probability distribution then calculated H
+for each distribution. Figure 3 displays estimates of letter uncertainty
+(H) as a function of letter position and word length. Visual inspection
+of the graph shows that variation in letter uncertainty maps closely
+onto variation in mean IKSI (Figure 1) as a function of position and
+word length. In particular, letter uncertainty and mean IKSI for
+position one as a function of word length appear highly similar. And for
+the remaining positions, letter uncertainty shows an inverted U- shape
+with greater letter uncertainty in the middle rather than the beginning
+and endings of words. This suggests that natural variation of letter
+uncertainty across position and word in English may account for aspects
+of the first-letter and mid-word slowing phenomena in typing.
 
 \subsection{Letter Uncertainty and Mean
 IKSI}\label{letter-uncertainty-and-mean-iksi}
@@ -579,8 +547,6 @@ word length. A linear regression on mean IKSIs using our new measure of
 letter uncertainty as the independent variable showed a strong positive
 relationship, F(1, 43) = 182.44, p = 4.5e-17, \(R^2 =\) 0.81 ( meanIKSI
 = 73.72 \(+\) 39.31 \(* H\) ).
-
-\section{Discussion}\label{discussion}
 
 \section{An instance-based model}\label{an-instance-based-model}
 
