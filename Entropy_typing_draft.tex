@@ -147,16 +147,16 @@ Performance \\
 
 
 \usepackage{amsthm}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{corollary}{Corollary}
-\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}
+\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}
+\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
@@ -178,7 +178,7 @@ processes (Jacoby \& Brooks, 1984; Kolers \& Roediger, 1984; Rumelhart
 experience with a structured environment (Clark, 2008). Valid theories
 produce explanations of phenomena by deduction from their processing
 assumptions, and then compete with other valid theories on the basis of
-parsimony. When a phenomena is explained by a general process,
+parsimony. When a phenomenon is explained by a general process,
 specialized accounts become sufficient, but not necessary; and, vice
 versa. We continue in this tradition by proposing and validating a
 general process account of keystroke dynamics in skilled typing
@@ -189,17 +189,20 @@ language environment.
 We identified the following pre-requisites as necessary for our
 approach. We follow the assumption that specialized or general processes
 of cognition are constrained to operate upon the structure of their
-environmental inputs. So, we require a tool for describing the structure
-of environmental inputs. We assume that performance is driven by
-learning processes sensitive to the structure in the environment. So, we
-require a model that articulates how learning about the structure of an
-environment produces performance. Finally, we require a task where the
-relation between performance and a structured environment can be
-measured. We use information theory (Shannon \& Weaver, 1998) to measure
-the structure of the letters that typists' type, instance theory (Gordon
-D. Logan, 1988) to model how typists' performance is shaped by the
-typing environment, and the task of continuous typing (Gordon D. Logan
-\& Crump, 2011) to measure keystroke dynamics as a function of the
+environmental inputs. This requires both an accurate measure of the
+environment, and a tool for describing the structure of environmental
+inputs. We assume that performance is driven by learning processes
+sensitive to the structure in the environment. So, we require a model
+that articulates how learning about the structure of an environment
+produces performance. Finally, we require a task where the relation
+between performance and a structured environment can be measured. We
+mined the Google Books NGrams data (), a massive naturally occurring
+data set (Goldstone \& Lupyan, 2016), for an accurate measure of letter
+frequencies; information theory (Shannon \& Weaver, 1998) to measure the
+structure of the letters that typists' type; instance theory (Gordon D.
+Logan, 1988) to model how typists' performance is shaped by the typing
+environment; and the task of continuous typing (Gordon D. Logan \&
+Crump, 2011) to measure keystroke dynamics as a function of the
 structure in the typing environment.
 
 There are many typing phenomena to explain (Salthouse, 1986), and
@@ -352,7 +355,7 @@ encyclopedia Wikipedia written in basic English. Four of the paragraphs
 were from the entry about cats (\url{http://simple.wikipedia}.
 org/wiki/Cat), and one paragraph was from the entry for music
 (\url{http://simple.wikipedia.org/wiki/Music}). Each normal paragraph
-had an average of 131 words (range 124--137).}
+had an average of 131 words (range 124â137).}
 
 The apparatus was a website displaying textbox containing a single
 paragraph. Paragraph text was black, presented in 14 pt, Helvetica font.
@@ -371,19 +374,19 @@ complete. Participants who completed the task were paid \$1.}
 \subsection{Data analysis and
 pre-processing}\label{data-analysis-and-pre-processing}
 
-We used R (Version 3.4.2; R Core Team, 2017) and the R-packages
+We used R (Version 3.5.0; R Core Team, 2017) and the R-packages
 \emph{bindrcpp} (Version 0.2.2; Müller, 2018), \emph{bit} (Oehlschlägel,
 2017, Version 1.1.14; 2018), \emph{bit64} (Version 0.9.7; Oehlschlägel,
 2017), \emph{Crump} (Version 1.0; M. Crump, 2017), \emph{data.table}
-(Version 1.10.4.3; Dowle \& Srinivasan, 2017), \emph{dplyr} (Version
+(Version 1.11.2; Dowle \& Srinivasan, 2017), \emph{dplyr} (Version
 0.7.4; Wickham, Francois, Henry, \& Müller, 2017), \emph{ggplot2}
 (Version 2.2.1; Wickham, 2009), \emph{ggpubr} (Version 0.1.6;
 Kassambara, 2017), \emph{knitr} (Version 1.20; Xie, 2015),
 \emph{magrittr} (Version 1.5; Bache \& Wickham, 2014), \emph{papaja}
-(Version 0.1.0.9655; Aust \& Barth, 2018), \emph{Rcpp} (Eddelbuettel,
-2017; Eddelbuettel \& Balamuta, 2017; Version 0.12.17; Eddelbuettel \&
-François, 2011), \emph{RcppZiggurat} (Version 0.1.4; Eddelbuettel,
-2017), \emph{Rfast} (Version 1.8.8; Papadakis et al., 2018),
+(Version 0.1.0.9709; Aust \& Barth, 2018), \emph{Rcpp} (Eddelbuettel,
+2017; Eddelbuettel \& Balamuta, 2017; Version 0.12.16; Eddelbuettel \&
+François, 2011), \emph{RcppZiggurat} (Version 0.1.5; Eddelbuettel,
+2017), \emph{Rfast} (Version 1.9.0; Papadakis et al., 2018),
 \emph{rlist} (Version 0.4.6.1; Ren, 2016), and \emph{skimr} (Version
 1.0.3; McNamara, Arino de la Rubia, Zhu, Ellis, \& Quinn, 2018) for all
 our analyses.
@@ -400,7 +403,7 @@ analysis.
 
 \subsection{Typing Performance}\label{typing-performance}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{Entropy_typing_draft_files/figure-latex/typing_mean_iksis_comparisons-1.pdf}
 \caption{}
@@ -470,7 +473,7 @@ Figure 4 shows a plot of mean IKSIs taken from all positions and word
 lengths against letter uncertainty. The scatterplot shows a general
 trend for mean IKSI to increase as a function of letter uncertainty.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{Entropy_typing_draft_files/figure-latex/letter_uncertainty_by_IKSI-1.pdf}
 \caption{}
@@ -541,7 +544,7 @@ our measure of letter uncertainty for each position and word length.
 Figure X shows mean H conditionalized by n-1 letter identity, as a
 function of letter position and word length.
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{Entropy_typing_draft_files/figure-latex/letter_uncertainty_bigram-1.pdf}
 \caption{}
@@ -814,13 +817,13 @@ shown that a cognitive process has more knowledge than the structure in
 an environment could provide.
 
 Information theory spurred the cognitive revolution (Hick, 1952; Hyman,
-1953; Miller, 1956), and although it was roundly criticized (see
-{\textbf{???}}), we think it has descriptive value useful for
+1953; Miller, 1956), and although it was roundly criticized {[}see
+procter\_hicks\_2018{]}, we think it has descriptive value useful for
 characterizing the structure in big data turning the next revolution
 (Griffiths, 2015). Our demonstration of correspondence between instance
 theory (Gordon D. Logan, 1988) and measures of uncertainty adds to the
 process models capable of accounting for uncertainty mediated phenomena
-(for a review see, {\textbf{???}}), and offers principled and
+{[}for a review see, procter\_hicks\_2018{]}, and offers principled and
 falsifiable predictions for future work.
 
 \newpage
