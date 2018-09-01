@@ -184,7 +184,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="paper/Entropy_typing_draft.html">Paper</a>
+  <a href="Entropy_typing_draft.html">Paper</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -204,18 +204,28 @@ $(document).ready(function () {
 
 <div id="entropytyping" class="section level1">
 <h1>EntropyTyping</h1>
+<p>This is an open and reproducible project being written in public on Github. The entire project is written in R Markdown, including .rmd files for analysis, and .rmd files to compile the paper in APA format using papaja (for .pdf), and this R Markdown website. In principle the source code and open data contained in this project repository should be sufficient for compiling and reproducing the paper.</p>
 <div id="public-draft-in-progress" class="section level2">
 <h2>PUBLIC DRAFT IN PROGRESS</h2>
 <p>(Everything subject to change, all changes recorded by git)</p>
-<p>A repository for collaborating on our new manuscript investigating how keystroke dynamics conform to information theoretic measures of entropy in the letters people type.</p>
-<p>We are attempting to use github as a collaborative platform for members of the lab to contribute to writing up this paper. The record of how we complete our project will be saved in the changelog for this repo. After we are done, this repo should contain</p>
-<ol style="list-style-type: decimal">
-<li>A pre-print of our manuscript (written using papaja in R)</li>
-<li>Databases used for the analyses</li>
-<li>R-scripts used for the analyses</li>
-<li><a href="https://github.com/CrumpLab/EntropyTyping/issues">A record of our conversations about the project in the issues tab</a>.</li>
+<p>This draft is currently being displayed as an R Markdown website: <a href="https://crumplab.github.io/EntropyTyping/index.html" class="uri">https://crumplab.github.io/EntropyTyping/index.html</a></p>
+<ul>
+<li>Github repository: <a href="https://github.com/CrumpLab/EntropyTyping" class="uri">https://github.com/CrumpLab/EntropyTyping</a></li>
+</ul>
+<ol style="list-style-type: lower-alpha">
+<li><p><code>EntropyTyping.proj</code> is the R-studio project file</p></li>
+<li><p><code>Entropy_typing_draft.Rmd</code> is the paper written using the papaja package</p></li>
+<li><p><code>Entropy_typing_draft.pdf</code> is the .pdf version of this paper</p></li>
+<li><p><code>mturk.txt.zip</code> is the raw data</p></li>
+<li><p><code>Entropy_typing_analysis.r</code> contains the analysis scripts for the paper. These scripts are linked to in the <code>Entropy_typing_draft.Rmd</code></p></li>
+<li><p>the <code>_history</code> folder contains additional analysis files made by the authors throughout the course of the project</p></li>
+<li><p><code>r-references.bib</code> contains the bibliography file</p></li>
+<li><p><code>the_data.Rdata</code> contains the data used in the present analysis</p></li>
+<li><p><code>index.Rmd</code>, <code>_site.yml</code>, <code>webpaper.css</code> contain files for compiling this website. The website files are saved in the <code>docs</code> folder, and served on the web using the github pages option for this repository.</p></li>
 </ol>
-<p>notes: .rmd files contain R-scripts usually for analysis, or for writing the paper. We compile the .rmd files into .md files which can be viewed in Github along with graphs. The compiled .html files can be downloaded and viewed in a browser</p>
+<ul>
+<li>The <a href="https://github.com/CrumpLab/EntropyTyping/issues">issues tab of the github repository</a> contains threaded discussions we had (are having) about this project</li>
+</ul>
 </div>
 </div>
 

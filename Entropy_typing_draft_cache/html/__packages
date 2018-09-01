@@ -1,0 +1,17 @@
+base
+papaja
+knitr
+data.table
+dplyr
+ggplot2
+Crump
+magrittr
+ggpubr
+bindrcpp
+Rcpp
+RcppZiggurat
+Rfast
+skimr
+rlist
+bit
+bit64

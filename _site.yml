@@ -5,6 +5,6 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Paper"
-      href: paper/Entropy_typing_draft.html
+      href: Entropy_typing_draft.html
 output_dir: "docs"
 exclude: ["mturk.txt.zip"]
