@@ -8,6 +8,7 @@ This is an open and reproducible project being written in public on Github. The 
 This draft is currently being displayed as an R Markdown website: [https://crumplab.github.io/EntropyTyping/index.html](https://crumplab.github.io/EntropyTyping/index.html)
 
 - Github repository: [https://github.com/CrumpLab/EntropyTyping](https://github.com/CrumpLab/EntropyTyping)
+
       a. `EntropyTyping.proj` is the R-studio project file
       b. `Entropy_typing_draft.Rmd` is the paper written using the papaja package
       c. `Entropy_typing_draft.pdf` is the .pdf version of this paper
