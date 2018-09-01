@@ -10,7 +10,7 @@ This draft is currently being displayed as an R Markdown website: [https://crump
 This repository contains:
 - `EntropyTyping.proj` is the R-studio project file
 - `mturk.txt.zip` is the raw data
-- the `paper` folder conains
+- the files for compiling the paper are:
   - `Entropy_typing_draft.Rmd` is the paper written using the papaja package
   - `Entropy_typing_draft.pdf` is the .pdf version of this paper
   - `Entropy_typing_analysis.r` contains the analysis scripts for the paper. These scripts are linked to in the `Entropy_typing_draft.Rmd`
