@@ -1,0 +1,120 @@
+---
+title: "SequentialProbability"
+author: "Walter"
+date: "June 27, 2018"
+output: html_document
+---
+
+
+Goal was to make a program that sampled experiment items based on sequential probability
+not based ona frequency distribution
+Previously we sampled items for our simulations using freq distribution:
+```{r}
+#high_entropy <- c(0.4,0.3,0.3)
+#choice=sample(sampleSet,1,prob=high_entropy,replace=T)
+
+```
+In this example item 1 has 0.4 chance and the others have 0.3 chance of being chosen.  
+Everytime the experiment chooses another item it takes based on this sampling distribution.  
+For a given frequency distribution, we can manipulate the probability of repetition of 
+an item twice.  Instead of choosing from the same frequency distribution
+everytime we select a new item, we can create a new freq. distribution. that
+makes it more likely to select our previous choice again to increase repeatability.
+
+
+```{r}
+probChart=matrix(c(0.7,0.25,0.25,0.3/2,0.7,0.05,0.3/2,0.05,0.7),ncol=3,nrow=3)
+probChart
+```
+In this example chart, the rows represent the previous choice.  Each row is a frequency
+distribution, you can check they all add up to 1.  
+The chart tells us the probability of choosing the column's item based on the previous 
+choice, the row.  
+THe probability of choosing item 2 right after item 1 is 0.15.  
+You can also see that the diagonal is all 0.7, which means the chances of choosing same
+choice is 0.7, the repeatability.
+
+I want to make a program that can 1) calculate the probability of stimuli pairs
+and 2) sample from a given row's probability distribution for a given previous choice.
+
+I will explain how I calculated this probability chart later post.
+This program will sample items from a stimuli set based on this chart.
+If we add up all the sequential probabilities, item 1  has a total probability
+of 0.4 and the other items have a probability of 0.3.  
+
+```{r}
+colSums(probChart)
+```
+
+This program will sample 3 items with a fixedd repeatability value and
+one stimuli will be unequally likely to be selected while the others are equally likely:
+
+```{r}
+amount_of_practice=1000
+
+repeatability=0.7
+numAlts=3
+#prob unequal has to be less than 1-repeatability
+probUneq=0.4
+probEq=(1-probUneq)/(numAlts-1)
+
+A=matrix(c(1,numAlts-1,(numAlts-2),-((probUneq/probEq)*(numAlts-2))),nrow = 2, ncol=2)
+b=c((1-repeatability),(probUneq/probEq)*((1-repeatability)/(numAlts-1)+repeatability)
+      -repeatability)
+#y will be the probability of the unequal one being selected when previous was equal one
+y=solve(A,b)[1]
+#x will be the probability of the equal one being selected when previous was equal one
+x=solve(A,b)[2]
+
+
+sampleSet=seq(1,numAlts,1)
+
+
+
+# this vector will contain all the chosen items during the experiment
+high_entropy_trials=c()
+# high entropy is the frequency distribution that the sample function will use
+# this time high entropy's 1st index will contain the unequal stimulus
+high_entropy <- c(probUneq,rep(probEq,numAlts-1))
+# choice is which item gets chosen each trial 
+choice=sample(sampleSet,1,prob=high_entropy,replace=T)
+
+
+for(i in 1:amount_of_practice)
+{    
+  
+  #everything other item's chance of being chosen is still equal
+  # so Entropy is held constant
+  if(choice==1)
+  high_entropy=rep((1-repeatability)/(numAlts-1),numAlts)
+  else
+  {
+    high_entropy=rep(x,numAlts)
+    high_entropy[1]=y
+  }
+  # the chances of choosing the same item from last trial is
+  #controlled by the declared repeatability value
+  high_entropy[choice]=repeatability
+  #store choice so next trial the repeatability can determine how likely 
+  #to choose choice again
+  choice <- sample(sampleSet,1,prob=high_entropy,replace=T)
+  
+  high_entropy_trials=c( high_entropy_trials,choice)
+}
+
+counts=unique(high_entropy_trials)
+letter_trace_frequencies=c()
+# this loop will determine how many traces per item
+# based on how many times it was chosen and placed in hiEntropyTrials
+for(z in 1:length(counts))
+  letter_trace_frequencies=c(letter_trace_frequencies,length(which(high_entropy_trials==counts[z])))
+
+counts
+letter_trace_frequencies
+```
+If we look at the counts, we see that one of the items got chosen 400 times while the
+others were chosen around 300 times.  
+THe next step is to manipulate the probability of unequal item so that the set
+is less equiprobable, H drops while we fix the repeatability.
+
+Then we can get the mean retrieval times for each H, while we fix repeatability to see if H affects retrieval times.
