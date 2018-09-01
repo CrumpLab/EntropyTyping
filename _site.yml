@@ -1,0 +1,10 @@
+name: "Entropy Typing"
+navbar:
+  title: "Entropy Typing"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Paper"
+      href: Entropy_typing_draft.html
+output_dir: "docs"
+exclude: ["mturk.txt.zip", "the_data.Rdata"]

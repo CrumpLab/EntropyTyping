@@ -22,7 +22,7 @@ author_note: |
   [https://github.com/CrumpLab/EntropyTyping](https://github.com/CrumpLab/EntropyTyping) is the github repository for this project, which was conceived and completed entirely in public. The repository contains the data, source code for compiling the analysis and modeling scripts in R, source code for compiling this paper in R using papaja, and the version controlled history of our discussions and work across the project.
   
 abstract: |
-  Enter abstract here. Each new line herein must be indented, like this line.
+  How does prior experience shape skilled performance in structured environments? We use skilled typing of natural text to evaluate correspondence between performance (keystroke timing) and structure in the environment (letter uncertainty). We had ~350 typists copy-type english text. We reproduced Ostry's (1983) analysis of interkeystroke interval as a function of letter position and word length, which showed prominent first-letter and mid-word slowing effects. We propose a novel account that letter position and word length effects on keystroke dynamics reflect informational uncertainty about letters in those locations, rather than resource limited planning/buffering processes. We computed positional uncertainty for letters in all positions of words from length one to nine using Google's n-gram database. We show that variance in inter-keystroke interval by letter position and word length tracks natural variation in letter uncertainty. Finally, we provide a model showing how a general learning and memory process could acquire sensitivity to patterns of letter uncertainty in natural english. In doing so, we draw an equivalence between Logan's (1988) instance theory of automatization and Shannon's measure of entropy (H) from information theory. Instance theory's predictions for automatization as a function of experience follow exactly the uncertainty in the choice set being automatized. As a result, instance theory stands as a general process model explaining how context-specific experiences in a structured environment tune skilled performance.
   
 keywords          : "Instance Theory, Information Theory, Entropy, Uncertainty, Typing, Performance"
 wordcount         : "X"
@@ -37,8 +37,22 @@ lineno            : no
 mask              : no
 
 class             : "man"
-output            : papaja::apa6_pdf
+output:
+  bookdown::html_document2:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 2
+    code_folding: hide
+    css: webpaper.css
 ---
+
+```{r setup, include=FALSE, eval=TRUE,echo=FALSE}
+#options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(message=FALSE,warning=FALSE, cache = FALSE)
+```
+
 
 ```{r load_packages, include = FALSE}
 library("papaja")
@@ -49,10 +63,37 @@ library("papaja")
 set.seed(42)
 ```
 
+<!--
+
+**PDF**
+compile to pdf by setting yaml to
+output            : papaja::apa6_pdf
+
+Also, move index.rmd and _site.yml to temp
+
+
+**HTML**
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    collapsed: false
+    number_sections: false
+    toc_depth: 2
+    code_folding: hide
+    css: webpaper.css
+
+also place index.rmd and _site.yml into root
+
+-->
+
+
 <!-- Big issues: how people learn about the structure of their environment
    - need to have a way to measure the structure in the environment (information theory)
    - need to have a theory/model about how structure in the enviroment is learned (instance theory
    - need to have laboratory/real-world environment where behavior in interaction with environment can be measured (typing) -->
+   
+# Introduction
    
 Theories of cognitive processes run along a continuum. On one extreme, cognitive phenomena are explained in terms specialized and dedicated modules [@fodor_modularity_1983] that give rise to cognition by the principles of their internal processing architecture. On the other extreme, cognitive phenomena are explained in terms of general learning and memory processes [@JacobyNonanalyticcognitionMemory1984; @KolersProceduresmind1984; @rumelhart_parallel_1986] that give rise to cognition through their experience with a structured environment [@clark_supersizing_2008]. Valid theories produce explanations of phenomena by deduction from their processing assumptions, and then compete with other valid theories on the basis of parsimony. When a phenomena is explained by a general process, specialized accounts become sufficient, but not necessary; and, vice versa. We continue in this tradition by proposing and validating a general process account of keystroke dynamics in skilled typing performance. We show that keystroke dynamics can emerge from a general memory process sensitive to structure (uncertainty) in the natural language environment.
 
@@ -155,29 +196,36 @@ read_chunk('Entropy_typing_analysis.r')
 ```{r typing_mean_iksis_plot, messages=FALSE, warning=F}
 ```
 
-```{r typing_mean_iksis_comparisons, messages=FALSE, warning=F}
+
+(ref:typing-mean-iksis-comparisons) Panel A shows mean interkeystroke intervals (ms) for each letter position as a function of word length. Panel B shows paired samples t-tests for all comparisons between means in panel A. Light grey indicates a significant mean difference (Bonferonni corrected).
+
+
+```{r typing-mean-iksis-comparisons, messages=F, warning=F, fig.cap='(ref:typing-mean-iksis-comparisons)'}
 ```
 
-For each subject, we calculated mean IKSIs as a function of letter position and word length. The letter position and word length factors were not factorially crossed. To determine whether there were differences among the means we submitted the means to a single factor repeated measures design with 45 levels (e.g., letter position|word length: 1|1, 1|2, 2|2, ... 9|9). Figure 1 shows mean IKSIs collapsed over subjects, as a function of letter position and word length.
+For each subject, we calculated mean IKSIs as a function of letter position and word length. The letter position and word length factors were not factorially crossed. To determine whether there were differences among the means we submitted the means to a single factor repeated measures design with 45 levels (e.g., letter position|word length: 1|1, 1|2, 2|2, ... 9|9). Figure \@ref(fig:typing-mean-iksis-comparisons) shows mean IKSIs collapsed over subjects, as a function of letter position and word length.
 
-The omnibus test indicated differences among the means were not likely due to chance, F (`r Exp1_ANOVA$df1`,`r Exp1_ANOVA$df2`) = `r Exp1_ANOVA$f`, MSE = `r Exp1_ANOVA$mse`, p < .001. Visual inspection of figure X shows several trends across the means consistent with first-letter slowing and mid-word slowing reported by Ostry (1983).
+The omnibus test indicated differences among the means were not likely due to chance, F (`r Exp1_ANOVA$df1`,`r Exp1_ANOVA$df2`) = `r Exp1_ANOVA$f`, MSE = `r Exp1_ANOVA$mse`, p < .001. Visual inspection of Figure \@ref(fig:typing-mean-iksis-comparisons)  shows several trends across the means consistent with first-letter slowing and mid-word slowing reported by Ostry (1983).
 
-Our more important aim was to determine whether variation among these means can be explained by variation in letter uncertainty. For this reason we do not exhaustively discuss all of the possible 990 differences among these 45 conditions. Nevertheless, we conducted all 990 comparisons using bonferroni corrected paired samples t-tests. The results are displayed in Figure 1B graphs the absolute mean differences between conditions using light gray to indicate comparisons where, p < .05/990 = .0000505. The overwhelming majority of comparisons showed differences unlikely to be produced by chance. This demonstrates systematic effects of letter position and word length on mean interkeystroke interval.
+Our more important aim was to determine whether variation among these means can be explained by variation in letter uncertainty. For this reason we do not exhaustively discuss all of the possible 990 differences among these 45 conditions. Nevertheless, we conducted all 990 comparisons using bonferroni corrected paired samples t-tests. The results are displayed in Figure  \@ref(fig:typing-mean-iksis-comparisons)B; which shows whether mean differences between conditions were significant, using light gray to indicate comparisons where, p < .05/990 = .0000505. The overwhelming majority of comparisons showed differences unlikely to be produced by chance. This demonstrates systematic effects of letter position and word length on mean interkeystroke interval.
 
 ## Letter Uncertainty by position and word length
 
 The primary question of interest was whether natural variation in letter uncertainty explains variance in mean IKSI by position and word length. We estimated letter uncertainty by position and word length from Google's Ngram database [https://books.google.com/ngrams](https://books.google.com/ngrams), which provides frequency counts of letters and words occuring in Google's massive corpus of millions of digitized books. Letter frequency counts for letters a to z, for each position in words from length one to nine, were obtained from Peter Norvig's website [http://norvig.com/mayzner.html](http://norvig.com/mayzner.html).
 
-For each letter frequency distribution, we computed Shannon's H (entropy) to quantify letter uncertainty. We converted each letter frequency distribution to a probability distribution then calculated H for each distribution. Figure 3 displays estimates of letter uncertainty (H) as a function of letter position and word length. Visual inspection of the graph shows that variation in letter uncertainty maps closely onto variation in mean IKSI (Figure 1) as a function of position and word length. In particular, letter uncertainty and mean IKSI for position one as a function of word length appear highly similar. And for the remaining positions, letter uncertainty shows an inverted U- shape with greater letter uncertainty in the middle rather than the beginning and endings of words. This suggests that natural variation of letter uncertainty across position and word in English may account for aspects of the first-letter and mid-word slowing phenomena in typing.
+For each letter frequency distribution, we computed Shannon's H (entropy) to quantify letter uncertainty. We converted each letter frequency distribution to a probability distribution then calculated H for each distribution. Panel A of Figure \@ref(fig:letter-uncertainty-by-IKSI) displays estimates of letter uncertainty (H) as a function of letter position and word length. Visual inspection of the graph shows that variation in letter uncertainty maps closely onto variation in mean IKSI (Figure \@ref(fig:typing-mean-iksis-comparisons)) as a function of position and word length. In particular, letter uncertainty and mean IKSI for position one as a function of word length appear highly similar. And for the remaining positions, letter uncertainty shows an inverted U- shape with greater letter uncertainty in the middle rather than the beginning and endings of words. This suggests that natural variation of letter uncertainty across position and word in English may account for aspects of the first-letter and mid-word slowing phenomena in typing.
 
 ## Letter Uncertainty and Mean IKSI
 
-If the Hick-Hyman law applied to continuous typing we would expect a neat linear relationship between mean IKSIs and letter uncertainty. Figure 4 shows a plot of mean IKSIs taken from all positions and word lengths against letter uncertainty. The scatterplot shows a general trend for mean IKSI to increase as a function of letter uncertainty.
+If the Hick-Hyman law applied to continuous typing we would expect a neat linear relationship between mean IKSIs and letter uncertainty. Panel B of Figure \@ref(fig:letter-uncertainty-by-IKSI) shows a plot of mean IKSIs taken from all positions and word lengths against letter uncertainty. The scatterplot shows a general trend for mean IKSI to increase as a function of letter uncertainty.
 
 ```{r letter_uncertainty, messages=FALSE, warning=F}
 ```
 
-```{r letter_uncertainty_by_IKSI, messages=FALSE, warning=F, fig.width=6.875}
+(ref:letter-uncertainty-by-IKSI) Panel A shows measures of letter uncertainty (H, from google n-gram corpus) for each letter position as a function of word length. Panel B plots mean interkeystroke interval (ms) for each letter position and word length as a function of letter uncertainty (H). The word length condition for each dot is represented by the number on the figure, the shade of grey indicates letter position.
+
+
+```{r letter-uncertainty-by-IKSI, messages=FALSE, warning=F, fig.width=6.875, fig.cap="(ref:letter-uncertainty-by-IKSI)" }
 ```
 
 A linear regression with group mean IKSIs (collapsed over subjects) as the dependent variable, and letter uncertainty as the independent variable showed a significant positive trend, F(`r lr_results$fstatistic[2]`, `r lr_results$fstatistic[3]`) = `r lr_results$fstatistic[1]`, p = `r sprintf(as.character(signif(lr_results$coefficients[2,4],digits=2)))`, $R^2 =$ `r  lr_results$r.squared` ( meanIKSI =  `r lr_results$coefficients[1,1]` $+$ `r lr_results$coefficients[2,1]` $* H$ ). We also conducted separate linear regressions for each subject and found similar results. For example, the mean correlation was r = `r skim_out$numeric$mean[2]` (SE = `r skim_out$numeric$SE[2]`); mean $R^2$ = `r skim_out$numeric$mean[3]` (SE = `r skim_out$numeric$SE[3]`); and mean p = `r skim_out$numeric$mean[1]` (SE = `r skim_out$numeric$SE[1]`).
@@ -195,15 +243,17 @@ This pattern invites a dual-process interpretation. For example, first-letter sl
 
 Determining whether first-letter and mid-word slowing could emerge from a process sensitive to letter uncertainty depends on how letter uncertainty is calculated. Letter uncertainty can be calculated from any discrete probability distribution of letters. In the previous section we somewhat arbitrarily calculated letter uncertainty separately for each letter position in words of length one to nine. However, the number of alternative schemes is vast. For example, we could further conditionalize our postion by word length probability distributions by the letter identities of letters occuring in any position n-1 to n-x, or n+1 to n+y of a specific position. Furthermore, we could conditionalize letter distributions upon any permissible number of preceding or succeeding n-grams (groups of letters). 
 
-Although an exhaustive calculation of letter uncertainty is beyond the scope of this paper, we nevertheless took one further step and calculated letter uncertainty by position and word length, conditionalizing upon n-1 letter identity. Fortunately, Norvig ([http://norvig.com/mayzner.html](http://norvig.com/mayzner.html))  also provided bigram frequency counts from the Google Ngram corpus as a function of position and word length. We calculated letter uncertainty in the following manner. First position letters have no preceding letter, so H as a function of word length was identical to our prior calculation. For letters in positions two to nine, for all word lengths, we calculated H for every n-1 letter identity, and then took the mean H for each position and length. For example, the second position of a two-letter word has a maximum of 26 letter probability distributions, one for each possible n-1 letter (a to z). We calculated H for all n-1 distributions, then took the mean H as our measure of letter uncertainty for each position and word length. Figure X shows mean H conditionalized by n-1 letter identity, as a function of letter position and word length.
+Although an exhaustive calculation of letter uncertainty is beyond the scope of this paper, we nevertheless took one further step and calculated letter uncertainty by position and word length, conditionalizing upon n-1 letter identity. Fortunately, Norvig ([http://norvig.com/mayzner.html](http://norvig.com/mayzner.html))  also provided bigram frequency counts from the Google Ngram corpus as a function of position and word length. We calculated letter uncertainty in the following manner. First position letters have no preceding letter, so H as a function of word length was identical to our prior calculation. For letters in positions two to nine, for all word lengths, we calculated H for every n-1 letter identity, and then took the mean H for each position and length. For example, the second position of a two-letter word has a maximum of 26 letter probability distributions, one for each possible n-1 letter (a to z). We calculated H for all n-1 distributions, then took the mean H as our measure of letter uncertainty for each position and word length. Panel A of Figure \@ref(fig:letter-uncertainty-bigram) shows mean H conditionalized by n-1 letter identity, as a function of letter position and word length.
 
-```{r letter_uncertainty_bigram, messages=FALSE, warning=F,fig.width=6.875}
+(ref:letter-uncertainty-bigram) Panel A shows measures of bigram uncertainty (H, from google n-gram corpus) for each letter position as a function of word length. Panel B plots mean interkeystroke interval (ms) for each letter position and word length as a function of bigram uncertainty (H). The word length condition for each dot is represented by the number on the figure, the shade of grey indicates letter position.
+
+```{r letter-uncertainty-bigram, messages=FALSE, warning=F,fig.width=6.875, fig.cap="(ref:letter-uncertainty-bigram)"}
 ```
 
 
-Unsurprisingly, letter identity becomes more predictable when n-1 letter identity is known. Compared to the letter uncertainty measures in Figure X, we see that H for letters in positions two to nine is much lower when n-1 letter identity is taken into account. More important, the pattern of H in Figure X much more closely resembles the pattern of mean IKSIs in Figure X.
+Unsurprisingly, letter identity becomes more predictable when n-1 letter identity is known. Compared to the letter uncertainty measures in Figure \@ref(fig:letter-uncertainty-by-IKSI), we see that H for letters in positions two to nine is much lower when n-1 letter identity is taken into account. More important, the pattern of H in Figure \@ref(fig:letter-uncertainty-bigram) much more closely resembles the pattern of mean IKSIs in Figure \@ref(fig:letter-uncertainty-by-IKSI).
 
-Figure X displays a scatterplot of mean IKSIs as a function of letter uncertainty conditionalized by letter n-1 identity across positions and word length. A linear regression on mean IKSIs using our new measure of letter uncertainty as the independent variable showed a strong positive relationship, F(`r lr_results_bigram$fstatistic[2]`, `r lr_results_bigram$fstatistic[3]`) = `r lr_results_bigram$fstatistic[1]`, p = `r sprintf(as.character(signif(lr_results_bigram$coefficients[2,4],digits=2)))`, $R^2 =$ `r  lr_results_bigram$r.squared` ( meanIKSI =  `r lr_results_bigram$coefficients[1,1]` $+$ `r lr_results_bigram$coefficients[2,1]` $* H$ ).
+Panel B of Figure \@ref(fig:letter-uncertainty-bigram) displays a scatterplot of mean IKSIs as a function of letter uncertainty conditionalized by letter n-1 identity across positions and word length. A linear regression on mean IKSIs using our new measure of letter uncertainty as the independent variable showed a strong positive relationship, F(`r lr_results_bigram$fstatistic[2]`, `r lr_results_bigram$fstatistic[3]`) = `r lr_results_bigram$fstatistic[1]`, p = `r sprintf(as.character(signif(lr_results_bigram$coefficients[2,4],digits=2)))`, $R^2 =$ `r  lr_results_bigram$r.squared` ( meanIKSI =  `r lr_results_bigram$coefficients[1,1]` $+$ `r lr_results_bigram$coefficients[2,1]` $* H$ ).
 
 # An instance-based model
 

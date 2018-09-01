@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title></title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Entropy Typing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Entropy_typing_draft.Rmd">Paper</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+
+</div>
+
+
+<div id="instance-theory-of-automatization-for-1-s-r-pair" class="section level1">
+<h1>Instance theory of automatization for 1 S-R pair</h1>
+<p>The idea:</p>
+<p>Everytime you practice this one stimulus-response pair (let’s say seeing A, and typing A), you store a trace of that experience in memory. One trace for each each experience.</p>
+<p>Assumption: Cue-driven retrieval</p>
+<p>Every time to see the stimulus A, it causes the retrieval of the instances in memory of you previously responding to that stimulus. In this way, you can let your memory for your previous response guide your response to the current stimulus</p>
+<p>Assumption: Each trace has it’s own retrieval time</p>
+<p>The speed of memory retrieval depends on a winner-takes-all face. When you see A, all of the traces in memory for A get retrieved. BUT, they all get retrieved with different speeds. Some traces come back faster, and some slower. Naturally, the fastest single trace comes back first.</p>
+<p>Modelling the practice curve:</p>
+<p>At each step in practice, you have one more memory trace in your memory. Each memory trace has a unique retrieval time that is sampled from some distribution. The fastes one always wins. In general, the more instances you have in memory, the more fast traces you will. So, if performance (that is driven by memory retrieval) depends on the speed of the fastest memory, then performance will gradually get faster with practice, because across practice people will have a higher probablility of storing a faster and faster memory trace.</p>
+<p>Some code:</p>
+<pre><code>performance &lt;- c()
+
+for (traces in 1:500){
+  memory_retrieval_time &lt;- min(rnorm(traces, mean = 500, sd = 100))
+  performance           &lt;- c(performance,memory_retrieval_time)
+}
+
+plot(performance)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-1-1.png" />
+
+</div>
+<p>The above get’s the idea across, but it’s a hacky approach. None of the individual memories are saved, here is a different way:</p>
+<pre><code># get 100 memory traces, across 100 practice attempts, each with their own retrieval time
+
+memory_retrieval_times &lt;- rnorm(100, mean = 500, sd = 100) # we could use a differnet distribution if we wanted
+
+performance &lt;- length(100)
+
+for(trial in 1:100){
+  performance[trial] &lt;- min(memory_retrieval_times[1:trial]) # fastest one always wins
+}
+
+plot(performance)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-2-1.png" />
+
+</div>
+<p>Interesting, that this way of doing it produces step-functions. At any point in practice, whichever trace has the fastest retrieval time always wins and determines speed of performance. You can for stretches in practice where the new memories do not have faster retrieval times than the fastest existing memory. Let’s look at this over 1,000 trials.</p>
+<pre><code>memory_retrieval_times &lt;- rnorm(1000, mean = 500, sd = 100) # we could use a differnet distribution if we wanted
+
+performance &lt;- length(1000)
+
+for(trial in 1:1000){
+  performance[trial] &lt;- min(memory_retrieval_times[1:trial]) # fastest one always wins
+}
+
+plot(performance)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-3-1.png" />
+
+</div>
+<p>Let’s do the same as above, but now imagine we are doing it for many different participants, say 10 different participants.</p>
+<pre><code>all_performance&lt;-c()
+
+for (subjects in 1:10) {
+  
+  memory_retrieval_times &lt;- rnorm(1000, mean = 500, sd = 100) # we could use a differnet distribution if we wanted
+  
+  performance &lt;- length(1000)
+  
+  for(trial in 1:1000){
+    performance[trial] &lt;- min(memory_retrieval_times[1:trial]) # fastest one always wins
+  }
+  
+all_performance&lt;-c(all_performance,performance)
+  
+}
+
+subject_df &lt;- data.frame(subject=rep(1:10,each=1000),
+                         trial = rep(1:1000,10),
+                         performance = all_performance)
+
+library(ggplot2)
+
+ggplot(subject_df, aes(x=trial,y=performance))+
+  geom_point()+
+  theme_classic()+
+  facet_wrap(~subject)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-4-1.png" />
+
+</div>
+<p>We can see that different simulated subjects in the model have different learning curves. Some subjects are faster from the beginning of practice, why does this occur? In the model, if a subject happened, by random chance, to have a first trace that had a fast retrieval time, this single trace would control performance for many trials, until a new memory trace with an even faster retrieval time happens to be sampled into memory.</p>
+<p>This notion shows an interesting implication of instance theory. You don’t need practice, you just need a fast memory trace. If there was some subject who happened to store a memory trace with a really fast retrieval time on the first trial, say 100 ms, then they would not have much of a learning curve at all. They would be responding on at 100ms for the entire duration of practice, because that single memory trace would always win the race to control performance.</p>
+<p>Logan and Klapp, wrote a paper on this and showed some evidence in support of this kind of single-trial learning. Neato.</p>
+<p>Logan, G. D., &amp; Klapp, S. T. (1991). Automatizing alphabet arithmetic: I. Is extended practice necessary to produce automaticity?. Journal of Experimental Psychology: Learning, Memory, and Cognition, 17(2), 179.</p>
+</div>
+<div id="instance-theory-and-information-theory" class="section level1">
+<h1>Instance theory and Information Theory</h1>
+<p>I’m not aware of work relating instance theory directly to information theory. Gordon didn’t reference Hick, Hyman, or Shannon in his major instance theory papers. Maybe he has talked about the relationship elsewhere, we should ask him…</p>
+<p>Jamieson &amp; Mewhort’s (2009) model of the SRT task (serial reaction time task) uses a different kind of instance theory (Hintzman’s MINERVA), and they talk about the relationship. To grossly summarize, MINERVA is sensitive to the information in the stimuli that are preserved in it’s memories.</p>
+<p>As I think about this in terms of Logan’s model, the relationship seems pretty straightforward. Instance theory should be sensitive to information in the choice set. If we unpack this with some R code, we should see the relationships more clearly.</p>
+<p>Instance theory learns as a function of the frequency of responding to specific events. It ends up being a frequency model in the long run, even though you don’t need to have a lot of experience (you just need one fast instance). Information theory provides a summary statistic to quantify uncertainty in a set of choices. The uncertainty in the choices is really just a summary statistic of the frequencies with which the choices occur. More formally, H summarizes the number of bits needed to represent the probability distribution for the choice set. We get the probability distribution from the frequencies. With this in mind, we should expect some correspondence between predictions from instance theory about how performacne depends on choice frequencies, and statements from information theory about the amount of uncertainty in the choice sets that people are learning.</p>
+<div id="is-an-instance-based-process-sensitive-to-uncertainty" class="section level2">
+<h2>Is an instance-based process sensitive to uncertainty?</h2>
+<p>It should be. Consider two learning situations, both involving learning to respond to one of four stimuli (a, b, c, d). We can create a high entropy task where all of the choices are random and equally probable H=2, and we can create a lower entropy task where some of the options are more probable than the others. Then we can have instance models practice these tasks and see if the models are sensitive to the amount of uncertainty. For example, do simulated subjects learn faster when uncertainty is low compared to when it is high?</p>
+<pre><code>library(dplyr)
+
+## 
+## Attaching package: &#39;dplyr&#39;
+
+## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag
+
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union
+
+high_entropy &lt;- c(.25,.25,.25,.25)
+
+save_z&lt;-length(10)
+for(j in 1:50){
+
+high_entropy_trials &lt;- sample(c(1,2,3,4),1000,prob=high_entropy,replace=T)
+
+high_entropy_df &lt;- data.frame(trials=c(1:1000),
+                             item = high_entropy_trials,
+                             retrieval_time = rnorm(1000, mean=500, sd=100))
+
+# add running counts of each item
+high_entropy_df &lt;- high_entropy_df %&gt;%
+                      group_by(item) %&gt;%
+                      mutate(Count=row_number())
+
+#probably a nonloop way to do this, oh well
+average_RT &lt;- length(1000)
+for(i in 1:1000){
+  average_RT[i] &lt;- min(rnorm(high_entropy_df$Count[i], mean = 500, sd = 100))
+}
+
+high_entropy_df &lt;- cbind(high_entropy_df, RT = average_RT)
+
+model.out&lt;-summary(nls(RT~b*trials^z,start = list(b = 500, z = 1),data=high_entropy_df))
+save_z[j] &lt;- model.out$coefficients[2,1]
+
+}
+
+mean(save_z)
+
+## [1] -0.1371784
+
+low_entropy &lt;- c(.7,.1,.1,.1)
+
+save_z&lt;-length(10)
+for(j in 1:50){
+
+low_entropy_trials &lt;- sample(c(1,2,3,4),1000,prob=low_entropy,replace=T)
+
+low_entropy_df &lt;- data.frame(trials=c(1:1000),
+                             item = low_entropy_trials,
+                             retrieval_time = rnorm(1000, mean=500, sd=100))
+
+# add running counts of each item
+low_entropy_df &lt;- low_entropy_df %&gt;%
+                      group_by(item) %&gt;%
+                      mutate(Count=row_number())
+
+#probably a nonloop way to do this, oh well
+average_RT &lt;- length(1000)
+for(i in 1:1000){
+  average_RT[i] &lt;- min(rnorm(low_entropy_df$Count[i], mean = 500, sd = 100))
+}
+
+low_entropy_df &lt;- cbind(low_entropy_df, RT = average_RT)
+
+model.out&lt;-summary(nls(RT~b*trials^z,start = list(b = 500, z = 1),data=low_entropy_df))
+save_z[j] &lt;- model.out$coefficients[2,1]
+
+}
+
+mean(save_z)
+
+## [1] -0.1407297
+
+low_entropy &lt;- c(.97,.01,.01,.01)
+
+save_z&lt;-length(10)
+for(j in 1:50){
+
+low_entropy_trials &lt;- sample(c(1,2,3,4),1000,prob=low_entropy,replace=T)
+
+low_entropy_df &lt;- data.frame(trials=c(1:1000),
+                             item = low_entropy_trials,
+                             retrieval_time = rnorm(1000, mean=500, sd=100))
+
+# add running counts of each item
+low_entropy_df &lt;- low_entropy_df %&gt;%
+                      group_by(item) %&gt;%
+                      mutate(Count=row_number())
+
+#probably a nonloop way to do this, oh well
+average_RT &lt;- length(1000)
+for(i in 1:1000){
+  average_RT[i] &lt;- min(rnorm(low_entropy_df$Count[i], mean = 500, sd = 100))
+}
+
+low_entropy_df &lt;- cbind(low_entropy_df, RT = average_RT)
+
+model.out&lt;-summary(nls(RT~b*trials^z,start = list(b = 500, z = 1),data=low_entropy_df))
+save_z[j] &lt;- model.out$coefficients[2,1]
+
+}
+
+mean(save_z)
+
+## [1] -0.1451327</code></pre>
+<p>Hmm, this above code seems rather complicated for trying to get the point across. But, so far, when we fit a power function to a high, low, and lower entropy choice set, the exponent z gets more negative, indicating a steeper learning curve. In other words, the simulation shows that instance theory learns faster as entropy decreases.</p>
+</div>
+</div>
+<div id="instance-model-for-learning-to-type-letters-max-entropy-vs.natural-english" class="section level1">
+<h1>instance model for learning to type letters: max entropy vs. natural english</h1>
+<p>As stated from the github thread issue #14:</p>
+<p>Goal: Create an instance model that learns to type letters drawn from high vs. low entropy distributions.</p>
+<p>Get two letter probability distributions as follows: High entropy (max entropy distribution) = Every letter (a-z) occurs equally frequently. We can model this with a 26 length probability distribution, where each element = 1/26, or 0.03846154. We know H is at a max for this distribution, and is ~ 4.7.</p>
+<p>Lower entropy distribution (could be any letter distribution where the probabilities of letter occurence are not equal). Let’s use the frequency distribution of letters as they occur in natural english. For example, we could use the letter probabilities listed in this wikipedia article: <a href="https://en.wikipedia.org/wiki/Letter_frequency" class="uri">https://en.wikipedia.org/wiki/Letter_frequency</a></p>
+<p>Or, even easier just use the first column in norvig’s excel file, ngrams1.csv (it has the total frequency counts for each letter collapsed across position etc.)</p>
+<p>Create simulated subjects who have some fixed amount of practice (e.g., have typed 10,000 letters, or 20,000 letters). If we multiply the practice amount by the probability distributions then we get the number of times each simulated subject has experienced each letter, and this also tells us how many traces for each letter each simulated subject has.</p>
+<p>Run instance model predictions for how fast each simulated subject should be for typing each letter (given their current number of traces). Do this for the high entropy and low entropy conditions.</p>
+<p>Compute mean simulated typing time for simulated subjects in high and low entropy conditions. If instance theory is sensitive to letter uncertainty, we should be able to find evidence that the model has faster mean typing times for low (natural english statistics) entropy letter distributions compared to high (random).</p>
+<p>If we can do the above, then we can apply the model to all of the letter distributions for position and word length described by norvig, then we can complete the full model.</p>
+<pre><code>library(matrixStats)
+
+## Warning: package &#39;matrixStats&#39; was built under R version 3.4.3
+
+## 
+## Attaching package: &#39;matrixStats&#39;
+
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     count
+
+# Declare functions
+
+# function to compute expected retrieval time given number of traces
+# num_traces is the number of memory traces 
+# monte_sim_number is the number of monte_carlo simulations to run
+# rnorm_mean is mean of normal distribution of retrieval times
+# rnorm_sd is standard deviation of normal distribution of retrieval times
+
+get_retrieval_time &lt;- function(num_traces,monte_sim_number,rnorm_mean,rnorm_sd) {
+  sampled_retrieval_times &lt;- matrix(rnorm(num_traces*monte_sim_number,rnorm_mean,rnorm_sd),
+                                    ncol=num_traces,
+                                    nrow=monte_sim_number)
+  min_retrieval_times &lt;- rowMins(sampled_retrieval_times)
+  return(mean(min_retrieval_times))
+}
+
+# Example
+#get_retrieval_time(10,100,500,100)
+
+# example plot a learning curve for 1 to 100 trials
+
+learning_trials &lt;- 1:100
+performance     &lt;- unlist(lapply(learning_trials,function(x) {get_retrieval_time(x,100,500,100)}))
+plot(performance)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-6-1.png" />
+
+</div>
+<pre><code># learning max entropy letter distribution
+
+# run max entropy sim
+letter_probs &lt;- rep(1/26,26)
+amount_of_practice &lt;- c(50,100,200,500)
+
+mean_letter_retrieval_time &lt;- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies &lt;- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] &lt;- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     &lt;- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] &lt;- mean(letter_retrieval_times)
+}
+
+sim_df_max &lt;- data.frame(amount_of_practice,
+                     entropy=rep(&quot;max&quot;,length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+# run natural language entropy sim
+library(bit64)
+
+## Loading required package: bit
+
+## Warning: package &#39;bit&#39; was built under R version 3.4.4
+
+## Attaching package bit
+
+## package:bit (c) 2008-2012 Jens Oehlschlaegel (GPL-2)
+
+## creators: bit bitwhich
+
+## coercion: as.logical as.integer as.bit as.bitwhich which
+
+## operator: ! &amp; | xor != ==
+
+## querying: print length any all min max range sum summary
+
+## bit access: length&lt;- [ [&lt;- [[ [[&lt;-
+
+## for more help type ?bit
+
+## 
+## Attaching package: &#39;bit&#39;
+
+## The following object is masked from &#39;package:base&#39;:
+## 
+##     xor
+
+## Attaching package bit64
+
+## package:bit64 (c) 2011-2012 Jens Oehlschlaegel
+
+## creators: integer64 seq :
+
+## coercion: as.integer64 as.vector as.logical as.integer as.double as.character as.bin
+
+## logical operator: ! &amp; | xor != == &lt; &lt;= &gt;= &gt;
+
+## arithmetic operator: + - * / %/% %% ^
+
+## math: sign abs sqrt log log2 log10
+
+## math: floor ceiling trunc round
+
+## querying: is.integer64 is.vector [is.atomic} [length] format print str
+
+## values: is.na is.nan is.finite is.infinite
+
+## aggregation: any all min max range sum prod
+
+## cumulation: diff cummin cummax cumsum cumprod
+
+## access: length&lt;- [ [&lt;- [[ [[&lt;-
+
+## combine: c rep cbind rbind as.data.frame
+
+## WARNING don&#39;t use as subscripts
+
+## WARNING semantics differ from integer
+
+## for more help type ?bit64
+
+## 
+## Attaching package: &#39;bit64&#39;
+
+## The following object is masked from &#39;package:bit&#39;:
+## 
+##     still.identical
+
+## The following objects are masked from &#39;package:base&#39;:
+## 
+##     :, %in%, is.double, match, order, rank
+
+library(data.table)
+
+## 
+## Attaching package: &#39;data.table&#39;
+
+## The following object is masked from &#39;package:bit&#39;:
+## 
+##     setattr
+
+## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     between, first, last
+
+letter_freqs &lt;- fread(&quot;ngrams1.csv&quot;,integer64=&quot;numeric&quot;)
+letter_freqs[letter_freqs==0]&lt;-1
+letter_probabilities &lt;- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_probs &lt;- letter_probabilities[,1]
+amount_of_practice &lt;- c(50,100,200,500)
+
+mean_letter_retrieval_time &lt;- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies &lt;- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] &lt;- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     &lt;- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] &lt;- mean(letter_retrieval_times)
+}
+
+sim_df_natural &lt;- data.frame(amount_of_practice,
+                     entropy=rep(&quot;natural_english&quot;,length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+all_sims_df &lt;- rbind(sim_df_max,sim_df_natural)
+
+ggplot(all_sims_df, aes(x=amount_of_practice, y=mean_letter_retrieval_time, group=entropy,color=entropy))+
+  geom_point()+
+  geom_line()+
+  theme_classic()</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-6-2.png" />
+
+</div>
+<p>Fascinating, this way of doing to shows faster learning for max entropy letter distributions compared to natural english letter distributions. Wasn’t expecting this, but this could be an averaging issue. The above does not take a weighted average of retrieval times for each letter. So, these mean retrieval times for the natural english condition treat the mean retrieval time for each letter equally. The next code will take a weighted grand-mean, taking into account the fact that some letters are typed more than others.</p>
+<div id="weighted-means-version" class="section level2">
+<h2>weighted means version</h2>
+<pre><code># learning max entropy letter distribution
+
+# run max entropy sim
+letter_probs &lt;- rep(1/26,26)
+amount_of_practice &lt;- c(50,100,200,500)
+
+mean_letter_retrieval_time &lt;- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies &lt;- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] &lt;- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     &lt;- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] &lt;- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+}
+
+sim_df_max &lt;- data.frame(amount_of_practice,
+                     entropy=rep(&quot;max&quot;,length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+# run natural language entropy sim
+letter_freqs &lt;- fread(&quot;ngrams1.csv&quot;,integer64=&quot;numeric&quot;)
+letter_freqs[letter_freqs==0]&lt;-1
+letter_probabilities &lt;- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_probs &lt;- letter_probabilities[,1]
+amount_of_practice &lt;- c(50,100,200,500)
+
+mean_letter_retrieval_time &lt;- length(length(amount_of_practice))
+for (i in 1:length(amount_of_practice)){
+  letter_trace_frequencies &lt;- round(letter_probs*amount_of_practice[i])
+  letter_trace_frequencies[letter_trace_frequencies==0] &lt;- 1 # for convenience, we always assume there is 1 trace
+  letter_retrieval_times     &lt;- unlist(lapply(letter_trace_frequencies,
+                                              function(x) {get_retrieval_time(x,100,500,100)}))
+  mean_letter_retrieval_time[i] &lt;- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+}
+
+sim_df_natural &lt;- data.frame(amount_of_practice,
+                     entropy=rep(&quot;natural_english&quot;,length(amount_of_practice)),
+                     mean_letter_retrieval_time)
+
+all_sims_df &lt;- rbind(sim_df_max,sim_df_natural)
+
+ggplot(all_sims_df, aes(x=amount_of_practice, y=mean_letter_retrieval_time, group=entropy,color=entropy))+
+  geom_point()+
+  geom_line()+
+  theme_classic()</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-7-1.png" />
+
+</div>
+<p>And, the natural order of the universe is restored!!!</p>
+<p>And, we have a clear demonstration that instance theory is sensitive to H! Next step, apply this to all of the letter frequency distributions as a function of letter position and word length…</p>
+</div>
+</div>
+<div id="an-instance-theory-model-of-influences-of-letter-uncertainty-across-position-and-word-length-on-mean-typing-time." class="section level1">
+<h1>An instance theory model of influences of letter uncertainty across position and word length on mean typing time.</h1>
+<pre><code># run natural language entropy sim
+letter_freqs &lt;- fread(&quot;ngrams1.csv&quot;,integer64=&quot;numeric&quot;)
+letter_freqs[letter_freqs==0]&lt;-1
+letter_probabilities &lt;- apply(letter_freqs[,12:(12+44)],2,function(x){x/sum(x)})
+
+
+all_sims_df &lt;- data.frame()
+
+position &lt;-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length &lt;-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+for (l in 1:45){
+  letter_probs &lt;- letter_probabilities[,l]
+  amount_of_practice &lt;- c(50,100,200,500)
+  
+  mean_letter_retrieval_time &lt;- length(length(amount_of_practice))
+  for (i in 1:length(amount_of_practice)){
+    letter_trace_frequencies &lt;- floor(letter_probs*amount_of_practice[i])
+    letter_trace_frequencies[letter_trace_frequencies==0] &lt;- 1 # for convenience, we always assume there is 1 trace
+    letter_retrieval_times     &lt;- unlist(lapply(letter_trace_frequencies,
+                                                function(x) {get_retrieval_time(x,100,500,100)}))
+    # reset letter_trace_frequencies to include zeros for computing grand_mean
+    letter_trace_frequencies &lt;- floor(letter_probs*amount_of_practice[i])
+    mean_letter_retrieval_time[i] &lt;- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+  }
+  
+  sim_df_natural &lt;- data.frame(amount_of_practice,
+                                 position = position[l],
+                                 word_length = word_length[l],
+                       mean_letter_retrieval_time)
+  all_sims_df &lt;- rbind(all_sims_df,sim_df_natural)
+}
+
+all_sims_df$position&lt;-as.factor(all_sims_df$position)
+all_sims_df$word_length&lt;-as.factor(all_sims_df$word_length)
+
+ggplot(all_sims_df,aes(x=position,y=mean_letter_retrieval_time,group=word_length,color=word_length))+
+  geom_point()+
+  geom_line()+
+  theme_classic()+
+  facet_wrap(~amount_of_practice)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-8-1.png" />
+
+</div>
+<p>Wow, those graphs look a lot like the plots for H from norvig’s letter frequency distributions across position and word length. TIL Instance theory = Information Theory (maybe a stretch).</p>
+<p>Next step, make prettier graphs and compute R^2 between H and simulated predictions. Would be pretty neat if that R^2 was large. If it is very large, maybe Instance theory = Information Theory. That would be cool.</p>
+</div>
+<div id="how-well-do-instance-theory-predictions-conform-to-h" class="section level1">
+<h1>How well do instance theory predictions conform to H</h1>
+<p>Let’s compute the correlation between instance theory predictions and H</p>
+<pre><code># from Matt&#39;s analysis let&#39;s compute H for letter uncertainty across position and word length
+library(bit64)
+# load in the excel file from Norvig:
+letter_freqs &lt;- fread(&quot;ngrams1.csv&quot;,integer64=&quot;numeric&quot;)
+letter_freqs[letter_freqs==0]&lt;-1
+
+letter_probabilities &lt;- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_entropies &lt;- apply(letter_probabilities,2,function(x){-1*sum(x*log2(x))})
+
+position&lt;-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length&lt;-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+uncertainty_df&lt;-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
+
+cor(all_sims_df[all_sims_df$amount_of_practice==50,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9527661
+
+cor(all_sims_df[all_sims_df$amount_of_practice==100,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9831036
+
+cor(all_sims_df[all_sims_df$amount_of_practice==200,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9846007
+
+cor(all_sims_df[all_sims_df$amount_of_practice==500,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9910321</code></pre>
+<p>Intuition confirmed. H explains nearly all of the variance in Instance theory predictions. Cool. There is noise in these simulations, so R^2 might even be higher if the monte carlo runs to get instance theory predictions were made much larger. I am not up to the task of proving formal equivalence analytically, but seems like something that might be possible.</p>
+<p>More important, now we have a cognitive process model that gives a working account of a learning and memory process that could become sensitive letter uncertainty and allow that sensitivity to be revealed in performance.</p>
+</div>
+<div id="trying-again-with-more-monte-carlo-runs." class="section level1">
+<h1>trying again with more monte-carlo runs.</h1>
+<pre><code># run natural language entropy sim
+letter_freqs &lt;- fread(&quot;ngrams1.csv&quot;,integer64=&quot;numeric&quot;)
+letter_freqs[letter_freqs==0]&lt;-1
+letter_probabilities &lt;- apply(letter_freqs[,12:(12+44)],2,function(x){x/sum(x)})
+
+
+all_sims_df &lt;- data.frame()
+
+position &lt;-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length &lt;-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+for (l in 1:45){
+  letter_probs &lt;- letter_probabilities[,l]
+  amount_of_practice &lt;- c(50,100,200,500)
+  
+  mean_letter_retrieval_time &lt;- length(length(amount_of_practice))
+  for (i in 1:length(amount_of_practice)){
+    letter_trace_frequencies &lt;- floor(letter_probs*amount_of_practice[i])
+    letter_trace_frequencies[letter_trace_frequencies==0] &lt;- 1 # for convenience, we always assume there is 1 trace
+    letter_retrieval_times     &lt;- unlist(lapply(letter_trace_frequencies,
+                                                function(x) {get_retrieval_time(x,10000,500,100)}))
+    # reset letter_trace_frequencies to include zeros for computing grand_mean
+    letter_trace_frequencies &lt;- floor(letter_probs*amount_of_practice[i])
+    mean_letter_retrieval_time[i] &lt;- sum(letter_retrieval_times*letter_trace_frequencies)/sum(letter_trace_frequencies)
+  }
+  
+  sim_df_natural &lt;- data.frame(amount_of_practice,
+                                 position = position[l],
+                                 word_length = word_length[l],
+                       mean_letter_retrieval_time)
+  all_sims_df &lt;- rbind(all_sims_df,sim_df_natural)
+}
+
+all_sims_df$position&lt;-as.factor(all_sims_df$position)
+all_sims_df$word_length&lt;-as.factor(all_sims_df$word_length)
+
+ggplot(all_sims_df,aes(x=position,y=mean_letter_retrieval_time,group=word_length,color=word_length))+
+  geom_point()+
+  geom_line()+
+  theme_classic()+
+  facet_wrap(~amount_of_practice)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-10-1.png" />
+
+</div>
+<pre><code># from Matt&#39;s analysis let&#39;s compute H for letter uncertainty across position and word length
+library(bit64)
+# load in the excel file from Norvig:
+letter_freqs &lt;- fread(&quot;ngrams1.csv&quot;,integer64=&quot;numeric&quot;)
+letter_freqs[letter_freqs==0]&lt;-1
+
+letter_probabilities &lt;- apply(letter_freqs[,2:74],2,function(x){x/sum(x)})
+
+letter_entropies &lt;- apply(letter_probabilities,2,function(x){-1*sum(x*log2(x))})
+
+position&lt;-c(1,1:2,1:3,1:4,1:5,1:6,1:7,1:8,1:9)
+word_length&lt;-c(1,rep(2,2),
+               rep(3,3),
+               rep(4,4),
+               rep(5,5),
+               rep(6,6),
+               rep(7,7),
+               rep(8,8),
+               rep(9,9))
+
+uncertainty_df&lt;-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
+
+cor(all_sims_df[all_sims_df$amount_of_practice==50,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9711932
+
+cor(all_sims_df[all_sims_df$amount_of_practice==100,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9898562
+
+cor(all_sims_df[all_sims_df$amount_of_practice==200,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9941507
+
+cor(all_sims_df[all_sims_df$amount_of_practice==500,]$mean_letter_retrieval_time,
+         uncertainty_df$H)^2
+
+## [1] 0.9927969</code></pre>
+<p>Trend looks pretty clear, we got past .99.</p>
+<p>Instance theory = Information Theory</p>
+</div>
+<div id="make-a-nice-graph-to-show-typists-h-and-instance-theory-predictions-all-together" class="section level1">
+<h1>make a nice graph to show Typists, H, and instance theory predictions all together</h1>
+<pre><code># step 1 pull in typing data from matt&#39;s analysis
+
+library(data.table)
+library(dplyr)
+library(ggplot2)
+library(Crump) #for standard error function and Van Selst and Jolicouer outlier elimination
+
+# mturk.txt is the unzipped mturk.txt.zip file
+the_data &lt;- fread(&quot;~/Desktop/mturk.txt&quot;)
+
+## 
+Read 11.4% of 1933914 rows
+Read 45.5% of 1933914 rows
+Read 76.5% of 1933914 rows
+Read 1933914 rows and 27 (of 27) columns from 0.302 GB file in 00:00:05
+
+################
+# Data-Exclusion
+
+the_data[grepl(&quot;[[:punct:]]&quot;,substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths=the_data[grepl(&quot;[[:punct:]]&quot;,substr(the_data$whole_word,nchar(the_data$whole_word),nchar(the_data$whole_word))),]$word_lengths-1
+
+## Warning in `[&lt;-.data.table`(`*tmp*`, grepl(&quot;[[:punct:]]&quot;, substr(the_data
+## $whole_word, : Coerced &#39;double&#39; RHS to &#39;integer&#39; to match the column&#39;s
+## type; may have truncated precision. Either change the target column to
+## &#39;double&#39; first (by creating a new &#39;double&#39; vector length 1933914 (nrows
+## of entire table) and assign that; i.e. &#39;replace&#39; column), or coerce RHS
+## to &#39;integer&#39; (e.g. 1L, NA_[real|integer]_, as.*, etc) to make your intent
+## clear and for speed. Or, set the column type correctly up front when you
+## create the table and stick to it, please.
+
+the_data &lt;- the_data %&gt;%
+             filter (
+                      Letters != &quot; &quot;,                 #removes spaces (just in case they were assigned a letter position)
+                      !grepl(&quot;[[:punct:]]&quot;,Letters),  #removes punctuation
+                      !grepl(&quot;[0-9]&quot;,Letters),        #removes numbers
+                      !grepl(&quot;[[A-Z]]*&quot;,Letters),   #removes Letters that have a capital letter
+                      ParagraphType == &quot;N&quot;,
+                      PredBigramCorrect == &quot;11&quot;,
+                      IKSIs &lt; 2000
+             )
+
+## Warning: package &#39;bindrcpp&#39; was built under R version 3.4.4
+
+###############
+# Analysis
+# Get the means by word length and letter position for each subject
+# Use Van Selst and Jolicouer non-recursive_moving procedure from Crump
+
+subject_means &lt;- the_data %&gt;%
+              group_by(Subject,word_lengths,let_pos) %&gt;%
+              summarize(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted))
+
+# Get the grand means by averaging over subject means
+sum_data &lt;- subject_means %&gt;%
+              group_by(word_lengths,let_pos) %&gt;%
+              summarize(mean_IKSIs = mean(mean_IKSI, na.rm = TRUE),
+                        SE = stde(mean_IKSI))
+
+# plot the data
+
+sum_data &lt;- sum_data[sum_data$let_pos &lt; 10, ]
+sum_data &lt;- sum_data[sum_data$word_lengths &lt; 10 &amp;
+                     sum_data$word_lengths &gt; 0, ]
+
+sum_data$let_pos&lt;-as.factor(sum_data$let_pos)
+sum_data$word_lengths&lt;-as.factor(sum_data$word_lengths)
+
+limits &lt;- aes(ymax = mean_IKSIs + SE, ymin = mean_IKSIs - SE)
+
+typists &lt;- ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths))+
+  geom_line()+
+  geom_point()+
+  geom_errorbar(limits,width=.2)+
+  theme_classic()+
+  ggtitle(&quot;Mean IKSI by Letter Position and Word Length&quot;)+
+  theme(plot.title = element_text(hjust = 0.5))
+
+instance &lt;- ggplot(all_sims_df[all_sims_df$amount_of_practice==50,],aes(x=position,y=mean_letter_retrieval_time,group=word_length,color=word_length))+
+  geom_point()+
+  geom_line()+
+  theme_classic()+
+  ggtitle(&quot;Retrieval time by Letter Position and Word Length&quot;)+
+  theme(plot.title = element_text(hjust = 0.5))
+
+information &lt;- ggplot(uncertainty_df,aes(x=position,y=H,group=word_length,color=word_length))+
+  geom_line()+
+  geom_point()+
+  theme_classic()+
+  ggtitle(&quot;H by Letter Position and Word Length&quot;)+
+  theme(plot.title = element_text(hjust = 0.5))
+
+library(ggpubr)
+
+## Loading required package: magrittr
+
+ggarrange(typists, information, instance + rremove(&quot;x.text&quot;), 
+          labels = c(&quot;Typists&quot;, &quot;Entropy&quot;, &quot;Instance&quot;),
+          ncol = 1, nrow = 3)</code></pre>
+<div class="figure">
+<img src="InstanceTheory_files/figure-markdown_strict/unnamed-chunk-12-1.png" />
+
+</div>
+<pre><code>#ggarrange(ggarrange(typists, information, ncol = 2, labels = c(&quot;Typist&#39;s&quot;, &quot;Entropy&quot;)),
+#          ggarrange(instance, ncol = 1, labels = c(&quot;Instance&quot;)),
+#          nrow = 2, 
+#          heights = c(1,2),
+#          labels = &quot;C&quot;                                        # Labels of the scatter plot
+#          )</code></pre>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

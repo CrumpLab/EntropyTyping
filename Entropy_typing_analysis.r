@@ -1,6 +1,6 @@
 # Analysis file for Entropy_typing project
 
-## @knitr load_functions
+## @knitr load_functions  -----
 
 library(data.table)
 library(dplyr)
@@ -9,7 +9,7 @@ library(Crump)  #for standard error function and Van Selst and Jolicouer outlier
 library(ggpubr)
 
 
-## @knitr load_pre_process
+## @knitr load_pre_process  -----
 
 # mturk.txt is the unzipped mturk.txt.zip file
 the_data <- fread("~/Desktop/mturk.txt")
@@ -35,7 +35,7 @@ the_data <- the_data %>%
 # Get the means by word length and letter position for each subject
 # Use Van Selst and Jolicouer non-recursive_moving procedure from Crump
 
-## @knitr typing_mean_iksis_aov
+## @knitr typing_mean_iksis_aov  ------
 
 load("the_data.Rdata")
 
@@ -95,7 +95,7 @@ rm.anova2<-function (y, logged = FALSE)
 Exp1_ANOVA <- rm.anova2(iksi_matrix)
 
 
-## @knitr typing_mean_iksis_plot
+## @knitr typing_mean_iksis_plot  -----
 # Get the grand means by averaging over subject means
 subject_means <- the_data %>%
   group_by(Subject,word_lengths,let_pos) %>%
@@ -117,15 +117,23 @@ sum_data$word_lengths<-as.factor(sum_data$word_lengths)
 
 limits <- aes(ymax = mean_IKSIs + SE, ymin = mean_IKSIs - SE)
 
-typing_plot1 <- ggplot(sum_data,aes(x=let_pos,y=mean_IKSIs,group=word_lengths,color=word_lengths))+
+typing_plot1 <- ggplot(sum_data,aes(x=let_pos,
+                                    y=mean_IKSIs,
+                                    group=word_lengths,
+                                    color=word_lengths
+                                    ))+
   geom_line()+
   geom_point()+
   geom_errorbar(limits,width=.2)+
   theme_classic()+
   theme(legend.position="bottom")+
-  ggtitle("Mean IKSI as a Function of Letter Position and Word Length")
+  xlab("Letter Position")+
+  ylab("Mean Interkeystroke Interval (ms)")+
+  scale_colour_grey()+
+  labs(color='Word Length') +
+  ggtitle("Mean IKSI by Position and Length")
 
-## @knitr typing_mean_iksis_comparisons
+## @knitr typing-mean-iksis-comparisons ------
 
 # compute all t-tests
 all_ts_mat <- matrix(0,ncol=45,nrow=45)
@@ -177,7 +185,7 @@ levels(all_mdiffs$condition) <- the_labels
 
 
 typing_plot2 <- ggplot(all_mdiffs, aes(condition, variable)) +
-  ggtitle('Mean Absolute Differences') +
+  ggtitle('Paired comparisons (light grey = significant)') +
   theme_classic(base_size = 6) +
   xlab('Condition') +
   ylab('Condition') +
@@ -197,7 +205,7 @@ ggarrange(typing_plot1, typing_plot2,
 
 
 
-## @knitr letter_uncertainty
+## @knitr letter_uncertainty  ------
 
 letter_freqs <- fread("ngrams1.csv",integer64="numeric")
 letter_freqs[letter_freqs==0]<-1
@@ -220,26 +228,40 @@ uncertainty_df<-data.frame(H=letter_entropies[11:(11+44)],position,word_length)
 
 #plot
 
-letter_uncertainty_plot1 <- ggplot(uncertainty_df,aes(x=position,y=H,group=word_length,color=word_length))+
+letter_uncertainty_plot1 <- ggplot(uncertainty_df,
+                                   aes(x=position,
+                                       y=H,
+                                       group=word_length,
+                                       color=word_length))+
   geom_line()+
   geom_point()+
   theme_classic(base_size = 10)+
   theme(plot.title = element_text(size = rel(1)))+
   theme(legend.position="bottom")+
-  ggtitle("Letter Uncertainty (H) by Position and Length")
+  xlab("Letter Position")+
+  ylab("Letter Uncertainty (H)")+
+  labs(color='Word Length') +
+  scale_colour_grey()+
+  ggtitle("Letter Uncertainty by Position and Length")
 
-## @knitr letter_uncertainty_by_IKSI
+## @knitr letter-uncertainty-by-IKSI  ------
 
 sum_data<-cbind(sum_data,H=uncertainty_df$H)
 
-letter_uncertainty_plot2 <- ggplot(sum_data,aes(x=H,y=mean_IKSIs))+
+letter_uncertainty_plot2 <- ggplot(sum_data,aes(x=H,
+                                                y=mean_IKSIs))+
+  geom_smooth(method="lm", color="black", size=.5, alpha=.2)+
+  geom_text(aes(label=word_length), nudge_y=-8, size=2.5)+
   geom_point(aes(color=let_pos))+
-  geom_smooth(method="lm")+
   #geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, sum_data))), parse = TRUE)+
   theme_classic(base_size = 10)+
   theme(plot.title = element_text(size = rel(1)))+
   theme(legend.position="bottom")+
-  ggtitle("Mean IKSI by Letter Uncertainty (H)")
+  xlab("Letter Uncertainty (H)")+
+  ylab("Mean Interksytroke Interval (ms)")+
+  labs(color='Letter Position') +
+  scale_colour_grey()+
+  ggtitle("Mean IKSI by Letter Uncertainty")
 
 
 
@@ -282,7 +304,7 @@ skim_out<-skim_to_list(correlation_data)
 #r = skim_out$numeric$SE[2]
 #r^2 = skim_out$numeric$SE[3]
 
-## @knitr letter_uncertainty_by_IKSI_dual
+## @knitr letter_uncertainty_by_IKSI_dual  ------
 
 categorical_position<-as.character(sum_data$let_pos)
 categorical_position[categorical_position=="1"]<-"first"
@@ -292,7 +314,7 @@ sum_data<-cbind(sum_data,cp=categorical_position)
 
 lr_results_dual<-summary(lm(mean_IKSIs~cp+H, sum_data))
 
-## @knitr letter_uncertainty_bigram
+## @knitr letter-uncertainty-bigram ----
 
 library(dplyr)
 library(rlist)
@@ -404,26 +426,40 @@ sum_data <- cbind(sum_data,H_bigram=uncertainty_df$H)
 
 # plot
 
-uncertainty_bigram_plot1 <- ggplot(sum_data,aes(x=position,y=H_bigram,group=word_length,color=word_length))+
+uncertainty_bigram_plot1 <- ggplot(sum_data,aes(x=position,
+                                                y=H_bigram,
+                                                group=word_length,
+                                                color=word_length))+
   geom_line()+
   geom_point()+
   theme_classic(base_size = 10)+
   theme(plot.title = element_text(size = rel(1)))+
   theme(legend.position="bottom")+
-  ggtitle("Letter Uncertaint (H, n-1) by Position Length")
+  xlab("Letter Position")+
+  ylab("Bigram Uncertainty (H)")+
+  labs(color='Word Length') +
+  scale_colour_grey()+
+  ggtitle("Bigram Uncertainty by Position and Length")
 
 # analysis
 
 lr_results_bigram<-summary(lm(mean_IKSIs~H_bigram, sum_data))
 
-uncertainty_bigram_plot2 <-ggplot(sum_data,aes(x=H_bigram,y=mean_IKSIs))+
+uncertainty_bigram_plot2 <-ggplot(sum_data,aes(x=H_bigram,
+                                               y=mean_IKSIs))+
+  #geom_point(aes(color=let_pos))+
+  geom_smooth(method="lm", color="black", size=.5, alpha=.2)+
+  geom_text(aes(label=word_length), nudge_y=-8, size=2.5)+
   geom_point(aes(color=let_pos))+
-  geom_smooth(method="lm")+
   #geom_text(aes(x = 2.5, y = 240, label = lm_eqn(lm(mean_IKSIs ~ H, sum_data))), parse = TRUE)+
   theme_classic(base_size = 10)+
   theme(plot.title = element_text(size = rel(1)))+
   theme(legend.position="bottom")+
-  ggtitle("Mean IKSIs by Letter Uncertainty (n-1)")
+  xlab("Bigram Uncertainty (H)")+
+  ylab("Mean Interkeystroke Interval (ms)")+
+  labs(color='Letter Position') +
+  scale_colour_grey()+
+  ggtitle("Mean IKSIs by Bigram Uncertainty")
 
 ggarrange(uncertainty_bigram_plot1, uncertainty_bigram_plot2, 
           labels = c("A", "B"),
