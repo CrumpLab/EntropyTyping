@@ -120,7 +120,7 @@ determinant of keystroke dynamics}
           \textsuperscript{1} Brooklyn College of the City University of New York  }
 
   \authornote{
-    \url{https://github.com/CrumpLab/EntropyTyping} is the github repository
+    \url{https://github.com/CrumpLab/EntropyTyping} is the GitHub repository
     for this project, which was conceived and completed entirely in public.
     The repository contains the data, source code for compiling the analysis
     and modeling scripts in R, source code for compiling this paper in R
@@ -237,8 +237,8 @@ natural language. Theoretically, we propose a general processing account
 that predicts how structure in the natural language should constrain
 typing performance. These aims contribute to the broader goals (beyond
 the scope of this paper) of determining whether specialized or general
-accounts are neccessary or sufficient to explain typing performance, and
-then adjucating between them.
+accounts are necessary or sufficient to explain typing performance, and
+then adjudicating between them.
 
 We focused on two typing phenomena, the word-initiation/first-letter
 slowing effect, and the mid-word slowing effect, which are both observed
@@ -307,7 +307,7 @@ equal probability). Shannon's H is defined as:
 
 \(H = -\sum p \log_2 p\)
 
-where, p is the probability of occurence for each item in a given
+where, p is the probability of occurrence for each item in a given
 distribution. H is the number of bits needed to represent the
 distribution. To apply this to letter uncertainty, consider the set of
 the 26 lowercase letters from a to z. For this set, H can range from 0
@@ -331,7 +331,7 @@ information theory to choice-reaction time performance. For example,
 Hick (1952), and Hyman (1953) showed that choice reaction time, which
 was known to increase as a function of set-size, increases linearly as a
 function of choice uncertainty in the set (measured by H), rather than
-set-size persay. Although there are numerous exceptions to the
+set-size per-say. Although there are numerous exceptions to the
 Hick-Hyman law (for a review see, Proctor \& Schneider, 2018), we are
 not aware of any work that has determined whether typing performance (a
 continuous 26-AFC choice-task, assuming lower case for convenience)
@@ -344,8 +344,8 @@ required.
 We first reproduce Ostry's (1983) analysis of interkeystroke intervals
 as a function of letter position and word length. We used the dataset
 collected by Behmer and Crump (2017), who had 346 typists copy type five
-paragraphs of natural english text. Then we estimated letter uncertainty
-in natural english for each letter position in words of different
+paragraphs of natural English text. Then we estimated letter uncertainty
+in natural English for each letter position in words of different
 lengths. We used letter frequency counts from Google's Ngram project
 provided by Peter Norvig, which gave us letter uncertainty estimates for
 each position in words of length one to nine. Next, we show that natural
@@ -404,20 +404,21 @@ Srinivasan, 2017), \emph{dplyr} (Version 0.7.4; Wickham, Francois,
 Henry, \& Müller, 2017), \emph{ggplot2} (Version 3.0.0; Wickham, 2009),
 \emph{ggpubr} (Version 0.1.6; Kassambara, 2017), \emph{knitr} (Version
 1.20; Xie, 2015), \emph{magrittr} (Version 1.5; Bache \& Wickham, 2014),
-\emph{papaja} (Version 0.1.0.9655; Aust \& Barth, 2018), \emph{Rcpp}
-(Eddelbuettel, 2017; Eddelbuettel \& Balamuta, 2017; Version 0.12.18;
-Eddelbuettel \& François, 2011), \emph{RcppZiggurat} (Version 0.1.4;
-Eddelbuettel, 2017), \emph{Rfast} (Version 1.8.8; Papadakis et al.,
-2018), \emph{rlist} (Version 0.4.6.1; Ren, 2016), and \emph{skimr}
-(Version 1.0.3; McNamara, Arino de la Rubia, Zhu, Ellis, \& Quinn, 2018)
-for all our analyses.
+\emph{matrixStats} (Version 0.53.1; Bengtsson, 2018), \emph{papaja}
+(Version 0.1.0.9655; Aust \& Barth, 2018), \emph{Rcpp} (Eddelbuettel,
+2017; Eddelbuettel \& Balamuta, 2017; Version 0.12.18; Eddelbuettel \&
+François, 2011), \emph{RcppZiggurat} (Version 0.1.4; Eddelbuettel,
+2017), \emph{Rfast} (Version 1.8.8; Papadakis et al., 2018),
+\emph{rlist} (Version 0.4.6.1; Ren, 2016), and \emph{skimr} (Version
+1.0.3; McNamara, Arino de la Rubia, Zhu, Ellis, \& Quinn, 2018) for all
+our analyses.
 
 For each subject, we applied the following pre-processing steps. We
 included IKSIs only for keystrokes involving a lower case letter, and
 only for correct keystrokes that were preceded by a correct keystroke.
 Outlier IKSIs were removed for each subject, on a cell-by-cell basis,
 using the Van Selst and Jolicoeur (1994) non-recursive moving criterion
-procedure, which eliminated approximately X\% of IKSIs from further
+procedure, which eliminated approximately 3\% of IKSIs from further
 analysis.
 
 \section{Results}\label{results}
@@ -461,7 +462,7 @@ Our more important aim was to determine whether variation among these
 means can be explained by variation in letter uncertainty. For this
 reason we do not exhaustively discuss all of the possible 990
 differences among these 45 conditions. Nevertheless, we conducted all
-990 comparisons using bonferroni corrected paired samples t-tests. The
+990 comparisons using Bonferonni corrected paired samples t-tests. The
 results are displayed in Figure
 \ref{fig:typing-mean-iksis-comparisons}B; which shows whether mean
 differences between conditions were significant, using light gray to
@@ -477,7 +478,7 @@ The primary question of interest was whether natural variation in letter
 uncertainty explains variance in mean IKSI by position and word length.
 We estimated letter uncertainty by position and word length from
 Google's Ngram database \url{https://books.google.com/ngrams}, which
-provides frequency counts of letters and words occuring in Google's
+provides frequency counts of letters and words occurring in Google's
 massive corpus of millions of digitized books. Letter frequency counts
 for letters a to z, for each position in words from length one to nine,
 were obtained from Peter Norvig's website
@@ -522,7 +523,7 @@ increase as a function of letter uncertainty.
 \centering
 \includegraphics{Entropy_typing_draft_files/figure-latex/letter-uncertainty-by-IKSI-1.pdf}
 \caption{\label{fig:letter-uncertainty-by-IKSI}Panel A shows measures of letter
-uncertainty (H, from google n-gram corpus) for each letter position as a
+uncertainty (H, from Google n-gram corpus) for each letter position as a
 function of word length. Panel B plots mean interkeystroke interval (ms)
 for each letter position and word length as a function of letter
 uncertainty (H). The word length condition for each dot is represented
@@ -545,7 +546,7 @@ length explains a small amount variation in mean IKSIs during continuous
 typing. The present analysis does not provide strong evidence that a
 process sensitive to letter uncertainty causes both first-letter and
 mid-word slowing. For example, all of the first position mean IKSIs are
-longer than mean IKSIs for other positions at comparables levels of
+longer than mean IKSIs for other positions at comparable levels of
 letter uncertainty. And, a linear regression on the group mean IKSIs
 including letter uncertainty and position (first letter vs.~other
 letter) as independent variables explains much more variance, \(R^2\) =
@@ -571,11 +572,11 @@ discrete probability distribution of letters. In the previous section we
 somewhat arbitrarily calculated letter uncertainty separately for each
 letter position in words of length one to nine. However, the number of
 alternative schemes is vast. For example, we could further
-conditionalize our postion by word length probability distributions by
-the letter identities of letters occuring in any position n-1 to n-x, or
-n+1 to n+y of a specific position. Furthermore, we could conditionalize
-letter distributions upon any permissible number of preceding or
-succeeding n-grams (groups of letters).
+conditionalize our position by word length probability distributions by
+the letter identities of letters occurring in any position n-1 to n-x,
+or n+1 to n+y of a specific position. Furthermore, we could
+conditionalize letter distributions upon any permissible number of
+preceding or succeeding n-grams (groups of letters).
 
 Although an exhaustive calculation of letter uncertainty is beyond the
 scope of this paper, we nevertheless took one further step and
@@ -608,7 +609,7 @@ and word length.
 \centering
 \includegraphics{Entropy_typing_draft_files/figure-latex/letter-uncertainty-bigram-1.pdf}
 \caption{\label{fig:letter-uncertainty-bigram}Panel A shows measures of bigram
-uncertainty (H, from google n-gram corpus) for each letter position as a
+uncertainty (H, from Google n-gram corpus) for each letter position as a
 function of word length. Panel B plots mean interkeystroke interval (ms)
 for each letter position and word length as a function of bigram
 uncertainty (H). The word length condition for each dot is represented
@@ -680,7 +681,7 @@ We can now draw a more transparent connection between instance theory
 and information theory: they both summarize the same frequency
 distributions. Information theory provides H as a summary statistic of
 any discrete probability distributions. Empirical probability
-distributions for natural occuring stimuli, such as letters, are found
+distributions for natural occurring stimuli, such as letters, are found
 by counting stimulus frequencies, and then dividing a stimulus frequency
 distribution by it's sum. Instance theory encodes the frequency
 distributions, and summarizes them at retrieval. It predicts
@@ -691,10 +692,10 @@ We demonstrate these relationships by monte-carlo simulation.
 
 We modeled instance theory predictions for keystroke production times as
 a function of letter position and word length, for typing natural
-english text. We treated all 26 letters that could possibly occur in any
+English text. We treated all 26 letters that could possibly occur in any
 position for any word length as completely unique and independent
-stimuli. We modeled the structure of natural english using the 45 letter
-probability distributions derived from Norvig's letter frequence counts
+stimuli. We modeled the structure of natural English using the 45 letter
+probability distributions derived from Norvig's letter frequency counts
 by position and word length, from Google's Ngram corpus.
 
 Keystroke times for specific letters were simulated as a function of
@@ -707,27 +708,48 @@ the minimum value from the sampling distribution as the reaction time.
 We repeated this process 1000 times to estimate the expected mean
 reaction time (expected minimum retrieval time) for the given frequency
 value. In this way, we estimated mean keystroke production times for
-every letter position across different word lengths. Last, we evaluated
-model predictions across four practice intervals.
+every letter position across different word lengths.
 
-Figure X displays the instance model predictions, across increasing
-amounts of practice, for mean keystroke production times as a function
-of letter position and word length. As expected, simulated keystroke
-times shorten with practice. More imporant, at each stage in practice,
-simulated keystroke times show the same qualitative pattern of variation
-across letter postion and word length. Notably, these appear very
-similar to human typing performance, and to letter uncertainty as a
-function of position and word length. We conducted linear regressions on
-simulated mean typing times using letter uncertainty as the independent
-variable. We found that letter uncertainty nearly perfectly explains the
-variance in simulated keystroke time, with \(R^2\) tending toward 1 with
-practice.
+Last, we evaluated model predictions across four practice intervals,
+shown in the figure as 50, 100, 200 and 500. These practice intervals
+refer to the total number of keystrokes typed. The individual letter
+frequencies for each practice interval (the number of traces stored for
+each letter) were determined by multiplying each letter probability by
+the total number of keystrokes in the practice interval. The source code
+for the model is available in the repository for this manuscript.
+
+
+
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{Entropy_typing_draft_files/figure-latex/instance-model-1.pdf}
+\caption{\label{fig:instance-model}Each panel shows simulated mean letter
+retrieval/production times as a function of letter position and word
+length. The numbers 50, 100, 200, and 500 refer to increasing amounts of
+practice.}
+\end{figure}
+
+Figure \ref{fig:instance-model} displays the instance model predictions,
+across increasing amounts of practice, for mean keystroke production
+times as a function of letter position and word length. As expected,
+simulated keystroke times shorten with practice. More important, at each
+stage in practice, simulated keystroke times show the same qualitative
+pattern of variation across letter position and word length. Notably,
+these appear very similar to human typing performance, and to letter
+uncertainty as a function of position and word length. We conducted
+linear regressions on simulated mean typing times using letter
+uncertainty as the independent variable. We found that letter
+uncertainty nearly perfectly explains the variance in simulated
+keystroke time, with \(R^2\) tending toward 1 with practice.
 
 We point out that the pattern of instance theory predictions for mean
 reaction time for any set of choice stimuli will be identical to the
 uncertainty, measured by H, for those sets of choices. This means that
-instnce theory is a process model of the hick-hyman law, and it inherits
-both the successess and failures of information theoretic
+instance theory is a process model of the hick-hyman law, and it
+inherits both the successes and failures of information theoretic
 interpretations of performance.
 
 \section{General Discussion}\label{general-discussion}
@@ -737,11 +759,11 @@ reproduced Ostry's (1983) demonstration that mean interkeystroke
 interval systematically varies as a function of letter position and word
 length. We proposed that variation in mean IKSI could be caused by
 general learning process sensitive to letter uncertainty across position
-and word length. We calculated letter uncertainty in natural english
+and word length. We calculated letter uncertainty in natural English
 from Google's large corpus of digitized text, and showed that it can
-explain a large portion of the variance (\$R\^{}2 = \$ 0.86) in mean
-IKSI. Finally, we show that instance theory (Logan, 1988) succesfully
-models how a general learning and memory process could produce typing
+explain a large portion of the variance ( \(R^2\) = 0.86 ) in mean IKSI.
+Finally, we show that instance theory (Logan, 1988) successfully models
+how a general learning and memory process could produce typing
 performance that is constrained by letter uncertainty. The take home
 message is that specialized planning processes for motor sequencing in
 typing are sufficient, but not necessary to explain variation in mean
@@ -753,7 +775,7 @@ data.
 
 We have developed a falsifiable causal theory of variation in keystroke
 dynamics across position and word length for continuous typing of
-natural english text. However, we are presently limited in the strength
+natural English text. However, we are presently limited in the strength
 of our causal conclusions. Theoretically, we can conclude, by deduction,
 that an instance model predicts IKSIs will vary as a function of H.
 Empirically, we have shown correlational evidence that H explains a
@@ -775,7 +797,7 @@ length could also be conducted. Here, IKSIs by position and length
 should always correspond to the pattern of H. However, it is unclear
 whether expert typists already familiar with typing in one language
 would rapidly adapt their performance to the novel letter uncertainty
-contraints (but see, Crump and Logan (2010), for a demonstration that
+constraints (but see, Crump and Logan (2010), for a demonstration that
 recent episodic experience influences IKSI).
 
 \subsection{Instance theory and skilled sequential
@@ -797,7 +819,7 @@ showed that an instance-based account explains performance in the serial
 reaction time task (Nissen \& Bullemer, 1987), a well controlled
 laboratory sequencing task.
 
-The limitations of the instance-based approach higlight open questions.
+The limitations of the instance-based approach highlight open questions.
 For example, the core assumption that trace-based retrieval times
 determine memory-based performance implies that practice, in and of
 itself, is not necessary for automatization. Practice is one route to
@@ -823,20 +845,20 @@ optimal transfer of automatized typing performance to natural texts.
 
 Although instance theory allows for single-trial automatization, we
 suspect a magic encoding wand will not replace extended practice for
-automatizing typing performance. Instead, instance theory also higlights
-the critical role of context for automatization. As previously,
-mentioned typing performance at the keystroke level is highly dependent
-on the immediate letter context (Gentner, 1982; Salthouse, 1986;
-Shaffer, 1973). Instance theory explains context dependency by assuming
-traces are stored in a context-dependent fashion. A limitation of
-instance theory is that it is agnostic, and possibly gratuitous, in
-specifying which cues in enivronment are used as contexts to
-conditionalize trace storage and retrieval. Our findings suggest at a
+automatizing typing performance. Instead, instance theory also
+highlights the critical role of context for automatization. As
+previously, mentioned typing performance at the keystroke level is
+highly dependent on the immediate letter context (Gentner, 1982;
+Salthouse, 1986; Shaffer, 1973). Instance theory explains context
+dependency by assuming traces are stored in a context-dependent fashion.
+A limitation of instance theory is that it is agnostic, and possibly
+gratuitous, in specifying which cues in environment are used as contexts
+to conditionalize trace storage and retrieval. Our findings suggest at a
 minimum, that typists are sensitive to letter uncertainty in a deeply
 context-specific manner, including context specified by letter position,
 word length, and letter n-1 identity. The implication is that experience
 with typing letters in all functional contexts is required for
-automatizing letter typing, perhaps necessiting extended practice as
+automatizing letter typing, perhaps necessitating extended practice as
 means to experience all of the contexts.
 
 An important remaining question is to characterize the functional
@@ -868,10 +890,10 @@ preview window.
 Conlusions}\label{broader-implications-and-conlusions}
 
 We are optimistic that the tools and approach used here could be
-succesfully applied to other domains beyond skilled typing. We found
+successfully applied to other domains beyond skilled typing. We found
 that information theory, despite it's flexibility, was a useful measure
 of structure in the typing environment. Generalist models of cognitive
-processes assume that cogniton arises through interaction with a
+processes assume that cognition arises through interaction with a
 structured environment. In addition to specifying the learning and
 memory rules that extract the structure, it is equally valuable to
 improve measurement of structure in the environment. Information theory
@@ -885,14 +907,14 @@ shown that a cognitive process has more knowledge than the structure in
 an environment could provide.
 
 Information theory spurred the cognitive revolution (Hick, 1952; Hyman,
-1953; Miller, 1956), and although it was roundly criticized (see
-{\textbf{???}}), we think it has descriptive value useful for
+1953; Miller, 1956), and although it was roundly criticized (see Proctor
+\& Schneider, 2018), we think it has descriptive value useful for
 characterizing the structure in big data turning the next revolution
 (Griffiths, 2015). Our demonstration of correspondence between instance
 theory (Gordon D. Logan, 1988) and measures of uncertainty adds to the
 process models capable of accounting for uncertainty mediated phenomena
-(for a review see, {\textbf{???}}), and offers principled and
-falsifiable predictions for future work.
+(for a review see, Proctor \& Schneider, 2018), and offers principled
+and falsifiable predictions for future work.
 
 \newpage
 
@@ -916,6 +938,11 @@ Behmer, L. P., \& Crump, M. J. C. (2017). Crunching big data with finger
 tips: How typists tune their performance towards the statistics of
 natural language. In M. N. Jones (Ed.), \emph{Big Data in Cognitive
 Science} (pp. 319--341).
+
+\hypertarget{ref-R-matrixStats}{}
+Bengtsson, H. (2018). \emph{MatrixStats: Functions that apply to rows
+and columns of matrices (and to vectors)}. Retrieved from
+\url{https://CRAN.R-project.org/package=matrixStats}
 
 \hypertarget{ref-clark_supersizing_2008}{}
 Clark, A. (2008). \emph{Supersizing the mind: Embodiment, action, and
