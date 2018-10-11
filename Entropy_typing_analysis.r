@@ -130,7 +130,7 @@ typing_plot1 <- ggplot(sum_data,aes(x=let_pos,
   xlab("Letter Position")+
   ylab("Mean Interkeystroke Interval (ms)")+
   scale_colour_grey()+
-  labs(color='Word Length') +
+  labs(color='Word \n Length') +
   ggtitle("Mean IKSI by Position and Length")
 
 ## @knitr typing-mean-iksis-comparisons ------
@@ -259,7 +259,7 @@ letter_uncertainty_plot2 <- ggplot(sum_data,aes(x=H,
   theme(legend.position="bottom")+
   xlab("Letter Uncertainty (H)")+
   ylab("Mean Interksytroke Interval (ms)")+
-  labs(color='Letter Position') +
+  labs(color='Letter \n Position') +
   scale_colour_grey()+
   ggtitle("Mean IKSI by Letter Uncertainty")
 
@@ -457,7 +457,7 @@ uncertainty_bigram_plot2 <-ggplot(sum_data,aes(x=H_bigram,
   theme(legend.position="bottom")+
   xlab("Bigram Uncertainty (H)")+
   ylab("Mean Interkeystroke Interval (ms)")+
-  labs(color='Letter Position') +
+  labs(color='Letter \n Position') +
   scale_colour_grey()+
   ggtitle("Mean IKSIs by Bigram Uncertainty")
 
@@ -539,4 +539,31 @@ ggplot(all_sims_df,aes(x=position,y=mean_letter_retrieval_time,group=word_length
   facet_wrap(~amount_of_practice)
 
 
+## @knitr first_letter_slowing   ----
 
+the_data <- fread("~/Desktop/mturk.txt")
+
+first_letter_df <- the_data %>%
+                    filter(as.numeric(word_lengths)>1,
+                           as.numeric(word_lengths)<10,
+                           as.numeric(let_pos)<10)
+first_vs_rest <- as.character(first_letter_df$let_pos)
+first_vs_rest[first_vs_rest=="1"] <- "first"
+first_vs_rest[first_vs_rest!="first"] <- "rest"
+
+first_letter_df <- first_letter_df %>%
+                     mutate(first_letter=as.factor(first_vs_rest))
+
+first_letter_means <- first_letter_df %>%
+                        group_by(Subject,word_lengths,first_letter) %>%
+                        summarize(mean_iksi=mean(non_recursive_moving(IKSIs)$restricted))
+
+first_letter_means$Subject<-as.factor(first_letter_means$Subject)
+first_letter_means$word_lengths<-as.factor(first_letter_means$word_lengths)
+
+
+aov.out <- summary(aov(mean_iksi ~ first_letter + Error(Subject/first_letter),first_letter_means))
+aov.out
+
+aov.out <- summary(aov(mean_iksi ~ word_lengths*first_letter + Error(Subject/(word_lengths*first_letter)),first_letter_means))
+aov.out

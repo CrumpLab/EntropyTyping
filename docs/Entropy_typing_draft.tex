@@ -125,7 +125,8 @@ determinant of keystroke dynamics}
     The repository contains the data, source code for compiling the analysis
     and modeling scripts in R, source code for compiling this paper in R
     using papaja, and the version controlled history of our discussions and
-    work across the project.
+    work across the project. This work was supported by a grant from NSF
+    (1353360) to Matthew Crump.
     
     Correspondence concerning this article should be addressed to Matthew J.
     C. Crump, Brooklyn College of CUNY, 2900 Bedford Avenue, Brooklyn, NY,
@@ -140,28 +141,27 @@ correspondence between performance (keystroke timing) and structure in
 the environment (letter uncertainty). We had \textasciitilde{}350
 typists copy-type english text. We reproduced Ostry's (1983) analysis of
 interkeystroke interval as a function of letter position and word
-length, which showed prominent first-letter and mid-word slowing
-effects. We propose a novel account that letter position and word length
-effects on keystroke dynamics reflect informational uncertainty about
-letters in those locations, rather than resource limited
-planning/buffering processes. We computed positional uncertainty for
-letters in all positions of words from length one to nine using Google's
-n-gram database. We show that variance in inter-keystroke interval by
-letter position and word length tracks natural variation in letter
-uncertainty. Finally, we provide a model showing how a general learning
-and memory process could acquire sensitivity to patterns of letter
-uncertainty in natural english. In doing so, we draw an equivalence
-between Logan's (1988) instance theory of automatization and Shannon's
-measure of entropy (H) from information theory. Instance theory's
-predictions for automatization as a function of experience follow
-exactly the uncertainty in the choice set being automatized. As a
-result, instance theory stands as a general process model explaining how
-context-specific experiences in a structured environment tune skilled
-performance.}
+length, that showed prominent first-letter and mid-word slowing effects.
+We propose a novel account that letter position and word length effects
+on keystroke dynamics reflect informational uncertainty about letters in
+those locations, rather than resource limited planning/buffering
+processes. We computed positional uncertainty for letters in all
+positions of words from length one to nine using Google's n-gram
+database. We show that variance in inter-keystroke interval by letter
+position and word length tracks natural variation in letter uncertainty.
+Finally, we provide a model showing how a general learning and memory
+process could acquire sensitivity to patterns of letter uncertainty in
+natural english. In doing so, we draw an equivalence between Logan's
+(1988) instance theory of automatization and Shannon's measure of
+entropy (H) from information theory. Instance theory's predictions for
+automatization as a function of experience follow exactly the
+uncertainty in the choice set being automatized. As a result, instance
+theory stands as a general process model explaining how context-specific
+experiences in a structured environment tune skilled performance.}
   \keywords{Instance Theory, Information Theory, Entropy, Uncertainty, Typing,
 Performance \\
 
-    \indent Word count: X
+    \indent Word count: 5946
   }
 
 
@@ -192,18 +192,19 @@ Performance \\
 
 \section{Introduction}\label{introduction}
 
-Theories of cognitive processes run along a continuum. On one extreme,
-cognitive phenomena are explained in terms specialized and dedicated
-modules (Fodor, 1983) that give rise to cognition by the principles of
-their internal processing architecture. On the other extreme, cognitive
-phenomena are explained in terms of general learning and memory
-processes (Jacoby \& Brooks, 1984; Kolers \& Roediger, 1984; Rumelhart
-\& McClelland, 1986) that give rise to cognition through their
-experience with a structured environment (Clark, 2008). Valid theories
-produce explanations of phenomena by deduction from their processing
+Theories of cognitive processes run along a continuum from specific to
+general. On one extreme, cognitive phenomena are explained in terms of
+dedicated modules (Fodor, 1983) that give rise to cognition by the
+specialized principles of their internal processing architecture. On the
+other extreme, cognitive phenomena are explained in terms of general
+learning and memory processes (Jacoby \& Brooks, 1984; Kolers \&
+Roediger, 1984; Rumelhart \& McClelland, 1986) that give rise to
+cognition by applying general processing principles to experience in
+structured environments (Clark, 2008). Valid theories produce
+explanations of phenomena by deduction from their processing
 assumptions, and then compete with other valid theories on the basis of
-parsimony. When a phenomena is explained by a general process,
-specialized accounts become sufficient, but not necessary; and, vice
+parsimony. When phenomena are explained by general processes,
+specialized accounts remain sufficient, but not necessary; and, vice
 versa. We continue in this tradition by proposing and validating a
 general process account of keystroke dynamics in skilled typing
 performance. We show that keystroke dynamics can emerge from a general
@@ -211,34 +212,32 @@ memory process sensitive to structure (uncertainty) in the natural
 language environment.
 
 We identified the following pre-requisites as necessary for our
-approach. We follow the assumption that specialized or general processes
-of cognition are constrained to operate upon the structure of their
-environmental inputs. So, we require a tool for describing the structure
-of environmental inputs. We assume that performance is driven by
-learning processes sensitive to the structure in the environment. So, we
-require a model that articulates how learning about the structure of an
+approach. We assume that performance is driven by learning processes
+sensitive to the structure in the environment. So, we require a tool for
+describing the structure of environmental inputs. And, we require a
+model that articulates how learning about the structure of an
 environment produces performance. Finally, we require a task where the
 relation between performance and a structured environment can be
-measured. We use information theory (Shannon \& Weaver, 1998) to measure
-the structure of the letters that typists' type, instance theory (Gordon
-D. Logan, 1988) to model how typists' performance is shaped by the
-typing environment, and the task of continuous typing (Gordon D. Logan
-\& Crump, 2011) to measure keystroke dynamics as a function of the
-structure in the typing environment.
+measured. We use information theory (Shannon \& Weaver, 1949) to measure
+the structure of the letters that typists' type, instance theory (Logan,
+1988) to model how typists' performance is shaped by the typing
+environment, and the task of continuous typing (Logan \& Crump, 2011) to
+measure keystroke dynamics as a function of the structure in the typing
+environment.
 
 There are many typing phenomena to explain (Salthouse, 1986), and
 several existing models of typing (Heath \& Willcox, 1990; John, 1996;
-Rumelhart \& Norman, 1982; Wu \& Liu, 2008). Our goal here was not to
-provide another general model of typing, and we expect that our model
-will fail to explain many aspects of typing performance. Instead, we
-focus our efforts empirically and theoretically as follows. Empirically,
-we examine whether typing performance is constrained by structure in the
-natural language. Theoretically, we propose a general processing account
-that predicts how structure in the natural language should constrain
-typing performance. These aims contribute to the broader goals (beyond
-the scope of this paper) of determining whether specialized or general
-accounts are necessary or sufficient to explain typing performance, and
-then adjudicating between them.
+Logan, 2018; Rumelhart \& Norman, 1982; Wu \& Liu, 2008). Our goal here
+was not to provide another general model of typing, and we expect that
+our model will fail to explain many aspects of typing performance.
+Instead, we focus our efforts empirically and theoretically as follows.
+Empirically, we examine whether typing performance is constrained by
+structure in the natural language. Theoretically, we propose a general
+processing account that predicts how structure in the natural language
+should constrain typing performance. These aims contribute to the
+broader goals (beyond the scope of this paper) of determining whether
+specialized or general accounts are necessary or sufficient to explain
+typing performance, and then adjudicating between them.
 
 We focused on two typing phenomena, the word-initiation/first-letter
 slowing effect, and the mid-word slowing effect, which are both observed
@@ -260,17 +259,17 @@ influence interkeystroke intervals, so the effects of letter position
 and word length on interkeystroke interval remain unclear.
 
 First-letter slowing has been explained in terms of planning and
-buffering processes associated with typing a whole word. For example,
-the time associated with retrieving a motor program for a word, parsing
-the word into letters, planning the sequence, or initiating the
-execution of the sequence after it is buffered, could cause the first
-letter in a word to be produced more slowly than other letters. Mid-word
-slowing has been explained in terms of rising interference from ongoing
-sequencing, or from micro-planning of syllables which often occur in the
-middle of words (Will, Nottbusch, \& Weingarten, 2006). These
-explanations rely on largely unspecified planning and execution
-processes that are reverse-engineered by imputing hypotheses about their
-operation from typing data.
+buffering processes associated with typing a whole word (Salthouse,
+1986). For example, the time associated with retrieving a motor program
+for a word, parsing the word into letters, planning the sequence, or
+initiating the execution of the sequence after it is buffered, could
+cause the first letter in a word to be produced more slowly than other
+letters. Mid-word slowing has been explained in terms of rising
+interference from ongoing sequencing, or from micro-planning of
+syllables which often occur in the middle of words (Will, Nottbusch, \&
+Weingarten, 2006). These explanations rely on largely unspecified
+planning and execution processes that are reverse-engineered by imputing
+hypotheses about their operation from typing data.
 
 To develop an alternative, we entertained a simple question: are more
 predictable letters typed faster than less predictable letters? More
@@ -291,12 +290,12 @@ influenced by the immediate letter context in which they occur (Gentner,
 1982; Shaffer, 1973). IKSIs are also influenced by orthographic
 structure (Massaro \& Lucas, 1984; Pinet, Ziegler, \& Alario, 2016; Will
 et al., 2006). Finally, IKSIs are much faster for letter strings from a
-natural language, compared to random letter strings (Shaffer \&
-Hardwick, 1968); Behmer and Crump (2017){]}. These demonstrations
-suggest that typing performance is partly determined by a learning
-process sensitive to structure inherent to natural texts.
+natural language, compared to random letter strings (Behmer \& Crump,
+2017; Shaffer \& Hardwick, 1968). These demonstrations suggest that
+typing performance is partly determined by a learning process sensitive
+to structure inherent to natural texts.
 
-Following Shannon and Weaver (1998), we use information theory as a tool
+Following Shannon and Weaver (1949), we use information theory as a tool
 to measure structure in natural texts. The summary statistic H measures
 the entropy or uncertainty in any discrete probability distribution of a
 set of items. H goes to 0 for distributions that are perfectly
@@ -347,14 +346,17 @@ collected by Behmer and Crump (2017), who had 346 typists copy type five
 paragraphs of natural English text. Then we estimated letter uncertainty
 in natural English for each letter position in words of different
 lengths. We used letter frequency counts from Google's Ngram project
-provided by Peter Norvig, which gave us letter uncertainty estimates for
-each position in words of length one to nine. Next, we show that natural
-variation in letter uncertainty can explain large portions of variance
-in interkeystroke intervals as a function of letter position and word
+provided by Peter Norvig, who made tables of separate letter frequency
+distributions as a function of letter position and word length. We
+converted these frequency distributions to letter probability
+distributions to calculate letter uncertainty (H) for each letter
+position in words of length one to nine. We show that natural variation
+in letter uncertainty can explain large portions of variance in
+interkeystroke intervals as a function of letter position and word
 length. Finally, we show that the instance theory of automatization
-(Gordon D. Logan, 1988) provides a working process model explaining how
-a general memory process could cause typing performance to be
-constrained by letter uncertainty.
+(Logan, 1988) provides a working process model explaining how a general
+memory process could cause typing performance to be constrained by
+letter uncertainty.
 
 \section{Methods}\label{methods}
 
@@ -378,7 +380,7 @@ org/wiki/Cat), and one paragraph was from the entry for music
 (\url{http://simple.wikipedia.org/wiki/Music}). Each normal paragraph
 had an average of 131 words (range 124--137).}
 
-The apparatus was a website displaying textbox containing a single
+The apparatus was a website displaying a textbox containing a single
 paragraph. Paragraph text was black, presented in 14 pt, Helvetica font.
 JavaScript was used to record keystroke timestamps in milliseconds.
 
@@ -581,7 +583,8 @@ preceding or succeeding n-grams (groups of letters).
 Although an exhaustive calculation of letter uncertainty is beyond the
 scope of this paper, we nevertheless took one further step and
 calculated letter uncertainty by position and word length,
-conditionalizing upon n-1 letter identity. Fortunately, Norvig
+conditionalizing upon n-1 letter identity (referred to as bigram
+uncertainty in the figure). Fortunately, Norvig
 (\url{http://norvig.com/mayzner.html}) also provided bigram frequency
 counts from the Google Ngram corpus as a function of position and word
 length. We calculated letter uncertainty in the following manner. First
@@ -630,8 +633,8 @@ scatterplot of mean IKSIs as a function of letter uncertainty
 conditionalized by letter n-1 identity across positions and word length.
 A linear regression on mean IKSIs using our new measure of letter
 uncertainty as the independent variable showed a strong positive
-relationship, F(1, 43) = 182.44, p = 4.5e-17, \(R^2 =\) 0.81 ( meanIKSI
-= 73.72 \(+\) 39.31 \(* H\) ).
+relationship, F(1, 43) = 182.44, p \textless{} 0.001, \(R^2 =\) 0.81 (
+meanIKSI = 73.72 \(+\) 39.31 \(* H\) ).
 
 \section{An instance-based model}\label{an-instance-based-model}
 
@@ -647,11 +650,14 @@ uncertainty influences on performance can be explained in terms of
 Logan's (1988) instance-based memory model of automatization.
 
 Instance theory provides an account of how performance becomes
-automatized with practice. We will show instance theory's memory process
-also develops sensitivity to uncertainty in the stimuli it encounters
-over practice. More specifically, instance theory's predictions for
-performance are nearly identical to the hick-hyman law which posits that
-reaction times are a linear function of the uncertainty in a choice set.
+automatized with practice. We will show that instance theory is also
+sensitive to uncertainty in the sets of stimuli it encounters over
+practice. More specifically, we will draw an equalivence between
+instance theory and the information theoretic measure of H, and show
+that instance theories predictions for performance are nearly identical
+to H. As a result, instance theory becomes a process model of the
+Hick-Hyman law, law which posits that reaction times are a linear
+function of the uncertainty in a choice set.
 
 Instance theory models learning as a function of practice in terms of
 cue-driven retrieval of stored memory traces (like other global memory
@@ -670,7 +676,7 @@ distribution.
 Instance theory models practice based performance speed-ups in terms of
 sampling extreme values from a growing retrieval time distribution. As
 the number of memory traces grows the range of the retrieval time
-distribution also grows, such that he minimum value of the distribution
+distribution also grows, such that the minimum value of the distribution
 (fastest retrieval time) is more likely to be smaller for distributions
 with more than fewer memory traces. As a result, reaction times will
 tend to be faster for more practiced than less practiced stimuli,
@@ -678,37 +684,66 @@ because more practiced stimuli have a better chance of retrieving a fast
 memory response than less practiced stimuli.
 
 We can now draw a more transparent connection between instance theory
-and information theory: they both summarize the same frequency
-distributions. Information theory provides H as a summary statistic of
-any discrete probability distributions. Empirical probability
-distributions for natural occurring stimuli, such as letters, are found
-by counting stimulus frequencies, and then dividing a stimulus frequency
-distribution by it's sum. Instance theory encodes the frequency
-distributions, and summarizes them at retrieval. It predicts
-monotonically decreasing RTs as a function of stimulus frequency.
-Instance theory predictions for a set of stimuli should concord with H
-by taking the grand mean of the predicted RTs for all choices in a set.
-We demonstrate these relationships by monte-carlo simulation.
+and information theory: they both operate upon the same frequency
+distributions. H values are a summary statistic for frequency
+distributions of a set of stimuli. The frequency distribution is
+transformed to a probability distribution, and then the H formula is
+applied. H goes to 0 as a particular item in the set becomes the only
+stimulus to occur. H goes to it's maximum as each stimulus has the same
+frequency of occurence. In other words, H becomes smaller when some
+portion of the stimuli occur with greater frequency, and larger as
+stimulus frequencies are equated. Instance theory encodes a trace for
+each stimulus, and thus encodes the raw, context-specific frequency
+distributions for each stimulus. Instance theory can be thought of as
+summarizing frequency distributions at retrieval. It predicts
+monotonically decreasing RTs as a function of stimulus frequency. When
+considering a set of stimuli, instance theory will predict faster mean
+performance for the set, when the set contains some stimuli that occur
+with high frequency; and it will predict slower mean performance for the
+set, when the set contains stimuli with equal frequency, each of which
+has been practiced less often than high frequency stimuli in a set with
+choices containing high frequency stimuli. So, instance theory
+predictions for mean reaction time for a set of stimuli should concord
+with H by taking the grand mean of the predicted RTs for all choices in
+a set. We demonstrate these relationships by monte-carlo simulation.
+
+If instance theory predictions for mean performance for a set of choice
+stimuli maps onto H for the same set of stimuli, then this relationship
+could be established by simulating instance theory predictions for
+multiple independent sets of stimuli, each with different values for H.
+The predictions for mean performance for each set should correlate well
+with H for each set. To create several choice sets with varying levels
+of H, we used the 45 letter frequency distributions, that each have
+varying levels of H. In principle, to demonstrate the relationship we
+could have used arbitrary stimulus sets with varying levels of H.
 
 We modeled instance theory predictions for keystroke production times as
 a function of letter position and word length, for typing natural
 English text. We treated all 26 letters that could possibly occur in any
 position for any word length as completely unique and independent
-stimuli. We modeled the structure of natural English using the 45 letter
+stimuli. For example, the letter \enquote{a} occuring in position one of
+a one-letter word was treated as a different stimulus from the letter
+\enquote{a} occuring in any other position of any other word, or in
+position one of a word of a different length. This assumes traces for
+specific letters are stored and retrieved in a context-dependent
+fashion. We modeled the structure of natural English using the 45 letter
 probability distributions derived from Norvig's letter frequency counts
 by position and word length, from Google's Ngram corpus.
 
 Keystroke times for specific letters were simulated as a function of
-trace frequency by monte-carlo simulation. We assumed that the retrieval
-time distribution for each stimulus was sampled from a normal
-distribution with mean = 500, and standard deviation = 100. Using R, we
-sampled retrieval times from the normal distribution n times, where n
-was the current number of memory traces for a given letter. Then we took
-the minimum value from the sampling distribution as the reaction time.
-We repeated this process 1000 times to estimate the expected mean
-reaction time (expected minimum retrieval time) for the given frequency
-value. In this way, we estimated mean keystroke production times for
-every letter position across different word lengths.
+trace frequency by monte-carlo simulation. For convenience, we assumed
+that the retrieval time distribution for each stimulus was sampled from
+a normal distribution with mean = 500, and standard deviation = 100.
+Using R, we sampled retrieval times for each stimulus form the normal
+distribution n times, where n was the current number of memory traces
+for a given letter, that would have been experienced with a particular
+frequency. Then we took the minimum value from the sampling distribution
+as the reaction time for that stimulus, given n amount of practice. We
+repeated this process 1000 times to estimate the expected mean reaction
+time (expected minimum retrieval time) for the given frequency value for
+each letter in the set. In this way, we estimated mean keystroke
+production times for every letter position across different word
+lengths.
 
 Last, we evaluated model predictions across four practice intervals,
 shown in the figure as 50, 100, 200 and 500. These practice intervals
@@ -739,16 +774,17 @@ simulated keystroke times shorten with practice. More important, at each
 stage in practice, simulated keystroke times show the same qualitative
 pattern of variation across letter position and word length. Notably,
 these appear very similar to human typing performance, and to letter
-uncertainty as a function of position and word length. We conducted
-linear regressions on simulated mean typing times using letter
-uncertainty as the independent variable. We found that letter
-uncertainty nearly perfectly explains the variance in simulated
-keystroke time, with \(R^2\) tending toward 1 with practice.
+uncertainty as a function of position and word length displayed in
+Figure \ref{fig:letter-uncertainty-by-IKSI}A. We conducted linear
+regressions on simulated mean typing times using letter uncertainty as
+the independent variable. We found that letter uncertainty nearly
+perfectly explains the variance in simulated keystroke time, with
+\(R^2\) tending toward 1 with practice.
 
 We point out that the pattern of instance theory predictions for mean
 reaction time for any set of choice stimuli will be identical to the
 uncertainty, measured by H, for those sets of choices. This means that
-instance theory is a process model of the hick-hyman law, and it
+instance theory is a process model of the Hick-Hyman law, and it
 inherits both the successes and failures of information theoretic
 interpretations of performance.
 
@@ -757,19 +793,19 @@ interpretations of performance.
 Using data from a large N study of continuous typing performance, we
 reproduced Ostry's (1983) demonstration that mean interkeystroke
 interval systematically varies as a function of letter position and word
-length. We proposed that variation in mean IKSI could be caused by
-general learning process sensitive to letter uncertainty across position
-and word length. We calculated letter uncertainty in natural English
-from Google's large corpus of digitized text, and showed that it can
-explain a large portion of the variance ( \(R^2\) = 0.86 ) in mean IKSI.
-Finally, we show that instance theory (Logan, 1988) successfully models
-how a general learning and memory process could produce typing
-performance that is constrained by letter uncertainty. The take home
-message is that specialized planning processes for motor sequencing in
-typing are sufficient, but not necessary to explain variation in mean
-IKSI as a function of letter position and word length; and, that a
-general learning process provides a more parsimonious account of the
-data.
+length. We proposed that variation in mean IKSI could be caused by a
+general learning process sensitive to letter uncertainty across letter
+position and word length. We calculated letter uncertainty in natural
+English from Google's large corpus of digitized text, and showed that it
+can explain variance in mean IKSI, especially when letter n-1 identity
+is included in the measure of uncertainty ( \(R^2\) = 0.86 ) . Finally,
+we show that instance theory (Logan, 1988) successfully models how a
+general learning and memory process could produce typing performance
+that is constrained by letter uncertainty. The take home message is that
+specialized planning processes for motor sequencing in typing may be
+sufficient, but are not necessary to explain variation in mean IKSI as a
+function of letter position and word length; and, that a general
+learning process provides a more parsimonious account of the data.
 
 \subsection{Inferential limitations}\label{inferential-limitations}
 
@@ -797,22 +833,21 @@ length could also be conducted. Here, IKSIs by position and length
 should always correspond to the pattern of H. However, it is unclear
 whether expert typists already familiar with typing in one language
 would rapidly adapt their performance to the novel letter uncertainty
-constraints (but see, Crump and Logan (2010), for a demonstration that
-recent episodic experience influences IKSI).
+constraints.
 
 \subsection{Instance theory and skilled sequential
 action}\label{instance-theory-and-skilled-sequential-action}
 
 Our findings fit well with prior work showing instance-based influences
 over typing performance, and sequencing in general. For example,
-borrowing from (Masson, 1986), Crump and Logan (2010) showed that recent
+borrowing from Masson (1986), Crump and Logan (2010) showed that recent
 episodic experience with typing subsets of letters shortens IKSIs for
 practiced letters, and suggested that letter typing is driven by
 instance-based retrieval process. Behmer and Crump (2017) showed that
 instance theory uniquely predicts, compared to a serial recurrent
 network model (Cleeremans, 1993; Elman, 1990), changes in sensitivity to
 letter, bigram, and trigram frequency as a function of typing expertise.
-Gordon D. Logan (In Press) has extended instance-based model to account
+Logan (2018) recently proposed another instance-based model to account
 for context-driven automatization over response scheduling typing.
 Finally, outside of the domain of typing, Jamieson and Mewhort (2009)
 showed that an instance-based account explains performance in the serial
@@ -828,9 +863,9 @@ increasing the likelihood the population contains fast retrieval times
 for traces that could support automatization. Indeed, instance theory
 allows for single-trial automatization, which occurs when the first
 trace sampled into memory happens to have a very fast retrieval time
-(for a demonstration see, Gordon D. Logan and Klapp (1991)). However,
-instance theory does not lay bare the factors determining how trace
-encoding processes could reliably record fast traces to optimize the
+(for a demonstration see, Logan \& Klapp, 1991). However, instance
+theory does not lay bare the factors determining how trace encoding
+processes could reliably record fast traces to optimize the
 automatization process.
 
 Nevertheless, instance theory could provide theoretically optimized
@@ -849,7 +884,7 @@ automatizing typing performance. Instead, instance theory also
 highlights the critical role of context for automatization. As
 previously, mentioned typing performance at the keystroke level is
 highly dependent on the immediate letter context (Gentner, 1982;
-Salthouse, 1986; Shaffer, 1973). Instance theory explains context
+Salthouse, 1986; Shaffer, 1973). Instance theory allows for context
 dependency by assuming traces are stored in a context-dependent fashion.
 A limitation of instance theory is that it is agnostic, and possibly
 gratuitous, in specifying which cues in environment are used as contexts
@@ -858,12 +893,12 @@ minimum, that typists are sensitive to letter uncertainty in a deeply
 context-specific manner, including context specified by letter position,
 word length, and letter n-1 identity. The implication is that experience
 with typing letters in all functional contexts is required for
-automatizing letter typing, perhaps necessitating extended practice as
-means to experience all of the contexts.
+automatizing letter typing, perhaps necessitating extended practice as a
+means to experience letters in all of their contexts.
 
 An important remaining question is to characterize the functional
 envelope of contextual cues mediating retrieval of stored instances in
-typing. For example, letter identities or ngram units at positions n-x
+typing. For example, letter identities or n-gram units at positions n-x
 to n+y may also be effective contextual cues mediating retrieval
 keystroke retrieval times. We suggest that information theory may be
 used to characterize the natural horizon of structure surrounding
@@ -877,10 +912,10 @@ other words, letter identities at some remote location will eventually
 be unpredictive of letter identities at the current position. We think
 it would be telling if the natural span of the letter uncertainty
 envelope maps onto the known rate limiting eye-hand copying spans in
-typing (Gordan D. Logan, 1983). For example, typing speed slows down as
-preview of upcoming letters is restricted (Hershman \& Hillix, 1965),
-and it remains unknown how the size of the preview window corresponds to
-the natural span of letter uncertainty conditionalized on succeeding
+typing (Logan, 1983). For example, typing speed slows down as preview of
+upcoming letters is restricted (Hershman \& Hillix, 1965), and it
+remains unknown how the size of the preview window corresponds to the
+natural span of letter uncertainty conditionalized on succeeding
 letters. Some rate-limiting aspects of limited preview may not reflect
 internal processing limitations (McLeod \& Hume, 1994; Pashler, 1994a,
 1994b), but external constraints on the value of the information in the
@@ -898,23 +933,23 @@ structured environment. In addition to specifying the learning and
 memory rules that extract the structure, it is equally valuable to
 improve measurement of structure in the environment. Information theory
 provides one flexible measurement framework for describing the amount of
-correlated or redundant structure within any set of units in the
-environment. When applied judiciously, it becomes theoretically possible
-to define the limits of what a general learning process could learn from
-an environment. These limits could be useful for testing generalist
+redundant structure within any set of units in the environment. When
+applied judiciously, it becomes theoretically possible to define the
+limits of what a general learning process could learn from an
+environment. These limits could be useful for testing generalist
 theories against special process theories, especially when it can be
-shown that a cognitive process has more knowledge than the structure in
-an environment could provide.
+shown that a specialized cognitive process has more knowledge than could
+be provided by natural structure in the environment.
 
 Information theory spurred the cognitive revolution (Hick, 1952; Hyman,
 1953; Miller, 1956), and although it was roundly criticized (see Proctor
 \& Schneider, 2018), we think it has descriptive value useful for
 characterizing the structure in big data turning the next revolution
 (Griffiths, 2015). Our demonstration of correspondence between instance
-theory (Gordon D. Logan, 1988) and measures of uncertainty adds to the
-process models capable of accounting for uncertainty mediated phenomena
-(for a review see, Proctor \& Schneider, 2018), and offers principled
-and falsifiable predictions for future work.
+theory (Logan, 1988) and measures of uncertainty adds to the process
+models capable of accounting for uncertainty mediated phenomena (for a
+review see, Proctor \& Schneider, 2018), and offers principled and
+falsifiable predictions for future work.
 
 \newpage
 
@@ -946,8 +981,7 @@ and columns of matrices (and to vectors)}. Retrieved from
 
 \hypertarget{ref-clark_supersizing_2008}{}
 Clark, A. (2008). \emph{Supersizing the mind: Embodiment, action, and
-cognitive extension}. OUP USA. Retrieved from
-\url{https://books.google.com/books?hl=en\&lr=\&id=n5wRDAAAQBAJ\&oi=fnd\&pg=PR9\&dq=andy+clark\&ots=_Cpl448Qox\&sig=SC8xkxJaEf7G8EZaGPS0zSDEQX8}
+cognitive extension}. Oxford University Press, New York.
 
 \hypertarget{ref-cleeremans_mechanisms_1993}{}
 Cleeremans, A. (1993). \emph{Mechanisms of implicit learning
@@ -960,9 +994,8 @@ Crump, M. (2017). \emph{Crump: Crump lab functions}.
 \hypertarget{ref-crump_episodic_2010}{}
 Crump, M. J. C., \& Logan, G. D. (2010). Episodic contributions to
 sequential control: Learning from a typist's touch. \emph{Journal of
-Experimental Psychology: Human Perception and Performance},
-\emph{36}(3), 662--672.
-doi:\href{https://doi.org/10.1037/a0018390}{10.1037/a0018390}
+Experimental Psychology: Human Perception and Performance}, \emph{36},
+662--672. doi:\href{https://doi.org/10.1037/a0018390}{10.1037/a0018390}
 
 \hypertarget{ref-R-data.table}{}
 Dowle, M., \& Srinivasan, A. (2017). \emph{Data.table: Extension of
@@ -982,17 +1015,16 @@ doi:\href{https://doi.org/10.7287/peerj.preprints.3188v1}{10.7287/peerj.preprint
 
 \hypertarget{ref-R-Rcpp_a}{}
 Eddelbuettel, D., \& François, R. (2011). Rcpp: Seamless R and C++
-integration. \emph{Journal of Statistical Software}, \emph{40}(8),
-1--18.
+integration. \emph{Journal of Statistical Software}, \emph{40}, 1--18.
 doi:\href{https://doi.org/10.18637/jss.v040.i08}{10.18637/jss.v040.i08}
 
 \hypertarget{ref-eich_composite_1982}{}
 Eich, J. M. (1982). A composite holographic associative recall model.
-\emph{Psychological Review}, \emph{89}(6), 627--661.
+\emph{Psychological Review}, \emph{89}, 627--661.
 
 \hypertarget{ref-elman_finding_1990}{}
 Elman, J. L. (1990). Finding structure in time. \emph{Cognitive
-Science}, \emph{14}(2), 179--211.
+Science}, \emph{14}, 179--211.
 
 \hypertarget{ref-fodor_modularity_1983}{}
 Fodor, J. A. (1983). \emph{The modularity of mind: An essay on faculty
@@ -1001,7 +1033,7 @@ psychology}. Cambridge, Mass.: MIT Press.
 \hypertarget{ref-GentnerEvidencecentralcontrol1982}{}
 Gentner, D. R. (1982). Evidence against a central control model of
 timing in typing. \emph{Journal of Experimental Psychology: Human
-Perception and Performance}, \emph{8}(6), 793--810.
+Perception and Performance}, \emph{8}, 793--810.
 doi:\href{https://doi.org/10.1037/0096-1523.8.6.793}{10.1037/0096-1523.8.6.793}
 
 \hypertarget{ref-griffiths_manifesto_2015}{}
@@ -1016,32 +1048,32 @@ in Skilled Typing.} DTIC Document. Retrieved from
 \hypertarget{ref-heath_stochastic_1990}{}
 Heath, R. A., \& Willcox, C. H. (1990). A stochastic model for
 inter-keypress times in a typing task. \emph{Acta Psychologica},
-\emph{75}(1), 13--39.
+\emph{75}, 13--39.
 
 \hypertarget{ref-HershmanDataProcessingTyping1965}{}
 Hershman, R. L., \& Hillix, W. A. (1965). Data Processing in Typing:
 Typing Rate as a Function of Kind of Material and Amount Exposed1.
 \emph{Human Factors: The Journal of the Human Factors and Ergonomics
-Society}, \emph{7}(5), 483--492.
+Society}, \emph{7}, 483--492.
 
 \hypertarget{ref-hick_rate_1952}{}
 Hick, W. E. (1952). On the rate of gain of information. \emph{Quarterly
-Journal of Experimental Psychology}, \emph{4}(1), 11--26. Retrieved from
+Journal of Experimental Psychology}, \emph{4}, 11--26. Retrieved from
 \url{http://www.tandfonline.com/doi/abs/10.1080/17470215208416600}
 
 \hypertarget{ref-hintzman_judgments_1988}{}
 Hintzman, D. L. (1988). Judgments of frequency and recognition memory in
-a multiple-trace memory model. \emph{Psychological Review},
-\emph{95}(4), 528.
+a multiple-trace memory model. \emph{Psychological Review}, \emph{95},
+528.
 
 \hypertarget{ref-humphreys_global_1989}{}
 Humphreys, M. S., Pike, R., Bain, J. D., \& Tehan, G. (1989). Global
 matching: A comparison of the SAM, Minerva II, Matrix, and TODAM models.
-\emph{Journal of Mathematical Psychology}, \emph{33}(1), 36--67.
+\emph{Journal of Mathematical Psychology}, \emph{33}, 36--67.
 
 \hypertarget{ref-hyman_stimulus_1953}{}
 Hyman, R. (1953). Stimulus information as a determinant of reaction
-time. \emph{Journal of Experimental Psychology}, \emph{45}(3), 188.
+time. \emph{Journal of Experimental Psychology}, \emph{45}, 188--196.
 Retrieved from \url{http://psycnet.apa.org/journals/xge/45/3/188/}
 
 \hypertarget{ref-JacobyNonanalyticcognitionMemory1984}{}
@@ -1052,13 +1084,13 @@ Motivation}, \emph{18}, 1--47.
 \hypertarget{ref-jamieson_applying_2009}{}
 Jamieson, R. K., \& Mewhort, D. J. K. (2009). Applying an exemplar model
 to the serial reaction-time task: Anticipating from experience.
-\emph{The Quarterly Journal of Experimental Psychology}, \emph{62}(9),
+\emph{The Quarterly Journal of Experimental Psychology}, \emph{62},
 1757--1783. Retrieved from
 \url{http://www.tandfonline.com/doi/abs/10.1080/17470210802557637}
 
 \hypertarget{ref-john_typist:_1996}{}
 John, B. E. (1996). TYPIST: A theory of performance in skilled typing.
-\emph{Human-Computer Interaction}, \emph{11}(4), 321--355.
+\emph{Human-Computer Interaction}, \emph{11}, 321--355.
 
 \hypertarget{ref-R-ggpubr}{}
 Kassambara, A. (2017). \emph{Ggpubr: 'Ggplot2' based publication ready
@@ -1066,22 +1098,22 @@ plots}. Retrieved from \url{https://CRAN.R-project.org/package=ggpubr}
 
 \hypertarget{ref-KolersProceduresmind1984}{}
 Kolers, P. A., \& Roediger, H. L. (1984). Procedures of mind.
-\emph{Journal of Verbal Learning and Verbal Behavior}, \emph{23}(4),
+\emph{Journal of Verbal Learning and Verbal Behavior}, \emph{23},
 425--449.
 
 \hypertarget{ref-logan_span_1983}{}
 Logan, G. D. (1983). Time, information, and the various spans in
 typewriting. In W. E. Cooper (Ed.), \emph{Cognitive aspects of skilled
-typewriting} (pp. 197--224).
+typewriting} (pp. 197--224). Springer-Verlag, New York.
 
 \hypertarget{ref-logan_toward_1988}{}
 Logan, G. D. (1988). Toward an instance theory of automatization.
-\emph{Psychological Review}, \emph{95}(4), 492--527. Retrieved from
+\emph{Psychological Review}, \emph{95}, 492--527. Retrieved from
 \url{http://psycnet.apa.org/journals/rev/95/4/492/}
 
-\hypertarget{ref-logan_inpress}{}
-Logan, G. D. (In Press). Automatic control: How experts act without
-thinking. \emph{Psychological Review}, \emph{TBD}(TBD), TBD.
+\hypertarget{ref-logan_2018}{}
+Logan, G. D. (2018). Automatic control: How experts act without
+thinking. \emph{Psychological Review}, \emph{125}, 453--485.
 
 \hypertarget{ref-logan_hierarchical_2011}{}
 Logan, G. D., \& Crump, M. J. C. (2011). Hierarchical control of
@@ -1093,23 +1125,22 @@ cognitive processes: The case for skilled typewriting. In B. H. Ross
 \hypertarget{ref-logan_automatizing_1991}{}
 Logan, G. D., \& Klapp, S. T. (1991). Automatizing alphabet arithmetic:
 I. Is extended practice necessary to produce automaticity? \emph{Journal
-of Experimental Psychology: Learning, Memory, and Cognition},
-\emph{17}(2), 179--195.
+of Experimental Psychology: Learning, Memory, and Cognition}, \emph{17},
+179--195.
 
 \hypertarget{ref-massaro_typing_1984}{}
 Massaro, D. W., \& Lucas, P. A. (1984). Typing letter strings varying in
-orthographic structure. \emph{Acta Psychologica}, \emph{57}(2),
-109--131.
+orthographic structure. \emph{Acta Psychologica}, \emph{57}, 109--131.
 
 \hypertarget{ref-MassonIdentificationtypographicallytransformed1986}{}
 Masson, M. E. (1986). Identification of typographically transformed
 words: Instance-based skill acquisition. \emph{Journal of Experimental
-Psychology: Learning, Memory, and Cognition}, \emph{12}(4), 479.
+Psychology: Learning, Memory, and Cognition}, \emph{12}, 479--488.
 
 \hypertarget{ref-mcleod_overlapping_1994}{}
 McLeod, P., \& Hume, M. (1994). Overlapping mental operations in serial
 performance with preview: Typing. A reply to Pashler. \emph{The
-Quarterly Journal of Experimental Psychology}, \emph{47}(1), 193--199.
+Quarterly Journal of Experimental Psychology}, \emph{47}, 193--199.
 
 \hypertarget{ref-R-skimr}{}
 McNamara, A., Arino de la Rubia, E., Zhu, H., Ellis, S., \& Quinn, M.
@@ -1119,7 +1150,7 @@ from \url{https://CRAN.R-project.org/package=skimr}
 \hypertarget{ref-miller_magical_1956}{}
 Miller, G. A. (1956). The magical number seven, plus or minus two: Some
 limits on our capacity for processing information. \emph{Psychological
-Review}, \emph{63}(2), 81--97. Retrieved from
+Review}, \emph{63}, 81--97. Retrieved from
 \url{http://psycnet.apa.org/journals/rev/63/2/81/}
 
 \hypertarget{ref-R-bindrcpp}{}
@@ -1130,7 +1161,7 @@ bindings}. Retrieved from
 \hypertarget{ref-NissenAttentionalrequirementslearning1987}{}
 Nissen, M. J., \& Bullemer, P. (1987). Attentional requirements of
 learning: Evidence from performance measures. \emph{Cognitive
-Psychology}, \emph{19}(1), 1--32.
+Psychology}, \emph{19}, 1--32.
 
 \hypertarget{ref-R-bit64}{}
 Oehlschlägel, J. (2017). \emph{Bit64: A s3 class for vectors of 64bit
@@ -1153,22 +1184,22 @@ collection of efficient and extremely fast r functions}. Retrieved from
 \hypertarget{ref-pashler_comment_1994}{}
 Pashler, H. (1994a). Comment on McLeod and Hume, overlapping mental
 operations in serial performance with preview: Typing. \emph{The
-Quarterly Journal of Experimental Psychology}, \emph{47}(1), 201--205.
+Quarterly Journal of Experimental Psychology}, \emph{47}, 201--205.
 
 \hypertarget{ref-pashler_overlapping_1994}{}
 Pashler, H. (1994b). Overlapping mental operations in serial performance
 with preview. \emph{The Quarterly Journal of Experimental Psychology},
-\emph{47}(1), 161--191.
+\emph{47}, 161--191.
 
 \hypertarget{ref-PinetTypingwritingLinguistic2016}{}
 Pinet, S., Ziegler, J. C., \& Alario, F.-X. (2016). Typing is writing:
 Linguistic properties modulate typing execution. \emph{Psychonomic
-Bulletin \& Review}, \emph{23}(6), 1898--1906.
+Bulletin \& Review}, \emph{23}, 1898--1906.
 
 \hypertarget{ref-proctor_hicks_2018}{}
 Proctor, R. W., \& Schneider, D. W. (2018). Hick's law for choice
 reaction time: A review. \emph{Quarterly Journal of Experimental
-Psychology}, \emph{71}(6), 1281--1299.
+Psychology}, \emph{71}, 1281--1299.
 doi:\href{https://doi.org/10.1080/17470218.2017.1322622}{10.1080/17470218.2017.1322622}
 
 \hypertarget{ref-R-base}{}
@@ -1184,20 +1215,21 @@ manipulation}. Retrieved from
 \hypertarget{ref-rumelhart_parallel_1986}{}
 Rumelhart, D. E., \& McClelland, J. L. (1986). \emph{Parallel
 distributed processing, Explorations in the microstructure of cognition,
-Volume 1: Foundations}. Cambridge, Mass. {[}u.a.{]}: MIT Press.
+Volume 1: Foundations}. Cambridge, Mass.: MIT Press.
 
 \hypertarget{ref-RumelhartSimulatingskilledtypist1982}{}
 Rumelhart, D. E., \& Norman, D. A. (1982). Simulating a skilled typist:
 A study of skilled cognitive-motor performance. \emph{Cognitive
-Science}, \emph{6}(1), 1--36.
+Science}, \emph{6}, 1--36.
 
 \hypertarget{ref-salthouse_effects_1984}{}
 Salthouse, T. A. (1984). Effects of age and skill in typing.
-\emph{Journal of Experimental Psychology: General}, \emph{113}(3), 345.
+\emph{Journal of Experimental Psychology: General}, \emph{113},
+345--371.
 
 \hypertarget{ref-salthouse_perceptual_1986}{}
 Salthouse, T. A. (1986). Perceptual, cognitive, and motoric aspects of
-transcription typing. \emph{Psychological Bulletin}, \emph{99}(3),
+transcription typing. \emph{Psychological Bulletin}, \emph{99},
 303--319.
 
 \hypertarget{ref-shaffer_latency_1973}{}
@@ -1207,15 +1239,15 @@ Shaffer, L. H. (1973). Latency mechanisms in transcription.
 \hypertarget{ref-shaffer_typing_1968}{}
 Shaffer, L. H., \& Hardwick, J. (1968). Typing performance as a function
 of text. \emph{The Quarterly Journal of Experimental Psychology},
-\emph{20}(4), 360--369.
+\emph{20}, 360--369.
 
-\hypertarget{ref-Shannonmathematicaltheorycommunication1998}{}
-Shannon, C. E., \& Weaver, W. (1998). \emph{The mathematical theory of
-communication}. University of Illinois press.
+\hypertarget{ref-Shannonmathematicaltheorycommunication1949}{}
+Shannon, C. E., \& Weaver, W. (1949). \emph{The mathematical theory of
+communication}. Urbana: University of Illinois press.
 
 \hypertarget{ref-terzuolo_determinants_1980}{}
 Terzuolo, C. A., \& Viviani, P. (1980). Determinants and characteristics
-of motor patterns used for typing. \emph{Neuroscience}, \emph{5}(6),
+of motor patterns used for typing. \emph{Neuroscience}, \emph{5},
 1085--1103.
 
 \hypertarget{ref-van_selst_solution_1994}{}
@@ -1239,12 +1271,12 @@ A grammar of data manipulation}. Retrieved from
 \hypertarget{ref-will_linguistic_2006}{}
 Will, U., Nottbusch, G., \& Weingarten, R. (2006). Linguistic units in
 word typing: Effects of word presentation modes and typing delay.
-\emph{Written Language \& Literacy}, \emph{9}(1), 153--176.
+\emph{Written Language \& Literacy}, \emph{9}, 153--176.
 
 \hypertarget{ref-wu_queuing_2008}{}
 Wu, C., \& Liu, Y. (2008). Queuing Network Modeling of Transcription
 Typing. \emph{ACM Transactions on Computer-Human Interaction},
-\emph{15}(1), 1--45.
+\emph{15}, 1--45.
 doi:\href{https://doi.org/10.1145/1352782.1352788}{10.1145/1352782.1352788}
 
 \hypertarget{ref-R-knitr}{}
