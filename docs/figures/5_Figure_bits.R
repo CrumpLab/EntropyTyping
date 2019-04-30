@@ -35,7 +35,7 @@ figureInstanceBits <- ggplot(toPlot, aes(x=bits,y=mean_letter_retrieval_time, co
   labs(color="Position")+
   theme_classic()+
   xlab("Bits (H)")+
-  ylab("Simulated mean RT")+
+  ylab("Simulated IKSI (ms)")+
   facet_wrap(~amount_of_practice, scales="free_y")
 
 figureInstanceBits
