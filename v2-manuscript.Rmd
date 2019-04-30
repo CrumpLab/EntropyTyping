@@ -38,11 +38,11 @@ footnotelist      : no
 lineno            : no
 mask              : no
 
-#class             : "man"
-#output            : papaja::apa6_pdf
+class             : "man"
+output            : papaja::apa6_pdf
 
-#header-includes:
-#  - \setlength{\parskip}{0.25cm plus4mm minus3mm}
+header-includes:
+  - \setlength{\parskip}{0.25cm plus4mm minus3mm}
 ---
 
 ```{r setup, include=FALSE, eval=TRUE,echo=FALSE}
