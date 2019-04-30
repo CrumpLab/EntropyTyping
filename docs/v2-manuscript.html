@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+<style type="text/css">
+  p.abstract{
+    text-align: center;
+    font-weight: bold;
+  }
+  div.abstract{
+    margin: auto;
+    width: 90%;
+  }
+</style>
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="webpaper.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Entropy Typing</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Entropy_typing_draft.html">Paper</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics</h1>
+<h4 class="author">Matthew J. C. Crump</h4>
+<address class="author_afil">
+1,2<br><a class="author_email" href="mailto:#"><a href="mailto:mcrump@brooklyn.cuny.edu" class="email">mcrump@brooklyn.cuny.edu</a></a>
+</address>
+<h4 class="author">Walter Lai</h4>
+<address class="author_afil">
+1<br><h4 class="author">Nicholaus P. Brosowsky</h4>
+<address class="author_afil">
+2<br><div class="abstract">
+<p class="abstract">Abstract</p>
+How does prior experience shape skilled performance in structured environments? We use skilled typing of natural text to evaluate correspondence between performance (keystroke timing) and structure in the environment (letter uncertainty). We had ~350 typists copy-type english text. We reproduced Ostry’s (1983) analysis of interkeystroke interval as a function of letter position and word length, that showed prominent first-letter and mid-word slowing effects. We propose a novel account that letter position and word length effects on keystroke dynamics reflect informational uncertainty about letters in those locations, rather than resource limited planning/buffering processes. We computed positional uncertainty for letters in all positions of words from length one to nine using Google’s n-gram database. We show that variance in inter-keystroke interval by letter position and word length tracks natural variation in letter uncertainty. Finally, we provide a model showing how a general learning and memory process could acquire sensitivity to patterns of letter uncertainty in natural english. In doing so, we draw an equivalence between Logan’s (1988) instance theory of automatization and Shannon’s measure of entropy (H) from information theory. Instance theory’s predictions for automatization as a function of experience follow exactly the uncertainty in the choice set being automatized. As a result, instance theory stands as a general process model explaining how context-specific experiences in a structured environment tune skilled performance.
+</div>
+
+</div>
+
+
+<pre class="r"><code># Seed for random number generation
+set.seed(42)</code></pre>
+<div id="public-significance-statement" class="section level1">
+<h1>Public Significance Statement</h1>
+<p>We used skilled typing as a task to investigate underlying cognitive processes involved in skilled action sequencing. In general, the major finding was that variation in typing performance at the letter level (how fast or you slow a typist types particular letters) can be well-explained by the statistics of letter occurrences as they appear in natural text. Our findings have implications for cognitive theory, and may also be useful for guiding typing curriculum for training typing skill.</p>
+<!-- Big issues: how people learn about the structure of their environment
+   - need to have a way to measure the structure in the environment (information theory)
+   - need to have a theory/model about how structure in the enviroment is learned (instance theory
+   - need to have laboratory/real-world environment where behavior in interaction with environment can be measured (typing) -->
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Theories of cognitive processes run along a continuum from specific to general. On one extreme, cognitive phenomena are explained in terms of dedicated modules <span class="citation">(Fodor 1983)</span> that give rise to cognition by the specialized principles of their internal processing architecture. On the other extreme, cognitive phenomena are explained in terms of general learning and memory processes <span class="citation">(Jacoby and Brooks 1984; Kolers and Roediger 1984; Rumelhart and McClelland 1986)</span> that give rise to cognition by applying general processing principles to experience in structured environments <span class="citation">(Clark 2008)</span>. Valid theories produce explanations of phenomena by deduction from their processing assumptions, and then compete with other valid theories on the basis of parsimony. When phenomena are explained by general processes, specialized accounts remain sufficient, but not necessary; and, vice versa. We continue in this tradition by proposing and validating a general process account of keystroke dynamics in skilled typing performance. We show that keystroke dynamics can emerge from a general memory process sensitive to structure (uncertainty) in the natural language environment.</p>
+<!-- Current aims and broader implications of what we are doing beyond typing domain
+   - What we are trying to do here, using typing (which measures learning about a structured natural language environment) as a laboratory tool to develop explanatory models of how people learn from the structure of the environment
+   - brief foreshadowing of how this can be achieved (e.g., by focusing on phenomena such as first-letter and mid-word slowing, and thinking about whether this phenomena emerges naturally from learning about the structure of the typing environment, or requires special process explanations) -->
+<p>We identified the following pre-requisites as necessary for our approach. We assume that performance is driven by learning processes sensitive to the structure in the environment. So, we require a tool for describing the structure of environmental inputs. And, we require a model that articulates how learning about the structure of an environment produces performance. Finally, we require a task where the relation between performance and a structured environment can be measured. We use information theory <span class="citation">(Shannon and Weaver 1949)</span> to measure the structure of the letters that typists’ type, instance theory <span class="citation">(Logan 1988)</span> to model how typists’ performance is shaped by the typing environment, and the task of continuous typing <span class="citation">(Logan and Crump 2011)</span> to measure keystroke dynamics as a function of the structure in the typing environment.</p>
+<p>There are many typing phenomena to explain <span class="citation">(Salthouse 1986)</span>, and several existing models of typing <span class="citation">(Heath and Willcox 1990; John 1996; Rumelhart and Norman 1982; Wu and Liu 2008; Logan 2018)</span>. Our goal here was not to provide another general model of typing, and we expect that our model will fail to explain many aspects of typing performance. Instead, we focus our efforts empirically and theoretically as follows. Empirically, we examine whether typing performance is constrained by structure in the natural language. Theoretically, we propose a general processing account that predicts how structure in the natural language should constrain typing performance. These aims contribute to the broader goals (beyond the scope of this paper) of determining whether specialized or general accounts are necessary or sufficient to explain typing performance, and then adjudicating between them.</p>
+<!-- Typing phenomena (first-letter and mid-word slowing)
+   - introduce each (Ostry, 1983)
+-->
+<p>We focused on two typing phenomena, the word-initiation/first-letter slowing effect, and the mid-word slowing effect, which are both observed in continuous copy-typing of words presented in sentences. First-letter slowing refers to longer keystroke times for letters in the first position of a word compared to other letters. Mid-word slowing refers to an inverted U shaped pattern, with longer interkeystroke intervals (IKSIs) for letters in the middle of a word compared to letters at the beginning and ending of a word. First-letter and mid-word slowing were clearly demonstrated by <span class="citation">Ostry (1983)</span>, who showed systematic effects of letter position and word length on IKSIs.</p>
+<p>We chose these phenomena for two reasons. First, both phenomena have been explained in terms of specialized processes, and it remains unclear whether those accounts are necessary to explain the phenomena. Second, we have not found work replicating Ostry’s (1983) results, and <span class="citation">Salthouse (1986)</span> suggested that effects of word length do not systematically influence interkeystroke intervals, so the effects of letter position and word length on interkeystroke interval remain unclear.</p>
+<!-- Existing explanations of typing phenomena
+   - brief review of existing explanations. These are likely to be special process explanations (e.g., a word-buffereing planning process)
+-->
+<p>First-letter slowing has been explained in terms of planning and buffering processes associated with typing a whole word <span class="citation">(Salthouse 1986)</span>. For example, the time associated with retrieving a motor program for a word, parsing the word into letters, planning the sequence, or initiating the execution of the sequence after it is buffered, could cause the first letter in a word to be produced more slowly than other letters. Mid-word slowing has been explained in terms of rising interference from ongoing sequencing, or from micro-planning of syllables which often occur in the middle of words <span class="citation">(Will, Nottbusch, and Weingarten 2006)</span>. These explanations rely on largely unspecified planning and execution processes that are reverse-engineered by imputing hypotheses about their operation from typing data.</p>
+<!--Propose a more general learning and memory process explanation
+   - Establish plausibility by describing prior evidence supporting the idea that general learning and memory processes are involved in typing (e.g., prior evidence that typists are sensitive to frequency effects).
+   - Describe how the first-letter and mid-word slowing phenomena could emerge from a process sensitive to letter uncertainty
+   - Describe what would be required for this to work...e.g., letter uncertainty would have to roughly follow the pattern of first-letter and mid-word slowing
+   - Describe that a model would be needed to explain how a general learning and memory process could learn from experience, and produce performance that was constrained by letter uncertainty (ie., the structure in the natural language).
+-->
+<p>To develop an alternative, we entertained a simple question: are more predictable letters typed faster than less predictable letters? More specifically, we wondered whether natural variation in letter uncertainty as a function of letter position and word length would magically <span class="citation">(in the sense of Miller 1956)</span> correspond to the observed variation in interkeystroke intervals as a function of letter position and word length. Such a demonstration would license consideration of how a general learning process sensitive to letter uncertainty could explain effects of letter position and word length on interkeystroke intervals.</p>
+<p>Prior work shows that typists are sensitive to structures in the text the type. For example, IKSIs are correlated with letter and bigram frequency <span class="citation">(Behmer and Crump 2017; Grudin and Larochelle 1982; Salthouse 1984; Terzuolo and Viviani 1980)</span>, trigram frequency <span class="citation">(Behmer and Crump 2017)</span>, and word frequency <span class="citation">(Vinson 2017)</span>. Individual keystroke times are influenced by the immediate letter context in which they occur <span class="citation">(Shaffer 1973; Gentner 1982)</span>. IKSIs are also influenced by orthographic structure <span class="citation">(Massaro and Lucas 1984; Pinet, Ziegler, and Alario 2016; Will, Nottbusch, and Weingarten 2006)</span>. Finally, IKSIs are much smaller for letter strings from a natural language, compared to random letter strings <span class="citation">(Shaffer and Hardwick 1968; Behmer and Crump 2017)</span>. These demonstrations suggest that typing performance is partly determined by a learning process sensitive to structure inherent to natural texts.</p>
+<!-- Information theory and reaction time
+   - explain what entropy means, how to calculate it
+   - brief history of importance in reaction time research
+   - end with where we at, and how it can be useful
+-->
+<p>Following <span class="citation">Shannon and Weaver (1949)</span>, we use information theory as a tool to measure structure in natural texts. The summary statistic H measures the entropy or uncertainty in any discrete probability distribution of a set of items. H goes to 0 for distributions that are perfectly predictable (e.g., when one item occurs 100% of the time). H goes to its maximum value for distributions that are completely unpredictable, fully entropic, or maximally uncertain (e.g., when all items occur with equal probability). Shannon’s H is defined as:</p>
+<p><span class="math inline">\(H = -\sum p \log_2 p\)</span></p>
+<p>where, p is the probability of occurrence for each item in a given distribution. H is the number of bits needed to represent the distribution. To apply this to letter uncertainty, consider the set of the 26 lowercase letters from a to z. For this set, H can range from 0 to ~4.7. H approaches 4.7 as letter probabilities approach a uniform distribution, indicating all letters are equiprobable, <span class="math inline">\(H = -\sum \frac{1}{26} \log_2 \frac{1}{26} = 4.7004\)</span>. H by definition is less than 4.7 for all unequal letter probability distributions, where some letters occur with higher/lower probabilities than others.</p>
+<p>Most important, H can be calculated for any letter probability distribution. For example, if separate letter probability distributions for every letter position across words of every length in natural English text could be obtained, then the letter uncertainty for each position by word length could be calculated; and, correspondence between letter uncertainty and interkeystroke intervals as a function of letter position and word length could be evaluated.</p>
+<p>Our empirical question also ties into the well known application of information theory to choice-reaction time performance. For example, <span class="citation">Hick (1952)</span>, and <span class="citation">Hyman (1953)</span> showed that choice reaction time, which was known to increase as a function of set-size, increases linearly as a function of choice uncertainty in the set (measured by H), rather than set-size per-say. Although there are numerous exceptions to the Hick-Hyman law <span class="citation">(for a review see, Proctor and Schneider 2018)</span>, we are not aware of any work that has determined whether typing performance (a continuous 26-AFC choice-task, assuming lower case for convenience) depends on letter uncertainty. If typing performance does depend on letter uncertainty, then a model based explanation of the dependency is required.</p>
+<!-- Roadmap what will we do in the paper
+   - Part 1: Show that we can replicate the phenomena (Experiment 1)
+   - Part 2: Show that we can measure letter uncertainty, and that it does explain some of the variance in the behavioral data
+   - Part 3: Show that we can model the relationship between mean_iksi and letter uncertainty with an instance theory
+   - Part 4: Discuss
+-->
+<div id="overview-of-present-study" class="section level2">
+<h2>Overview of present study</h2>
+<p>We first reproduce Ostry’s (1983) analysis of interkeystroke intervals as a function of letter position and word length. We used the dataset collected by <span class="citation">Behmer and Crump (2017)</span>, who had 346 typists copy type five paragraphs of natural English text. Then we estimated letter uncertainty in natural English for each letter position in words of different lengths. We used letter frequency counts from Google’s Ngram project provided by Peter Norvig, who made tables of separate letter frequency distributions as a function of letter position and word length. We converted these frequency distributions to letter probability distributions to calculate letter uncertainty (H) for each letter position in words of length one to nine. We show that natural variation in letter uncertainty can explain large portions of variance in interkeystroke intervals as a function of letter position and word length. Finally, we show that the instance theory of automatization <span class="citation">(Logan 1988)</span> provides a working process model explaining how a general memory process could cause typing performance to be constrained by letter uncertainty.</p>
+</div>
+</div>
+<div id="methods" class="section level1">
+<h1>Methods</h1>
+<p>We re-analyzed copy-typing data from 346 participants who completed an online typing task <span class="citation">(Behmer and Crump 2017)</span>. Their procedure was approved by the institutional review board at Brooklyn College of the City University of New York. Their participants were recruited through Amazon’s Mechanical turk. Participants used their web-browser to copy-type five paragraphs from the Simple English Wiki (average 131 words each), and perform additional typing tasks (such as typing random letter strings and english-like nonwords). See the supplementary materials for additional details about the design.</p>
+<div id="data-analysis-and-pre-processing" class="section level2">
+<h2>Data analysis and pre-processing</h2>
+<p>We used R for all the analyses, figure generation, model simulation, and to write this paper as a reproducible manuscript. All of the code necessary to reproduce this manuscript can be found at <a href="https://osf.io/bdnqr/">https://osf.io/bdnqr/</a>.</p>
+<p>For each subject, we applied the following pre-processing steps to their performance on the five English pargraphs. We included IKSIs only for keystrokes involving a lower case letter, and only for correct keystrokes that were preceded by a correct keystroke. Outlier IKSIs were removed for each subject, on a cell-by-cell basis, using the <span class="citation">Van Selst and Jolicoeur (1994)</span> non-recursive moving criterion procedure, which eliminated approximately 3% of IKSIs from further analysis.</p>
+</div>
+</div>
+<div id="results" class="section level1">
+<h1>Results</h1>
+<div id="typing-performance" class="section level2">
+<h2>Typing Performance</h2>
+<pre class="r"><code>source(&quot;figures/1_figure.R&quot;)
+figure1</code></pre>
+<div class="figure"><span id="fig:figure1"></span>
+<img src="v2-manuscript_files/figure-html/figure1-1.png" alt="Mean interkeystroke intervals (ms) as a function of word length (panels) and letter position. Error bars represent 95% confidence intervals around the mean typing speed." width="660" />
+<p class="caption">
+Figure 1: Mean interkeystroke intervals (ms) as a function of word length (panels) and letter position. Error bars represent 95% confidence intervals around the mean typing speed.
+</p>
+</div>
+
+<p>For each subject, we calculated mean IKSIs as a function of letter position and word length (see Figure <a href="#fig:figure1">1</a>). Visual inspection of <a href="#fig:figure1">1</a> shows that mean IKSIs for first positions were generally longer than mean IKSIs for other positions; and, that mean IKSIs in middle positions were generally longer than mean IKSIs in surrounding positions.</p>
+<pre class="r"><code>source(&quot;figures/2_figure_differences.R&quot;)
+figure2</code></pre>
+<div class="figure"><span id="fig:figure2"></span>
+<img src="v2-manuscript_files/figure-html/figure2-1.png" alt="Panel A shows mean interkeystroke interval (ms) differences between the 2nd and 1st letter positions. Panel B shows mean interkeystroke interval differences (ms) betweent the middle and 2nd letter positions. The middle position indicates the peak middle letter position from each word length. Error bars represent 95% confidence intervals around the mean difference scores." width="480" />
+<p class="caption">
+Figure 2: Panel A shows mean interkeystroke interval (ms) differences between the 2nd and 1st letter positions. Panel B shows mean interkeystroke interval differences (ms) betweent the middle and 2nd letter positions. The middle position indicates the peak middle letter position from each word length. Error bars represent 95% confidence intervals around the mean difference scores.
+</p>
+</div>
+
+<pre class="r"><code>#source(&quot;analysis/typing-analysis.R&quot;)
+load(&quot;data/typing-analysis-data.Rda&quot;)</code></pre>
+<p>To assess first-letter slowing, we compared typing speeds for letters in the first position compared to the second position for words with two to nine letters (see Figure <a href="#fig:figure2">2</a>A). We submitted mean IKSIs to a 2x8 repeated measures ANOVA with letter position (1st and 2nd) and word length (2, 3, 4, 5, 6, 7, 8, and 9) as factors. We found a significant main effect of letter position, <span class="math inline">\(F(1, 345) = 381.42\)</span>, <span class="math inline">\(\mathit{MSE} = 24325.26\)</span>, <span class="math inline">\(p = 9.78e-58\)</span>, <span class="math inline">\(\hat{\eta}^2_\textit{p} = 0.53\)</span>, showing slower typing speeds in the first position ( = 229ms) as compared to the second ( = 147ms). We also found a significant main effect of word length, <span class="math inline">\(F(7, 2415) = 496.38\)</span>, <span class="math inline">\(\mathit{MSE} = 590.11\)</span>, <span class="math inline">\(p = 0\)</span>, <span class="math inline">\(\hat{\eta}^2_\textit{p} = 0.59\)</span>, and an interaction between word length and letter position, <span class="math inline">\(F(7, 2415) = 110.07\)</span>, <span class="math inline">\(\mathit{MSE} = 457.3\)</span>, <span class="math inline">\(p = 2.69e-140\)</span>, <span class="math inline">\(\hat{\eta}^2_\textit{p} = 0.24\)</span>. Generally speaking, the first-letter slowing effect increased with longer words, plateauing at word length eight.</p>
+<p>To assess mid-word slowing, we adopted the same procedure as Ostry (1983): From each word length, we selected the position with the longest reaction time between positions three through nine as the “middle”. We then compared typing performance from the middle position to the second position across words with five to nine letters (see Figure <a href="#fig:figure2">2</a>B). We submitted mean IKSIs to a 2x4 repeated measures ANOVA with letter position (2nd and middle) and word length (5,6,7, and 8) as factors. We found a significant main effect of letter position, <span class="math inline">\(F(1, 345) = 381.42\)</span>, <span class="math inline">\(\mathit{MSE} = 24325.26\)</span>, <span class="math inline">\(p = 9.78e-58\)</span>, <span class="math inline">\(\hat{\eta}^2_\textit{p} = 0.53\)</span>, showing slower typing speeds for the middle position ( = 176ms) as compared to the second position ( = 156ms). We also found a significant main effect of word length, <span class="math inline">\(F(7, 2415) = 496.38\)</span>, <span class="math inline">\(\mathit{MSE} = 590.11\)</span>, <span class="math inline">\(p = 0\)</span>, <span class="math inline">\(\hat{\eta}^2_\textit{p} = 0.59\)</span>, and a significant interaction between word length and letter position, <span class="math inline">\(F(7, 2415) = 110.07\)</span>, <span class="math inline">\(\mathit{MSE} = 457.3\)</span>, <span class="math inline">\(p = 2.69e-140\)</span>, <span class="math inline">\(\hat{\eta}^2_\textit{p} = 0.24\)</span>. As with first-letter slowing, the mid-word slowing effect increased as a function of word length and plateaued at word length eight.</p>
+</div>
+<div id="letter-uncertainty-by-position-and-word-length" class="section level2">
+<h2>Letter Uncertainty by position and word length</h2>
+<p>The primary question of interest was whether natural variation in letter uncertainty explains variance in mean IKSI by position and word length. We estimated letter uncertainty by position and word length from Google’s Ngram database (<a href="https://books.google.com/ngrams" class="uri">https://books.google.com/ngrams</a>), which provides frequency counts of letters and words occurring in Google’s corpus of millions of digitized books. Letter frequency counts for letters a to z, for each position in words from length one to nine, were obtained from Peter Norvig’s website (<a href="http://norvig.com/mayzner.html" class="uri">http://norvig.com/mayzner.html</a>).</p>
+<p>For each of the 45 letter frequency distributions (position x word length), we computed Shannon’s H (entropy) to quantify letter uncertainty. We converted each letter frequency distribution to a probability distribution then calculated H for each distribution. Figure <a href="#fig:figure3">3</a> displays estimates of letter uncertainty (H) as a function of letter position and word length (unigram: circle/solid line). We discuss the H values for the bigram estimates in a following section.</p>
+<pre class="r"><code>source(&quot;figures/3_Figure.R&quot;)
+figure3</code></pre>
+<div class="figure"><span id="fig:figure3"></span>
+<img src="v2-manuscript_files/figure-html/figure3-1.png" alt="Letter uncertainty (H, from Google n-gram corpus) for each letter position as a function of word length and calculated using unigram position probabilities (square) or conditionalized using N-1 bigram letter probabilities (triangle)." width="660" />
+<p class="caption">
+Figure 3: Letter uncertainty (H, from Google n-gram corpus) for each letter position as a function of word length and calculated using unigram position probabilities (square) or conditionalized using N-1 bigram letter probabilities (triangle).
+</p>
+</div>
+
+<p>To our knowledge this a novel analysis of how letter uncertainty in natural english varies by word length and position. We were interested in whether letters appearing the first position of words would have larger H values than letters in other positions; and, whether letters appearing the middle of words would have higher H values than letters appearing around the surrounding positions. Visual inspection of the graph shows letters in the first position have generally larger H values, and letters in the middle positions have generally larger H values than letters surrounding the middle position. This suggests that natural variation of letter uncertainty across position and word in English may account for aspects of the first-letter and mid-word slowing phenomena in typing.</p>
+</div>
+<div id="letter-uncertainty-and-mean-iksi" class="section level2">
+<h2>Letter Uncertainty and Mean IKSI</h2>
+<p>If the Hick-Hyman law applied to continuous typing we would expect a neat linear relationship between mean IKSIs and letter uncertainty. Figure <a href="#fig:figure4">4</a> shows a plot of mean IKSIs taken from all positions and word lengths against letter uncertainty (panel A).</p>
+<pre class="r"><code>source(&quot;figures/4_Figure.R&quot;)
+figure4</code></pre>
+<div class="figure"><span id="fig:figure4"></span>
+<img src="v2-manuscript_files/figure-html/figure4-1.png" alt="Mean interkeystroke interval (ms) for each letter position and word length is plotted as a function of letter uncertainty (H) calculated using unigram position probabilities (A) or conditionalized using N-1 bigram probabilities (B)." width="660" />
+<p class="caption">
+Figure 4: Mean interkeystroke interval (ms) for each letter position and word length is plotted as a function of letter uncertainty (H) calculated using unigram position probabilities (A) or conditionalized using N-1 bigram probabilities (B).
+</p>
+</div>
+
+<p>A linear regression with group mean IKSIs (collapsed over subjects) as the dependent variable, and letter uncertainty as the independent variable showed a significant positive trend, F(1, 43) = 11.8196302, p = 0.0013, <span class="math inline">\(R^2 =\)</span> 0.2156094 (IKSI = 59.7479213 <span class="math inline">\(+\)</span> 30.492683 <span class="math inline">\(* H\)</span>). We also conducted separate linear regressions for each subject and found similar results. For example, the mean correlation was r = 0.67 (SE = 0.0089); mean <span class="math inline">\(R^2\)</span> = 0.48 (SE = 0.0091); and mean p = 0.021 (SE = 0.0058).</p>
+</div>
+<div id="interim-discussion" class="section level2">
+<h2>Interim Discussion</h2>
+<p>We can conclude that letter uncertainty as a function of position and length explains a small amount variation in mean IKSIs during continuous typing. The present analysis does not provide strong evidence that a process sensitive to letter uncertainty causes both first-letter and mid-word slowing. For example, all of the first position mean IKSIs are longer than mean IKSIs for other positions at comparable levels of letter uncertainty. And, a linear regression on the group mean IKSIs including letter uncertainty and position (first letter vs. other letter) as independent variables explains much more variance, <span class="math inline">\(R^2\)</span> = 0.8636599, p &lt; .001, than the regression only including letter uncertainty.</p>
+<p>This pattern invites a dual-process interpretation. For example, first-letter slowing could be explained by a planning process that increases first position IKSIs as a function of word length. Longer words have more letters, thus plan construction and buffering is assumed to take more time before sequence production begins. At the same time, the finding that letter uncertainty does explain some variance in mean IKSI across position suggests that sequence production is also influenced by a process sensitive to letter uncertainty.</p>
+</div>
+<div id="letter-uncertainty-by-position-word-length-and-n-1-letter-identity" class="section level2">
+<h2>Letter Uncertainty by position, word length, and n-1 letter identity</h2>
+<p>Determining whether first-letter and mid-word slowing could emerge from a process sensitive to letter uncertainty depends on how letter uncertainty is calculated. Letter uncertainty can be calculated from any discrete probability distribution of letters. In the previous section we somewhat arbitrarily calculated letter uncertainty separately for each letter position in words of length one to nine. However, the number of alternative schemes is vast. For example, we could further conditionalize position by word length probability distributions by the letter identities of letters occurring in any position n-1 to n-x, or n+1 to n+y of a specific position. Furthermore, we could conditionalize letter distributions upon any permissible number of preceding or succeeding n-grams (groups of letters).</p>
+<p>Although an exhaustive calculation of letter uncertainty is beyond the scope of this paper, we nevertheless took one further step and calculated letter uncertainty by position and word length, conditionalizing upon n-1 letter identity (referred to as bigram uncertainty in the figure). Fortunately, Norvig (<a href="http://norvig.com/mayzner.html">http://norvig.com/mayzner.html</a>) also provided bigram frequency counts from the Google Ngram corpus as a function of position and word length. We calculated letter uncertainty in the following manner. First position letters have no preceding letter, so H as a function of word length was identical to our prior calculation. For letters in positions two to nine, for all word lengths, we calculated H for every n-1 letter identity, multipled each H by the probability of recieving the letter in the n-1 position<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, and then took the sum of the Hs to create a weighted mean H. For example, the second position of a two-letter word has a maximum of 26 letter probability distributions, one for each possible n-1 letter (a to z). We calculated H for all n-1 distributions, weighted the Hs by the probabilities of each n-1 letter, then took the sum of the weighted Hs as our measure of letter uncertainty for each position and word length. Figure <a href="#fig:figure3">3</a> shows mean H conditionalized by n-1 letter identity, as a function of letter position and word length.</p>
+<p>Unsurprisingly, letter identity becomes more predictable when n-1 letter identity is known. Compared to the unigram uncertainty measures, we see that H for letters in positions two to nine is much lower when n-1 letter identity is taken into account. More important, the pattern of H in Figure <a href="#fig:figure3">3</a> much more closely resembles the pattern of mean IKSIs in Figure <a href="#fig:figure1">1</a>.</p>
+<p>Figure <a href="#fig:figure4">4</a>B displays a scatterplot of mean IKSIs as a function of letter uncertainty conditionalized by letter n-1 identity across positions and word length. A linear regression on mean IKSIs using the new measure of letter uncertainty as the independent variable showed a strong positive relationship, F(1, 43) = 101.4792383, p &lt; 0.001, <span class="math inline">\(R^2 =\)</span> 0.7023794 (IKSI = 76.9960735 <span class="math inline">\(+\)</span> 34.3100358 <span class="math inline">\(*H\)</span>). Including n-1 letter identity into the estimate of letter uncertainty clearly allowed H to explain much more variance in mean IKSIs compared to the previous measure of H.</p>
+<p>Finally, we conducted a linear regression that included letter position (first position vs. other position) along with H (conditionalized by n-1 letter identity, position, and length). That model explained the largest amount of variance, <span class="math inline">\(R^2\)</span> = 0.8809482, p &lt; .001, compared to all previous models. We discuss this finding with respect to explanations of first-letter and mid-word slowing in the general discussion.</p>
+</div>
+</div>
+<div id="an-instance-based-model" class="section level1">
+<h1>An instance-based model</h1>
+<p>We have shown that variation in mean IKSIs as a function of letter position and word length can be well explained by natural variation in letter uncertainty conditionalized by letter n-1 identity, position, and word length. The correlational nature of this evidence prevents any causal conclusions about how variation in mean IKSI might be caused by variation in uncertainty. In the general discussion we discuss further steps for future work to establish causality by experiment. In addition to empirical work, it is also necessary provide a working process model that articulates how variation in letter uncertainty could cause variation in mean IKSIs. In this section, we establish theoretical plausibility by showing that letter uncertainty influences on performance can be explained in terms of Logan’s (1988) instance-based memory model of automatization.</p>
+<div id="prior-modeling-work" class="section level2">
+<h2>Prior modeling work</h2>
+<p>Before describing our modeling approach, we first point out that instance-based models have already been used to explain reaction time phenomena that depend on informational uncertainty. For example, <span class="citation">Jamieson and Mewhort (2009)</span> showed that a variant of MINERVA 2 [<span class="citation">Hintzman (1984)</span>;<span class="citation">Hintzman (1986)</span>;hintzman_judgments_1988], an instance based theory of memory, can explain performance in a variety of serial reaction time tasks <span class="citation">(e.g., Nissen and Bullemer 1987)</span>, and explain the dependence of choice-reaction times on the hick-hyman law <span class="citation">(Hick 1952; Hyman 1953)</span>. Both are critical antecedents to the present work, and we discuss each in turn.</p>
+<p>In a typical serial reaction time task, participants identify the location of a stimulus that could appear in one of four locations as quickly and accurately as possible. A major finding was that mean RTs do not decrease much as a function of practice when the locations of the stimuli vary randomly from trial-to-trial. However, when a repeating sequence is embedded, mean RT does decrease with practice. <span class="citation">Jamieson and Mewhort (2009)</span> conducted a version of the SRT with different probabilistic sequences that varied in informational uncertainty . They found that people learned more (mean RT decreased across practice) as the uncertainty in the sequence decreased (became more predictable). Furthermore, they modeled those results with MINERVA 2, thereby demonstrating that an instance-based model learns about sequences as a function of the amount of information in the sequence. We note the clear parallels between typing and the SRT task, in that typing is a real-world tasks where people learn to produce sequences that vary in their infomational uncertainty.</p>
+<p>Next, <span class="citation">Jamieson and Mewhort (2009)</span> showed the same model can account for performance in a choice-reaction time task that varies stimulus uncertainty. In particular, they applied the model to a classic design by <span class="citation">Hyman (1953)</span>, and showed that it could simulate the major finding that mean reaction was a linear function of informational uncertainty in a set of choices.</p>
+<p>So, <span class="citation">Jamieson and Mewhort (2009)</span> have already demonstrated that an instance-based account is a candidate, working process model that explains why variation in mean RT for a set of items depends on the information (uncertainty) in the set. We assume that in principle, we could have used their model to simulate the process of learning type letters as they occur in different letter positions and word lengths, and then evaluate whether the model also predicts that mean IKSIs would very as a function of letter uncertainty in different position and word length contexts. However, we chose to evaluate predictions from a different instance-based model <span class="citation">(Logan 1988)</span>, that accounts for item-specific practice effects in terms trace-based encoding and retrieval. Additionally, this allows us to assess whether instance-models that are computationally quite different, nevertheless produce similar predictions.</p>
+</div>
+<div id="modeling-uncertainty-with-the-instance-theory-of-automatization" class="section level2">
+<h2>Modeling uncertainty with the instance theory of automatization</h2>
+<p>Logan’s (1988) instance theory provides an account of how performance becomes automatized with practice. We will show that this instance theory is also sensitive to uncertainty in the sets of stimuli it encounters over practice. More specifically, we will draw an equalivence between instance theory and the information theoretic measure of H, and show that instance theories predictions for performance are nearly identical to H. As a result, instance theory, like MINERVA 2, becomes a process model of the Hick-Hyman law, which posits that reaction times are a linear function of the uncertainty in a choice set.</p>
+<p>Instance theory models learning as a function of practice in terms of cue-driven retrieval of stored memory traces <span class="citation">(like other global memory models, Eich 1982; Hintzman 1988; Humphreys et al. 1989)</span>. A new unique trace is preserved in memory every time a response is given to a stimulus. When a familiar stimulus is encountered again, it automatically triggers the retrieval of all stored instances of the stimulus. The timing of the memory-based response to a current stimulus is treated as a race. Whichever memory trace is retrieved first wins the race. As a result, the memory-based reaction time to respond to a stimulus is determined by the retrieval time associated with the fastest memory trace for that stimulus. The retrieval times for every memory trace are assumed to vary, and can be sampled from any desired distribution.</p>
+<p>Instance theory models practice based performance speed-ups (power law of learning) in terms of sampling extreme values from a growing retrieval time distribution. As the number of memory traces grows, the range of the retrieval time distribution also grows, such that the minimum value of the distribution (shortest retrieval time) is more likely to be smaller for distributions with more than fewer memory traces. As a result, reaction times will tend to be shorter for more practiced than less practiced stimuli, because more practiced stimuli have a better chance of retrieving a fast memory response than less practiced stimuli.</p>
+<!--
+We can now draw a more transparent connection between instance theory and information theory: they both operate upon the same frequency distributions. H values are a summary statistic for frequency distributions of a set of stimuli. The frequency distribution is transformed to a probability distribution, and then the H formula is applied. H goes to 0 as a particular item in the set becomes the only stimulus to occur. H goes to its maximum as each stimulus has the same frequency of occurence. In other words, H becomes smaller when some portion of the stimuli occur with greater frequency, and larger as stimulus frequencies are equated. Instance theory encodes a trace for each stimulus, and thus encodes the raw, context-specific frequency distributions for each stimulus. Instance theory can be thought of as summarizing frequency distributions at retrieval. It predicts monotonically decreasing RTs as a function of stimulus frequency. 
+
+When considering a set of different stimuli, instance theory will predict shorter mean performance times for the entire set when the set contains some stimuli that occur with high frequency; and it will predict longer mean performance for the set, when the set contains stimuli with equal frequency. So, instance theory predictions for mean reaction time for a set of stimuli should concord with H (for the same set) by taking the grand mean of the predicted RTs for all choices in a set, and comparing that to H. 
+
+-->
+</div>
+<div id="hyman-1953" class="section level2">
+<h2>Hyman (1953)</h2>
+<p>We first demonstrate that the instance theory of automatization can reproduce the results of <span class="citation">Hyman (1953)</span>. Hyman ran three choice reaction-time experiments, all involving responding to one of eight lights with a learned vocal response. In Experiment 1, there separate conditions, varying the number of alternatives from 1 to 8. Within each condition, each alternative appeared equally often. Experiment 2 had eight conditions, each involving different numbers of alternatives, but within each condition specific items appeared with higher or lower probabilites than other tiems. Experiment 3 had eight conditions, each condition involved different numbers of alternatives, and the probability of specific items appearing depended on the identity of the previous item. Hyman calculated the information in bits (H) for each condition in each experiment, which ranged from 0 to 3 (see Hyman, 1953 for tables showing the probabilties of each item in each condition). Hyman showed that mean reaction time in each condition was a linear function of the number of bits for the choice set in each condition.</p>
+<p>We conducted a simulation in R to model instance theory predictions for mean reaction time across all conditions in the three experiments (see supplementary materials or the repository). Our approach to simulating instance theory predictions was to model reaction times for an average subject to respond to a specific item, given some number trials of practice with responding to the item. We treat all items as completely independent, such that when a particular stimulus is “presented”, it only retrieves traces specific to the history for that stimulus. In our implementation we assumed that memory retrieval times are sampled from a normal distribution with mean = 500, and standard deviation = 100. If a subject had practiced responding to an item 10 times, they would have 10 traces in memory, which would each have a particular retrieval time determined in our model by randomly sampling 10 numbers from the retrieval time distribution. The shortest retrieval time in that sample would be the models reaction time after 10 practice trials. Of course, different subjects would have 10 randomly different memory traces, and the RT for the shortest RT in the sample will vary by chance. We were interested in estimating the average shortest retrieval time that would be expected given some amount of practice. Using Monte-carlo simulation, we found these estimates by creating 5,000 sets of samples (sample-size determined by amount of item-specific practice) from the retrieval time distribution, finding the minimum value in each sample, and taking the mean of the minimum values across samples. Using this strategy we can compute expected mean reaction times for a stimulus based on how many times it has been practiced.</p>
+<pre class="r"><code>#source(&quot;figures/Hyman_Figure.R&quot;)
+#figureHyman
+knitr::include_graphics(&quot;figures/Hyman_figure.pdf&quot;)</code></pre>
+<div class="figure"><span id="fig:figureHyman"></span>
+<img src="figures/Hyman_figure.pdf" alt="Simulated mean reaction times for each condition from Hyman (1953), as a function of number of bits in each condition. Each facet represents amount of practice, from 10 to 5000 traces."  />
+<p class="caption">
+Figure 5: Simulated mean reaction times for each condition from Hyman (1953), as a function of number of bits in each condition. Each facet represents amount of practice, from 10 to 5000 traces.
+</p>
+</div>
+
+<p>To extend this approach to the Hyman (1953) design, for each condition we computed the amount of practice for each item, found the average minimum retrieval time for each item, then averaged over the RT estimates for each item to get an estimate of the mean RT for the condition. Figure <a href="#fig:figureHyman">5</a>, shows model reaction times for each condition as a function of bits in each condition. We evaluated the model across different amounts of practice (10,50,100,500,1000,5000). As is clear from the figure, instance theory predictions for mean RT in each condition are correlated with the amount of uncertainty in each condition; and the variance explained tends toward 1, as the amount of practice is increased.</p>
+<p>This simulation extends prior work by <span class="citation">Jamieson and Mewhort (2009)</span>, and shows that a wider range of instance models are capable of explaining the hick-hyman law. We suggest a novel finding here is the remarkably close fit between simulated mean RTs and H. In particular, it appears that instance theory makes exact predictions about H as practice tends toward a large n, and that simulated mean RTs are related to H by the constants in the regression lines.</p>
+</div>
+<div id="letter-uncertainty-as-a-function-of-position-word-length-and-n-1-letter-identity" class="section level2">
+<h2>Letter uncertainty as a function of position, word length, and n-1 letter identity</h2>
+<!--
+If instance theory predictions for mean performance for a set of choice stimuli maps onto H for the same set of stimuli, then this relationship could be established by simulating instance theory predictions for multiple independent sets of stimuli, each with different values for H. The predictions for mean performance for each set should correlate well with H for each set. To create several choice sets with varying levels of H, we used the 45 letter frequency distributions, that each have varying levels of H. In principle, to demonstrate the relationship we could have used arbitrary stimulus sets with varying levels of H.
+-->
+<p>We now apply the same instance model to generate predictions for keystroke production times as a function of letter position, word length, and n-1 letter identity for typing natural English text. We treated all 26 letters that could possibly occur in any position for any word length, and preceded by any letter, as completely unique and independent stimuli. For example, the letter ‘a’ occuring in all possible contexts were treated as separate items, with separate trace counts. This assumes traces for specific letters are stored and retrieved in a context-dependent fashion <span class="citation">(this assumption is consistent with Logan 2018, who models serial ordering operations in typing; and with prior empirical work showing IKSIs for letters depend on surrounding letter context, Shaffer 1973; Gentner 1982)</span>. We modeled the structure of natural English using the letter probability distributions derived from Norvig’s letter frequency counts by position and word length, and n-1 letter identity from Google’s Ngram corpus.</p>
+<p>Keystroke times for specific letters were simulated as a function of trace frequency by monte-carlo simulation. For convenience, we assumed that the retrieval time distribution for each stimulus was sampled from a normal distribution with mean = 500, and standard deviation = 100. Using R, we sampled retrieval times for each stimulus form the normal distribution n times, where n was the current number of memory traces for a given letter, that would have been experienced with a particular frequency. Then we took the minimum value from the sampling distribution as the reaction time for that stimulus, given n amount of practice. We repeated this process 1000 times to estimate the expected mean reaction time (expected minimum retrieval time) for the given frequency value for each letter in the set. In this way, we estimated mean keystroke production times for every letter position across different word lengths, collapsed across letter n-1 identity.</p>
+<p>Last, we evaluated model predictions across four practice intervals, shown in Figure <a href="#fig:figure5">6</a> as 50, 100, 500 and 10000. These practice intervals refer to the total number of keystrokes typed. The individual letter frequencies for each practice interval (the number of traces stored for each letter) were determined by multiplying each letter probability by the total number of keystrokes in the practice interval. The source code for the model is available in the repository for this manuscript.</p>
+<pre class="r"><code>source(&quot;figures/5_Figure-bigram.R&quot;)
+figure5</code></pre>
+<div class="figure"><span id="fig:figure5"></span>
+<img src="v2-manuscript_files/figure-html/figure5-1.png" alt="Each panel shows simulated mean letter retrieval/production times as a function of letter position and word length calculated using the conditionalized N-1 bigram probabilities. The numbers 50, 100, 500, and 10000 refer to increasing amounts of practice." width="660" />
+<p class="caption">
+Figure 6: Each panel shows simulated mean letter retrieval/production times as a function of letter position and word length calculated using the conditionalized N-1 bigram probabilities. The numbers 50, 100, 500, and 10000 refer to increasing amounts of practice.
+</p>
+</div>
+
+<p>Figure <a href="#fig:figure5">6</a> displays the instance model predictions, across increasing amounts of practice, for mean keystroke production times as a function of letter position and word length simulated using the conditionalized letter n-1 probabilities. As expected, simulated mean RTs shorten with practice. More important, at each stage in practice, simulated mean RTs across letter and word length show the same pattern as measures of letter uncertainty.</p>
+<pre class="r"><code>source(&quot;figures/5_Figure_bits.R&quot;)
+figureInstanceBits</code></pre>
+<div class="figure"><span id="fig:figureInstanceBits"></span>
+<img src="v2-manuscript_files/figure-html/figureInstanceBits-1.png" alt="Each panel shows simulated mean letter retrieval/production times as a function of letter position and word length calculated using the conditionalized N-1 bigram probabilities. The numbers 50, 100, 500, and 10000 refer to increasing amounts of practice." width="660" />
+<p class="caption">
+Figure 7: Each panel shows simulated mean letter retrieval/production times as a function of letter position and word length calculated using the conditionalized N-1 bigram probabilities. The numbers 50, 100, 500, and 10000 refer to increasing amounts of practice.
+</p>
+</div>
+
+<p>To show the relationship between simulated mean RT and H, we conducted linear regressions on simulated mean typing times using letter uncertainty as the independent variable. <a href="#fig:figureInstanceBits">7</a> shows that letter uncertainty nearly perfectly explains the variance in simulated keystroke time, with <span class="math inline">\(R^2\)</span> tending toward 1 with practice.</p>
+<p>In summary, we have shown that the instance theory of automatization <span class="citation">(Logan 1988)</span> provides an account of the Hick-Hyman law. In other words, instance theory predictions for mean reaction time for a set of independent choices depend on the amount of uncertainty, measured in terms of bits, in the set of choices. To state this differently again, the predictions for mean RTs for sets of items that vary in uncertainty, are identical to H, and but scaled by constant factors. We note that we did not ask how well instance theory predictions for mean typing time as a function of position and word length explain variance in the observed mean IKSIs. Although we could conduct that anlaysis, it would be redundant with the anlaysis using letter uncertainty values to explain variance in observed mean IKSIs, because instance theory converges on the same answer as the information theoretic measure of uncertainty.</p>
+</div>
+</div>
+<div id="general-discussion" class="section level1">
+<h1>General Discussion</h1>
+<!-- highlights overview -->
+<p>Using data from a large N study of continuous typing performance, we reproduced Ostry’s (1983) demonstration that mean interkeystroke interval systematically varies as a function of letter position and word length; and shows pronounced first-letter and mid-word slowing effects. We proposed that variation in mean IKSI could be caused by a general learning process sensitive to letter uncertainty across letter position and word length. We calculated letter uncertainty in natural English from Google’s large corpus of digitized text, and showed that it can explain variance in mean IKSI, especially when letter n-1 identity is included in the measure of uncertainty ( <span class="math inline">\(R^2\)</span> = 0.7023794 ). Finally, we show that instance theory (Logan, 1988) successfully models how a general learning and memory process could produce typing performance that is sensitive to letter uncertainty.</p>
+<!--
+One take home message is that specialized planning/buffering processes for motor sequencing in typing remain sufficient, but are not necessary to explain variation in mean IKSI as a function of letter position and word length. Instead, our major contribution is to establish that a general learning and memory process sensitive to letter uncertainty can also account for the data, perhaps in a more parsimonious fashion. We elaborate on these issues in the next section.
+-->
+<div id="planning-versus-learning-about-letter-uncertainty" class="section level2">
+<h2>Planning versus learning about letter uncertainty</h2>
+<p>We consider two related unresolved issues. First, does the general learning and memory account do a better job of explaining the data than the planning and buffering account? Second, does the evidence presented in favor of a general learning and memory rule out a planning account?</p>
+<p>We found clear evidence that a model including position (coded as first position versus other positions), and H (conditionalized by letter n-1 identity, position, and word length) explained more of the variance (<span class="math inline">\(R^2\)</span> = 0.8809482), than a model that only included conditionalized letter uncertainty (<span class="math inline">\(R^2 =\)</span> 0.7023794). Our interpretation is twofold. First, letter uncertainty clearly explains a large portion of the variance; however, there is clearly additional variance explained by adding a factor coding first letter vs. other letter position. Based on this evidence, it appears that first-letter slowing is not entirely driven by letter uncertainty, and thus we do not rule out a planning account of first-letter slowing effects. However, we suggest that first-letter slowing is likely not a process pure measure of word-level planning time, because letter uncertainty in the first position also explains some of the variance.</p>
+<p>Indeed, prior theory and data in the typing domain strongly support a role for planning at the word-level. For example, <span class="citation">Logan and Crump (2011)</span> proposed a hierarchical two-loop theory of typing, with an outer loop that generates words as plans to be sent to an inner loop, which recieves word-level plans and is responsible for executing keystrokes in the correct seriall order. The time taken by the outer loop to generate a plan for typing a word is thus reflected in the first-keystroke of a sequence of letters.</p>
+<p><span class="citation">Logan (2018)</span> recently developed a computational version of the two-loop theory called a theory of Context, Updating, and Retrieval (CRU). CRU shows how similarity relationships between vector-based context representations for letters as they appear in words, could be used by the inner loop to automatically sequence keystrokes in a correct order. CRU assumes that first-letter slowing must be partly due to the time taken to generate the context vectors for a word; and, it provides a fully articulated account of a word-level planning process (in our view a major achievement, given the previous lack of formal description for this level of processing). Additionally, Logan suggested that CRU may be able to account for letter and bigram frequency influences on mean IKSIs. However, CRU was not implemented to account for learning over the course of experience, and we think this is a worthwhile avenue for future modelling work. In addition to modeling how mean IKSIs depend on n-gram frequency with practice, it be worth determining whether the model also produces the same patterns of mean IKSIs as a function of letter position and word length, by virtue of becoming sensitive to the structure of letter uncertainty in those contexts over the course of practice. Last, CRU is a trace-based model, and would presumably inherit predictions for modeling practice effects from the instance theory of automatization <span class="citation">(Logan 1988)</span> that we employed here.</p>
+<!-- Present inferential limitations -->
+</div>
+<div id="inferential-limitations" class="section level2">
+<h2>Inferential limitations</h2>
+<p>Our application of instance theory <span class="citation">(Logan 1988)</span> provides a falsifiable theory of variation in keystroke dynamics across position and word length for continuous typing of natural English text. The model predicts IKSIs will vary linearly as a function of H. Empirically, we have shown correlational evidence that H explains a large portion of the variance in IKSIs across position and word length. At the same time, the model does not account for slowing in the first-position, in that typists mean IKSIs were slower than they ought to be given letter uncertainty in those positions.</p>
+<p>It is important to note that we did not directly manipulate letter uncertainty by position and word length. Instead, we view the present study as a natural quasi-experimental design, where typists are presumed to be exposed to natural varying conditions of letter uncertainty across position and word length over the course of their experience with typing.</p>
+<p>Additional work is necessary to clearly show that typing time is causally influenced by letter uncertainty. Evidence of this nature could be provided in a couple ways. For example, if letter uncertainty as a function of letter position and word length varies in different ways across languages, then IKSIs by position and length should also vary across natural languages, following the language-specific patterns of H. Experiments with non-word strings that manipulate the pattern of letter uncertainty across position and word length could also be conducted. Here, IKSIs by position and length should correspond to the pattern of H. However, it is unclear whether expert typists already familiar with typing in one language would rapidly adapt their performance to the novel letter uncertainty constraints.</p>
+<p>Last, future work should determine the extent to which letter uncertainty explains variance in composition typing. The data for the present analysis were taken from a copy-typing task, where subjects could read ahead and plan words and letters accordingly. Composition typing requires that typists generate words and sentences during the act of typing. The extent to which our results generalize to the case of composition typing remain unclear, and we expect that first-letter slowing effects would be greatly increased during composition typing, reflecting the increased demands on word and sentence construction compared to copy-typing.</p>
+<!-- Implications -->
+</div>
+<div id="instance-theory-and-skilled-sequential-action" class="section level2">
+<h2>Instance theory and skilled sequential action</h2>
+<p>Our findings fit well with prior work showing instance-based influences over typing performance, and sequencing in general. For example, borrowing from <span class="citation">Masson (1986)</span>, <span class="citation">Crump and Logan (2010)</span> showed that recent episodic experience with typing subsets of letters shortens IKSIs for practiced letters, and suggested that letter typing is driven by instance-based retrieval process.</p>
+<p><span class="citation">Behmer and Crump (2017)</span> (whose data set was re-analyzed here) also found evidence that typists learn about the frequency structure of letters, bigrams, and trigrams. For example, typing times were negatively correlated with n-gram frequency, such that higher frequency n-grams are typed faster than lower frequency n-grams. More important, they showed that sensitivity to n-gram frequency structure depends on level of expertise (e.g., slow vs fast typists). In particular, slower typists were more strongly correlated with letter frequency than bigram or trigram frquency; whereas faster typists showed the opposite pattern of results. That pattern was predicted by a serial recurrent network model <span class="citation">(Cleeremans 1993; Elman 1990)</span>, which overwrites its knowledge about lower order structure (e.g., letter frequency) as it picks up on higher order structure (e.g., bigram and trigram frequency) with practice. However, instance theory suggests that typists do not lose their knowledge of letter frequency, and indeed, when typists were given the task of typing random strings, all of the fast typists slowed down and showed very large correlations between letter frequency and typing time, indicating they had not lost knowledge at the letter level.</p>
+<!--
+The limitations of the instance-based approach highlight open questions. For example, the core assumption that trace-based retrieval times determine memory-based performance implies that practice, in and of itself, is not necessary for automatization. Practice is one route to automatization because it increases the population of traces, thereby increasing the likelihood the population contains short retrieval times for traces that could support automatization. Indeed, instance theory allows for single-trial automatization, which occurs when the first trace sampled into memory happens to have a very short retrieval time [for a demonstration see, @logan_automatizing_1991]. However, instance theory does not lay bare the factors determining how trace encoding processes could reliably record traces with short retrieval times to optimize the automatization process. 
+-->
+<p>Additionally, instance theory could provide theoretically optimized practice schedules for learning to type in an optimal manner. For example, an instance model could be trained to type any set of texts, and learning curves plotting mean IKSI as a function of text and practice would show how typing skill depends on letter uncertainty in the trained text. The applied question for everyday typists is to determine which training texts (e.g., natural texts, random letter texts, parametrically scaled approximations to natural text) provide optimal transfer of automatized typing performance to natural texts.</p>
+<p>Instance theory highlights the critical role of context for automatization, and implies that a broad range of experience with typing letters in numerous contexts is likely an important factor in developing typing skill. As previously, mentioned typing performance at the keystroke level is highly dependent on the immediate letter context <span class="citation">(Gentner 1982; Salthouse 1986; Shaffer 1973)</span>. Instance theory allows for context dependency by assuming traces are stored in a context-dependent fashion. A limitation of instance theory is that it is agnostic, and possibly gratuitous, in specifying which cues in environment are used as contexts to conditionalize trace storage and retrieval. Our findings suggest at a minimum, that typists are sensitive to letter uncertainty in a deeply context-specific manner, including context specified by letter position, word length, and letter n-1 identity. The implication is that experience with typing letters in all functional contexts is required for automatizing letter typing, perhaps necessitating extended practice as a means to experience letters in all of their contexts.</p>
+<p>An important remaining question is to characterize the functional envelope of contextual cues mediating retrieval of stored instances in typing. For example, letter identities or n-gram units at positions n-x to n+y may also be effective contextual cues mediating retrieval keystroke retrieval times. We suggest that information theory may be used to characterize the natural horizon of structure surrounding individual letters. For example, when we took letter n-1 identity into account, measures of H across letter position and word length were dramatically reduced from 4.7, because n-1 letter identity is highly predictive of letter n identity. However, we expect that expanding the calculation of letter uncertainty to include more preceding and succeeding letter identities will show the natural envelope of H. In other words, letter identities at some remote location will eventually be unpredictive of letter identities at the current position. We think it would be telling if the natural span of the letter uncertainty envelope maps onto the known rate limiting eye-hand copying spans in typing <span class="citation">(Logan 1983)</span>. For example, typing speed slows down as preview of upcoming letters is restricted <span class="citation">(Hershman and Hillix 1965)</span>, and it remains unknown how the size of the preview window corresponds to the natural span of letter uncertainty conditionalized on succeeding letters. Some rate-limiting aspects of limited preview may not reflect internal processing limitations <span class="citation">(McLeod and Hume 1994; Pashler 1994a, 1994b)</span>, but external constraints on the value of the information in the preview window.</p>
+<p>Finally, we suspect our approach to applying instance theory to typing gratuitous with respect to assumptions about context independence. For example, we modelled mean IKSIs for each letter as a function of letter frequency, conditionalized by n-1 letter identiy, position, an word-length, and treated those variables as completely independent. For example, predictions for typing “a” in “hat” and “that” are completely seperate, because the “a” appears in different positions and word lengths. In other words, we do not code orthographic similarity at the word-level. However, we expect that extending the model to include orthographic similarity <span class="citation">(i.e., using vectors like those employed in CRU, Logan 2018)</span>, would be an important next step. In general, instance theory assumes that traces are retrieved as a function of similarity to an environmental stimulus, so we expect that some of the variance in individual letter typing times is explained by retrieving traces not only directly associated with specific details of a present context, but also by more general details as a fcuntion of orthographic similarity.</p>
+<!-- Broader Implications-->
+</div>
+<div id="broader-implications-and-conclusions" class="section level2">
+<h2>Broader implications and Conclusions</h2>
+<p>We are optimistic that the tools and approach used here could be successfully applied to other domains beyond skilled typing. We found that information theory, despite its flexibility, was a useful measure of structure in the typing environment. Generalist models of cognitive processes assume that cognition arises through interaction with a structured environment. In addition to specifying the learning and memory rules that extract the structure, it is equally valuable to improve measurement of structure in the environment. Information theory provides one flexible measurement framework for describing the amount of redundant structure within any set of units in the environment. When applied judiciously, it becomes theoretically possible to define the limits of what a general learning process could learn from an environment. These limits could be useful for testing generalist theories against special process theories, especially when it can be shown that a specialized cognitive process has more knowledge than could be provided by natural structure in the environment.</p>
+<p>Information theory spurred the cognitive revolution <span class="citation">(Hick 1952; Hyman 1953; Miller 1956)</span>, and although it was roundly criticized <span class="citation">(see Proctor and Schneider 2018)</span>, we think it has descriptive value useful for characterizing the structure in big data turning the next revolution <span class="citation">(Griffiths 2015)</span>. Our demonstration of correspondence between instance theory <span class="citation">(Logan 1988)</span> and measures of uncertainty adds to the process models capable of accounting for uncertainty mediated phenomena <span class="citation">(for a review see, Proctor and Schneider 2018)</span>, and offers principled and falsifiable predictions for future work.</p>
+
+</div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<pre class="r"><code>r_refs(file = &quot;r-references.bib&quot;)</code></pre>
+
+<div id="refs">
+<div id="ref-behmer_crunching_2017">
+<p>Behmer, Lawrence P., and M. J. C. Crump. 2017. “Crunching Big Data with Finger Tips: How Typists Tune Their Performance Towards the Statistics of Natural Language.” In <em>Big Data in Cognitive Science</em>, edited by Michael N. Jones, 319–41.</p>
+</div>
+<div id="ref-clark_supersizing_2008">
+<p>Clark, Andy. 2008. <em>Supersizing the Mind: Embodiment, Action, and Cognitive Extension</em>. Oxford University Press, New York.</p>
+</div>
+<div id="ref-cleeremans_mechanisms_1993">
+<p>Cleeremans, Axel. 1993. <em>Mechanisms of Implicit Learning Connectionist Models of Sequence Processing</em>. Cambridge, Mass.: MIT Press.</p>
+</div>
+<div id="ref-Crump_Lai_Brosowsky_2018">
+<p>Crump, M. J. C., Walter Lai, and Nicholaus Brosowsky. 2018. “Instance Theory Predicts Information Theory: Episodic Uncertainty as a Determinant of Keystroke Dynamics.” OSF. <a href="https://doi.org/10.17605/OSF.IO/BDNQR">https://doi.org/10.17605/OSF.IO/BDNQR</a>.</p>
+</div>
+<div id="ref-crump_episodic_2010">
+<p>Crump, M. J. C., and Gordon D. Logan. 2010. “Episodic Contributions to Sequential Control: Learning from a Typist’s Touch.” <em>Journal of Experimental Psychology: Human Perception and Performance</em> 36: 662–72. <a href="https://doi.org/10.1037/a0018390">https://doi.org/10.1037/a0018390</a>.</p>
+</div>
+<div id="ref-eich_composite_1982">
+<p>Eich, Janet M. 1982. “A Composite Holographic Associative Recall Model.” <em>Psychological Review</em> 89: 627–61.</p>
+</div>
+<div id="ref-elman_finding_1990">
+<p>Elman, Jeffrey L. 1990. “Finding Structure in Time.” <em>Cognitive Science</em> 14: 179–211.</p>
+</div>
+<div id="ref-fodor_modularity_1983">
+<p>Fodor, Jerry A. 1983. <em>The Modularity of Mind: An Essay on Faculty Psychology</em>. Cambridge, Mass.: MIT Press.</p>
+</div>
+<div id="ref-GentnerEvidencecentralcontrol1982">
+<p>Gentner, Donald R. 1982. “Evidence Against a Central Control Model of Timing in Typing.” <em>Journal of Experimental Psychology: Human Perception and Performance</em> 8: 793–810. <a href="https://doi.org/10.1037/0096-1523.8.6.793">https://doi.org/10.1037/0096-1523.8.6.793</a>.</p>
+</div>
+<div id="ref-griffiths_manifesto_2015">
+<p>Griffiths, Thomas L. 2015. “Manifesto for a New (Computational) Cognitive Revolution.” <em>Cognition</em> 135: 21–23.</p>
+</div>
+<div id="ref-grudin_digraph_1982">
+<p>Grudin, Jonathan T., and Serge Larochelle. 1982. “Digraph Frequency Effects in Skilled Typing.” DTIC Document. <a href="http://oai.dtic.mil/oai/oai?verb=getRecord&amp;metadataPrefix=html&amp;identifier=ADA112926">http://oai.dtic.mil/oai/oai?verb=getRecord&amp;metadataPrefix=html&amp;identifier=ADA112926</a>.</p>
+</div>
+<div id="ref-heath_stochastic_1990">
+<p>Heath, Richard A., and Christopher H. Willcox. 1990. “A Stochastic Model for Inter-Keypress Times in a Typing Task.” <em>Acta Psychologica</em> 75: 13–39.</p>
+</div>
+<div id="ref-HershmanDataProcessingTyping1965">
+<p>Hershman, R. L., and W. A. Hillix. 1965. “Data Processing in Typing: Typing Rate as a Function of Kind of Material and Amount Exposed1.” <em>Human Factors: The Journal of the Human Factors and Ergonomics Society</em> 7: 483–92.</p>
+</div>
+<div id="ref-hick_rate_1952">
+<p>Hick, William E. 1952. “On the Rate of Gain of Information.” <em>Quarterly Journal of Experimental Psychology</em> 4: 11–26. <a href="http://www.tandfonline.com/doi/abs/10.1080/17470215208416600">http://www.tandfonline.com/doi/abs/10.1080/17470215208416600</a>.</p>
+</div>
+<div id="ref-hintzman1984minerva">
+<p>Hintzman, Douglas L. 1984. “MINERVA 2: A Simulation Model of Human Memory.” <em>Behavior Research Methods, Instruments, &amp; Computers</em> 16 (2): 96–101.</p>
+</div>
+<div id="ref-hintzman1986schema">
+<p>———. 1986. “"Schema Abstraction" in a Multiple-Trace Memory Model.” <em>Psychological Review</em> 93 (4): 411.</p>
+</div>
+<div id="ref-hintzman_judgments_1988">
+<p>Hintzman, Douglas L. 1988. “Judgments of Frequency and Recognition Memory in a Multiple-Trace Memory Model.” <em>Psychological Review</em> 95: 528.</p>
+</div>
+<div id="ref-humphreys_global_1989">
+<p>Humphreys, Michael S., Ray Pike, John D. Bain, and Gerald Tehan. 1989. “Global Matching: A Comparison of the SAM, Minerva II, Matrix, and TODAM Models.” <em>Journal of Mathematical Psychology</em> 33: 36–67.</p>
+</div>
+<div id="ref-hyman_stimulus_1953">
+<p>Hyman, Ray. 1953. “Stimulus Information as a Determinant of Reaction Time.” <em>Journal of Experimental Psychology</em> 45: 188–96. <a href="http://psycnet.apa.org/journals/xge/45/3/188/">http://psycnet.apa.org/journals/xge/45/3/188/</a>.</p>
+</div>
+<div id="ref-JacobyNonanalyticcognitionMemory1984">
+<p>Jacoby, Larry L., and Lee R. Brooks. 1984. “Nonanalytic Cognition: Memory, Perception, and Concept Learning.” <em>The Psychology of Learning and Motivation</em> 18: 1–47.</p>
+</div>
+<div id="ref-jamieson_applying_2009">
+<p>Jamieson, Randall K., and D. J. K. Mewhort. 2009. “Applying an Exemplar Model to the Serial Reaction-Time Task: Anticipating from Experience.” <em>The Quarterly Journal of Experimental Psychology</em> 62: 1757–83. <a href="http://www.tandfonline.com/doi/abs/10.1080/17470210802557637">http://www.tandfonline.com/doi/abs/10.1080/17470210802557637</a>.</p>
+</div>
+<div id="ref-john_typist:_1996">
+<p>John, Bonnie E. 1996. “TYPIST: A Theory of Performance in Skilled Typing.” <em>Human-Computer Interaction</em> 11: 321–55.</p>
+</div>
+<div id="ref-KolersProceduresmind1984">
+<p>Kolers, Paul A., and Henry L. Roediger. 1984. “Procedures of Mind.” <em>Journal of Verbal Learning and Verbal Behavior</em> 23: 425–49.</p>
+</div>
+<div id="ref-logan_span_1983">
+<p>Logan, Gordon D. 1983. “Time, Information, and the Various Spans in Typewriting.” In <em>Cognitive Aspects of Skilled Typewriting</em>, edited by W. E. Cooper, 197–224. Springer-Verlag, New York.</p>
+</div>
+<div id="ref-logan_toward_1988">
+<p>———. 1988. “Toward an Instance Theory of Automatization.” <em>Psychological Review</em> 95: 492–527. <a href="http://psycnet.apa.org/journals/rev/95/4/492/">http://psycnet.apa.org/journals/rev/95/4/492/</a>.</p>
+</div>
+<div id="ref-logan_2018">
+<p>———. 2018. “Automatic Control: How Experts Act Without Thinking.” <em>Psychological Review</em> 125: 453–85.</p>
+</div>
+<div id="ref-logan_hierarchical_2011">
+<p>Logan, Gordon D., and M. J. C. Crump. 2011. “Hierarchical Control of Cognitive Processes: The Case for Skilled Typewriting.” In <em>Psychology of Learning and Motivation</em>, edited by B. H. Ross, 54:1–27. Elsevier. <a href="https://CrumpLab.github.io/CognitionPerformanceLab/CrumpPubs/Logan and Crump - 2011.pdf">https://CrumpLab.github.io/CognitionPerformanceLab/CrumpPubs/Logan and Crump - 2011.pdf</a>.</p>
+</div>
+<div id="ref-massaro_typing_1984">
+<p>Massaro, Dominic W., and Peter A. Lucas. 1984. “Typing Letter Strings Varying in Orthographic Structure.” <em>Acta Psychologica</em> 57: 109–31.</p>
+</div>
+<div id="ref-MassonIdentificationtypographicallytransformed1986">
+<p>Masson, Michael E. 1986. “Identification of Typographically Transformed Words: Instance-Based Skill Acquisition.” <em>Journal of Experimental Psychology: Learning, Memory, and Cognition</em> 12: 479–88.</p>
+</div>
+<div id="ref-mcleod_overlapping_1994">
+<p>McLeod, Peter, and Mark Hume. 1994. “Overlapping Mental Operations in Serial Performance with Preview: Typing. A Reply to Pashler.” <em>The Quarterly Journal of Experimental Psychology</em> 47: 193–99.</p>
+</div>
+<div id="ref-miller_magical_1956">
+<p>Miller, George A. 1956. “The Magical Number Seven, Plus or Minus Two: Some Limits on Our Capacity for Processing Information.” <em>Psychological Review</em> 63: 81–97. <a href="http://psycnet.apa.org/journals/rev/63/2/81/">http://psycnet.apa.org/journals/rev/63/2/81/</a>.</p>
+</div>
+<div id="ref-NissenAttentionalrequirementslearning1987">
+<p>Nissen, Mary Jo, and Peter Bullemer. 1987. “Attentional Requirements of Learning: Evidence from Performance Measures.” <em>Cognitive Psychology</em> 19: 1–32.</p>
+</div>
+<div id="ref-OstryDeterminantsinterkeytimes1983">
+<p>Ostry, David J. 1983. “Determinants of Interkey Times in Typing.” <em>Cognitive Aspects of Skilled Typewriting</em>, 225–46.</p>
+</div>
+<div id="ref-pashler_comment_1994">
+<p>Pashler, Harold. 1994a. “Comment on McLeod and Hume, Overlapping Mental Operations in Serial Performance with Preview: Typing.” <em>The Quarterly Journal of Experimental Psychology</em> 47: 201–5.</p>
+</div>
+<div id="ref-pashler_overlapping_1994">
+<p>———. 1994b. “Overlapping Mental Operations in Serial Performance with Preview.” <em>The Quarterly Journal of Experimental Psychology</em> 47: 161–91.</p>
+</div>
+<div id="ref-PinetTypingwritingLinguistic2016">
+<p>Pinet, Svetlana, Johannes C. Ziegler, and F.-Xavier Alario. 2016. “Typing Is Writing: Linguistic Properties Modulate Typing Execution.” <em>Psychonomic Bulletin &amp; Review</em> 23: 1898–1906.</p>
+</div>
+<div id="ref-proctor_hicks_2018">
+<p>Proctor, Robert W, and Darryl W Schneider. 2018. “Hick’s Law for Choice Reaction Time: A Review.” <em>Quarterly Journal of Experimental Psychology</em> 71 (June): 1281–99. <a href="https://doi.org/10.1080/17470218.2017.1322622">https://doi.org/10.1080/17470218.2017.1322622</a>.</p>
+</div>
+<div id="ref-rumelhart_parallel_1986">
+<p>Rumelhart, David E., and James L. McClelland. 1986. <em>Parallel Distributed Processing, Explorations in the Microstructure of Cognition, Volume 1: Foundations</em>. Cambridge, Mass.: MIT Press.</p>
+</div>
+<div id="ref-RumelhartSimulatingskilledtypist1982">
+<p>Rumelhart, David E., and Donald A. Norman. 1982. “Simulating a Skilled Typist: A Study of Skilled Cognitive-Motor Performance.” <em>Cognitive Science</em> 6: 1–36.</p>
+</div>
+<div id="ref-salthouse_effects_1984">
+<p>Salthouse, Timothy A. 1984. “Effects of Age and Skill in Typing.” <em>Journal of Experimental Psychology: General</em> 113: 345–71.</p>
+</div>
+<div id="ref-salthouse_perceptual_1986">
+<p>———. 1986. “Perceptual, Cognitive, and Motoric Aspects of Transcription Typing.” <em>Psychological Bulletin</em> 99: 303–19.</p>
+</div>
+<div id="ref-shaffer_latency_1973">
+<p>Shaffer, L. H. 1973. “Latency Mechanisms in Transcription.” <em>Attention and Performance IV</em>, 435–46.</p>
+</div>
+<div id="ref-shaffer_typing_1968">
+<p>Shaffer, L. H., and J. Hardwick. 1968. “Typing Performance as a Function of Text.” <em>The Quarterly Journal of Experimental Psychology</em> 20: 360–69.</p>
+</div>
+<div id="ref-Shannonmathematicaltheorycommunication1949">
+<p>Shannon, Claude E., and Warren Weaver. 1949. <em>The Mathematical Theory of Communication</em>. Urbana: University of Illinois press.</p>
+</div>
+<div id="ref-terzuolo_determinants_1980">
+<p>Terzuolo, C. A., and P. Viviani. 1980. “Determinants and Characteristics of Motor Patterns Used for Typing.” <em>Neuroscience</em> 5: 1085–1103.</p>
+</div>
+<div id="ref-van_selst_solution_1994">
+<p>Van Selst, M., and P. Jolicoeur. 1994. “A Solution to the Effect of Sample Size on Outlier Elimination.” <em>The Quarterly Journal of Experimental Psychology</em> 47A: 631–50.</p>
+</div>
+<div id="ref-vinson_quantifying_2017">
+<p>Vinson, David W. 2017. “Quantifying Context and Its Effects in Large Natural Datasets.” PhD Thesis, University of California, Merced.</p>
+</div>
+<div id="ref-will_linguistic_2006">
+<p>Will, Udo, Guido Nottbusch, and Rüdiger Weingarten. 2006. “Linguistic Units in Word Typing: Effects of Word Presentation Modes and Typing Delay.” <em>Written Language &amp; Literacy</em> 9: 153–76.</p>
+</div>
+<div id="ref-wu_queuing_2008">
+<p>Wu, Changxu, and Yili Liu. 2008. “Queuing Network Modeling of Transcription Typing.” <em>ACM Transactions on Computer-Human Interaction</em> 15 (May): 1–45. <a href="https://doi.org/10.1145/1352782.1352788">https://doi.org/10.1145/1352782.1352788</a>.</p>
+</div>
+</div>
+
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Thanks to reviewer Michael Masson for suggesting we weight H for each n-1 letter distribution as a function of n-1 letter probability.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

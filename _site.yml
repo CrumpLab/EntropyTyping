@@ -5,8 +5,8 @@ navbar:
     - text: "Home"
       href: index.html
     - text: "Paper"
-      href: Entropy_typing_draft.html
+      href: v2-manuscript.html
     - text: "Data"
       href: data.html
 output_dir: "docs"
-exclude: ["mturk.txt.zip"]
+exclude: ["mturk.txt.zip","Original_submission"]
