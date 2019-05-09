@@ -1,0 +1,38 @@
+#' the_data: main keystroke timing data
+#'
+#' @description This data frame contains the pre-processed data used for the bulk of the empirical analyses in Crump, Lai, & Brosowsky. The data was originally collected by Behmer & Crump (2017).
+#'
+#'   This data frame contains individual keystroke typing data from 346 typists who copy typed 5 English paragraphs. It has been filtered to remove keystrokes from capitalized letters.
+#'
+#'
+#' @format A data frame with 1017214 rows and 27 variables:
+#' \describe{
+#'   \item{\code{Subject}}{integer A unique number coding each subject}
+#'   \item{\code{ParagraphType}}{character "N" stands for normal english. This data frame only contains data from yping English paragraphs. The raw data contains additional typing data from typing random letter strings, and english-like strings.}
+#'   \item{\code{IKSIs}}{integer Interkeystroke interval in milliseconds, the time elapsed between the previous keystroke and the current keystroke.}
+#'   \item{\code{Letters}}{character the character typed}
+#'   \item{\code{PredBigram}}{character bigram showing the previous character and current character}
+#'   \item{\code{SuccBigram}}{character bigram showing the current character and the next character}
+#'   \item{\code{PredBigramCorrect}}{character Accuracy codes for the previous letter and current letter, 1 = correct, 0 = typo}
+#'   \item{\code{SuccBigramCorrect}}{character Accuracy codes for the current letter and next letter, 1 = correct, 0 = typo}
+#'   \item{\code{PredTrigram}}{character trigram for the previous two letters and current letter }
+#'   \item{\code{SuccTrigram}}{character trigram for the current letter and next two letter}
+#'   \item{\code{PredTrigramCorrect}}{character accuracy codes for previous two letters and current letter, 1 = correct, 0 = typo}
+#'   \item{\code{SuccTrigramCorrect}}{character accuracy codes for current letter and next two letters, 1 = correct, 0 = typo}
+#'   \item{\code{GUT}}{integer Letter frequencies estimated from the gutenberg corpus}
+#'   \item{\code{PredBigramMLE}}{double Probability of current letter given previous letter, from gutenberg corpus}
+#'   \item{\code{SuccBigramMLE}}{double Probability of current letter given next letter, from gutenberg corpus}
+#'   \item{\code{PredBigramFreq}}{integer preceding bigram frequency from gutenberg}
+#'   \item{\code{SuccBigramFreq}}{integer succeeding bigram frequency from gutenberg}
+#'   \item{\code{PredTrigramMLE}}{double probability of current letter given preceding trigram}
+#'   \item{\code{PredTrigramFreq}}{integer preceding trigram frequency from gutenberg}
+#'   \item{\code{SuccTrigramMLE}}{double probability of current letter given succeeding trigram}
+#'   \item{\code{SuccTrigramFreq}}{integer succeeding trigram frequency from gutenberg}
+#'   \item{\code{let_pos}}{integer serial position of letter within word}
+#'   \item{\code{word_lengths}}{integer number of letters in word}
+#'   \item{\code{probs}}{double need to double-check what this is}
+#'   \item{\code{whole_word}}{character the current word, note any word that begins with a capital letter is displayed with the capital letter removed}
+#'   \item{\code{word_prob}}{double need to double-check what this is.}
+#'   \item{\code{whole_word_acc}}{character 1 = the whole word was typed correctly, 0 = there was an error(s) somewhere in the word}
+#'}
+"the_data"

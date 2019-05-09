@@ -1,0 +1,57 @@
+template:
+  params:
+    bootswatch: readable
+
+authors:
+  Matthew Crump:
+    href: https://crumplab.github.io
+
+navbar:
+  structure:
+    left:
+    - home
+    - articles
+    - pdfVersion
+    right:
+    - reference
+    - github
+  components:
+    articles:
+      text: Paper and Scripts
+      menu:
+      - text: 'Instance theory predicts information theory: Episodic uncertainty as
+          a determinant of keystroke dynamics'
+        href: articles/EntropyTyping_Draft.html
+      - text: 'Scripts for Analysis'
+        href: articles/functionRMDs/analysis_scripts.html
+      - text: 'Supplemental Materials'
+        href: articles/Supplemental/Supplemental_materials.html
+    reference:
+      text: Data
+      href: reference/index.html
+    pdfVersion:
+      text: pdf
+      icon: fa-file
+      href: Entropy_typing_draft.pdf
+    github:
+      text: source code
+      icon: fa-lg fa-github
+      href: https://github.com/CrumpLab/EntropyTyping
+
+home:
+  strip_header: true
+  links:
+    - text: Currently under review
+      href: Canadian Journal of Experimental Psychology
+    - text: Psyarxiv preprint
+      href: https://psyarxiv.com/keufc/
+    - text: OSF (same as github repo)
+      href: https://osf.io/bdnqr/
+
+reference:
+- title: Data
+  desc:  Description of data files
+  contents:
+  - the_data
+
+

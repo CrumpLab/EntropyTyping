@@ -1,23 +1,13 @@
-# EntropyTyping
+## Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics
 
-This is an open and reproducible project being written in public on Github. The entire project is written in R Markdown, including .rmd files for analysis, and .rmd files to compile the paper in APA format using papaja (for .pdf), and this R Markdown website. In principle the source code and open data contained in this project repository should be sufficient for compiling and reproducing the paper.
+**Authors:** Matthew J. C. Crump, Walter Lai, Nicholaus Brosowsky
 
-## PUBLIC DRAFT IN PROGRESS
-(Everything subject to change, all changes recorded by git)
+**Abstract:** How does prior experience shape skilled performance in structured environments? We use skilled typing of natural text to evaluate correspondence between performance (keystroke timing) and structure in the environment (letter uncertainty). We had ~350 typists copy-type english text. We reproduced Ostry's (1983) analysis of interkeystroke interval as a function of letter position and word length, that showed prominent first-letter and mid-word slowing effects. We propose a novel account that letter position and word length effects on keystroke dynamics reflect informational uncertainty about letters in those locations, rather than resource limited planning/buffering processes. We computed positional uncertainty for letters in all positions of words from length one to nine using Google's n-gram database. We show that variance in inter-keystroke interval by letter position and word length tracks natural variation in letter uncertainty. Finally, we provide a model showing how a general learning and memory process could acquire sensitivity to patterns of letter uncertainty in natural english. In doing so, we draw an equivalence between Logan's (1988) instance theory of automatization and Shannon's measure of entropy (H) from information theory. Instance theory's predictions for automatization as a function of experience follow exactly the uncertainty in the choice set being automatized. As a result, instance theory stands as a general process model explaining how context-specific experiences in a structured environment tune skilled performance.
 
-This draft is currently being displayed as an R Markdown website: [https://crumplab.github.io/EntropyTyping/index.html](https://crumplab.github.io/EntropyTyping/index.html)
+## About
 
-This repository contains:
-- `EntropyTyping.proj` is the R-studio project file
-- `mturk.txt.zip` is the raw data
-- the files for compiling the paper are:
-  - `Entropy_typing_draft.Rmd` is the paper written using the papaja package
-  - `Entropy_typing_draft.pdf` is the .pdf version of this paper
-  - `Entropy_typing_analysis.r` contains the analysis scripts for the paper. These scripts are linked to in the `Entropy_typing_draft.Rmd`
-  - `r-references.bib` contains the bibliography file
-  - `the_data.Rdata` contains the data used in the present analysis
-- the `_history` folder contains additional analysis files made by the authors throughout the course of the project
-- `index.Rmd`, `_site.yml`, `webpaper.css` contain files for compiling this website. The website files are saved in the `docs` folder, and served on the web using the github pages option for this repository.
-      
-- The [issues tab of the github repository](https://github.com/CrumpLab/EntropyTyping/issues) contains threaded discussions we had (are having) about this project
+This work should be fully reproducible by compiling the source code for this project. The source code is available in the following github repository [https://github.com/CrumpLab/EntropyTyping/](https://github.com/CrumpLab/EntropyTyping/)
 
+The repository files contain both the source code for this website, which was compiled using `pkgdown`, and the source code for the paper which was written using `papaja`. The code, data, and scripts for the paper are located in the `vignettes` folder. 
+
+The [issues tab of the github repository](https://github.com/CrumpLab/EntropyTyping/issues) contains threaded discussions we had (are having) about this project

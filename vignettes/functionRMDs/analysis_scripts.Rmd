@@ -1,0 +1,20 @@
+---
+title: "Scripts for analysis"
+author: "Matthew Crump"
+date: "5/8/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In principle the github repository for this paper [https://github.com/CrumpLab/EntropyTyping](https://github.com/CrumpLab/EntropyTyping) should be sufficient to reproduce the paper. The current version of the paper is located in the vignettes folder, with the title `EntropyTyping_Draft.Rmd`, which is an .Rmd file written using the `papaja` package for APA papers. This paper can be compiled by knitting the document (with the proviso that all necessary packages are installed).
+
+The scripts used throughout the paper can be found in the `vignettes/analysis`, `vignettes/figures`, and `vignettes/simulation` folders. R code chunks within the main paper file load and run various scripts throughout compilation. 
+
+Note: As a side note, we are presently adapting our strategy for sharing papers. In this incarnation, some of the things we could have done we did not do. For example, this paper is being shared as a website using the `pkgdown` package for compiling a website for R packages. As a result, we could have shared the paper in much more reproducible fashion, by converting it to an R package. This would allow us to more easily share the functions and data that we used. However, because the code to generate the paper was not written with this kind of distribution in mind, we have not yet refactored the code to allow for this. But, it is something that we may do in the future.
+
+
+
