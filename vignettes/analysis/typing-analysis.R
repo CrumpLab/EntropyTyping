@@ -3,14 +3,14 @@ packages <- c("dplyr","ggplot2","cowplot","afex","papaja","tidyr")
 lapply(packages, require, character.only = TRUE)
 
 
-source("analysis/vj_outlier.R")
+source("vignettes/analysis/vj_outlier.R")
 
 get_fstat<-function(anova_table){
   output<-c()
   for(i in 1:nrow(anova_table)){
     output[i]<-paste("$F(",anova_table$`num Df`[i],", ",anova_table$`den Df`[i],") =  ", round(anova_table$`F`[i],digits=2),
                      "$, $\\mathit{MSE} = ",round(anova_table$MSE[i], digits = 2),
-                     "$, $p = ", format(anova_table$`Pr(>F)`[i] , digits = 3) ,
+                     "$, $p = ", format(anova_table$`Pr(>F)`[i] , digits = 3, scientific = FALSE) ,
                      "$, $\\hat{\\eta}^2_\\textit{p} = ", format(anova_table$pes[i], digits = 2) ,"$",
                      sep = ""
     )
@@ -145,7 +145,7 @@ subject_means <- data %>%
 mid <- aov_car(mean_IKSI ~ new_pos*word_lengths + Error(Subject/new_pos*word_lengths), data = subject_means, anova_table = list(correction = "none", es = "pes"))
 #sum_first<-nice(first, correction = "none", es="pes")
 
-MWS<-get_fstat(first$anova_table)
+MWS<-get_fstat(mid$anova_table)
 
 MWS_summary <- data %>%
   select(Subject,IKSIs,new_pos,word_lengths)  %>%
@@ -181,7 +181,12 @@ typing_analysis_data[[4]]<-MWS_summary
 
 names(typing_analysis_data)<-c("FLS","FLS_summary","MWS","MWS_summary")
 
-save(typing_analysis_data, file="data/typing-analysis-data.Rda")
+save(typing_analysis_data, file="vignettes/data/typing-analysis-data2.Rda")
 
-}
+apa_first <- apa_print(first)
+apa_middle <- apa_print(mid)
+
+save(apa_first,apa_middle, file="vignettes/data/fl_ml_anovas.Rda")
+
+
 
