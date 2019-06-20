@@ -29,11 +29,15 @@ subject_means <- the_data %>%
   summarise(mean_IKSI = mean(non_recursive_moving(IKSIs)$restricted)) %>%
   filter(let_pos%in%c(seq(1:2)),
          word_lengths%in%c(seq(from=2,to=9,by=1))
-  )
+  ) %>%
+  ungroup() %>%
+  mutate(let_pos = factor(let_pos),
+         word_lengths = factor(word_lengths))
 
 
 first <- aov_car(mean_IKSI ~ let_pos*word_lengths + Error(Subject/let_pos*word_lengths), data = subject_means, anova_table = list(correction = "none", es = "pes"))
 #sum_first<-nice(first, correction = "none", es="pes")
+
 
 FLS<-get_fstat(first$anova_table)
 
@@ -182,6 +186,8 @@ typing_analysis_data[[4]]<-MWS_summary
 names(typing_analysis_data)<-c("FLS","FLS_summary","MWS","MWS_summary")
 
 save(typing_analysis_data, file="vignettes/data/typing-analysis-data2.Rda")
+
+
 
 apa_first <- apa_print(first, correction="none")
 apa_middle <- apa_print(mid, correction="none")
