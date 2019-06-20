@@ -183,8 +183,8 @@ names(typing_analysis_data)<-c("FLS","FLS_summary","MWS","MWS_summary")
 
 save(typing_analysis_data, file="vignettes/data/typing-analysis-data2.Rda")
 
-apa_first <- apa_print(first)
-apa_middle <- apa_print(mid)
+apa_first <- apa_print(first, correction="none")
+apa_middle <- apa_print(mid, correction="none")
 
 save(apa_first,apa_middle, file="vignettes/data/fl_ml_anovas.Rda")
 

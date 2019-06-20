@@ -2,28 +2,28 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp7aJyyN/preview-7d8a257b2cc5.dir/EntropyTyping_Draft_files/figure-latex/figure1-1.pdf}
+\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp1tkan6/preview-445b73d21732.dir/EntropyTyping_Draft_files/figure-latex/figure1-1.pdf}
 \caption{\label{fig:figure1}Mean interkeystroke intervals (ms) as a function of word length (panels) and letter position. Error bars represent 95\% confidence intervals around the mean typing speed.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp7aJyyN/preview-7d8a257b2cc5.dir/EntropyTyping_Draft_files/figure-latex/figure2-1.pdf}
+\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp1tkan6/preview-445b73d21732.dir/EntropyTyping_Draft_files/figure-latex/figure2-1.pdf}
 \caption{\label{fig:figure2}Panel A shows first-letter slowing as mean IKSI (ms) differences between 2nd and 1st letter positions as a function of word length. Panel B shows mean IKSI differences (ms) between the middle and 2nd letter positions as a function of word length. The middle position indicates the peak middle letter position from each word length. Error bars represent 95\% confidence intervals around the mean difference scores.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp7aJyyN/preview-7d8a257b2cc5.dir/EntropyTyping_Draft_files/figure-latex/figure3-1.pdf}
+\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp1tkan6/preview-445b73d21732.dir/EntropyTyping_Draft_files/figure-latex/figure3-1.pdf}
 \caption{\label{fig:figure3}Letter uncertainty (H, from Google n-gram corpus) for each letter position as a function of word length and calculated using unigram position probabilities (square) or conditionalized using N-1 bigram letter probabilities (triangle).}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp7aJyyN/preview-7d8a257b2cc5.dir/EntropyTyping_Draft_files/figure-latex/figure4-1.pdf}
+\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp1tkan6/preview-445b73d21732.dir/EntropyTyping_Draft_files/figure-latex/figure4-1.pdf}
 \caption{\label{fig:figure4}Mean interkeystroke interval (ms) for each letter position and word length is plotted as a function of letter uncertainty (H) calculated using unigram position probabilities (A) or conditionalized using N-1 bigram probabilities (B).}
 \end{figure*}
 \begin{figure*}[hbt]
@@ -37,13 +37,13 @@
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp7aJyyN/preview-7d8a257b2cc5.dir/EntropyTyping_Draft_files/figure-latex/figure5-1.pdf}
+\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp1tkan6/preview-445b73d21732.dir/EntropyTyping_Draft_files/figure-latex/figure5-1.pdf}
 \caption{\label{fig:figure5}Each panel shows simulated mean IKSIs as a function of letter position and word length calculated using the conditionalized N-1 bigram probabilities. The numbers 50, 100, 500, and 10000 refer to increasing amounts of practice.}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
 \centering
-\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp7aJyyN/preview-7d8a257b2cc5.dir/EntropyTyping_Draft_files/figure-latex/figureInstanceBits-1.pdf}
+\includegraphics{/private/var/folders/cp/ngqvkkj93vqfbtv7tg_zlgfc0000gn/T/Rtmp1tkan6/preview-445b73d21732.dir/EntropyTyping_Draft_files/figure-latex/figureInstanceBits-1.pdf}
 \caption{\label{fig:figureInstanceBits}Each panel shows simulated mean IKSIs as a function of letter position and word length calculated using the conditionalized N-1 bigram probabilities. The numbers 50, 100, 500, and 10000 refer to increasing amounts of practice.}
 \end{figure*}
