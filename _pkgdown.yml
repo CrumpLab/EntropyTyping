@@ -41,8 +41,8 @@ navbar:
 home:
   strip_header: true
   links:
-    - text: Currently under review
-      href: Canadian Journal of Experimental Psychology
+    - text: Published at Canadian Journal of Experimental Psychology
+      href: https://psycnet.apa.org/buy/2019-42681-001
     - text: Psyarxiv preprint
       href: https://psyarxiv.com/keufc/
     - text: OSF (same as github repo)

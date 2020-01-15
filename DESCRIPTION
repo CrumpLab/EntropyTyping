@@ -1,8 +1,12 @@
 Package: EntropyTyping
 Type: Paper
 Title: Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics
-Version: 0.9.0
-Authors@R: person("Matthew", "Crump", role = c("aut", "cre"), email = "mcrump@brooklyn.cuny.edu")
+Version: 0.0.1.0000
+Authors@R: person(given = "Matthew J. C.",
+           family = "Crump",
+           role = c("aut", "cre"),
+           email = "mcrump@brooklyn.cuny.edu",
+           comment = c(ORCID = "0000-0002-5612-0090"))
 Maintainer: The package maintainer <mcrump@brooklyn.cuny.edu>
 Description: Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics
 License: TBD
