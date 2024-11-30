@@ -1,0 +1,79 @@
+Reviewer #1: Review of CEP-2018-0068
+Title: Instance theory predicts information theory: Episodic uncertainty as a determinant of keystroke dynamics
+Authors: Crump, Lai, and Brosowsky
+
+Summary
+
+The authors reanalyze an existing data set of keystroke dynamics for skilled typists and find that interkeystroke interval (IKSI) patterns exhibit first-letter and mid-word slowing effects. Drawing on information-theoretic ideas, the authors report regression analyses showing that the IKSI pattern is strongly related to letter uncertainty (conditionalized on n-1 letter identity). They also show that a statistical model based on the instance theory of automaticity yields simulation results that are qualitatively similar to the IKSI patterns. The overarching conclusion is that a general process model built on experience might be sufficient to explain some regularities in typing performance.
+
+Evaluation
+
+This manuscript addresses a timely topic that would likely be of interest to readers of this journal. I think the work provides some unique insights on typing performance and how it is influenced by statistics of the environment (e.g., letter and bigram frequencies in naturalistic text). The authors make some interesting observations, but I think it is premature to claim that they "have developed a falsifiable causal theory of variation in keystroke dynamics" (p. 20), especially in the absence of direct experimental testing. (They might want to dial down such claims.) My impression is that this manuscript could be improved substantially by more empirical evidence and/or more sophisticated modeling. As it currently stands, I am on the fence about whether there is enough here to warrant publication as a stand-alone contribution. At the very least, I think my major comments would need to be addressed before this work might be publishable.
+
+Major Comments
+
+1. Missing statistical support for the key empirical findings
+
+Visual inspection of Figure 1A is consistent with the authors' claims about first-letter and mid-word slowing, but it would be good to have more specific statistical support (i.e., statistical tests tailored to the effects of interest rather than all the pairwise comparisons in Figure 1B). For example, a statistical analysis comparing first-letter IKSIs versus other-letter IKSIs might suffice to indicate first-letter slowing. Mid-word slowing is a bit more complicated to analyze because it depends on word length, but there should be a way to do it. My overarching point is that the currently reported statistics do not seem to directly assess the specific trends of interest.
+
+- added new figures to more clearly show the effects
+- added typing analyses that show support for first-letter and mid-word slowing
+
+2. How clear-cut is the support for the authors' preferred model?
+
+The authors find that letter uncertainty (conditionalized on n-1 letter identity) does well at accounting for the IKSI pattern (R^2 = .81). However, they noted that letter uncertainty (unconditionalized) and position as predictors also works well - perhaps even better (R^2 = .86). Is there a reason why the first model should be preferred, beyond an argument based on parsimony? Framed another way, is the evidence strong enough to reject a dual-process interpretation involving a planning/buffering process?
+
+3. Model development, assessment, and connections to the literature
+
+I have a few comments related to the modeling effort:
+
+(a) Considering the authors' findings concerning the importance of n-1 letter identity, I was puzzled as to why n-1 letter identity was not incorporated into their instance model simulations. It should be possible to develop a variant of their model in which either "bigram instances" are retrieved or bigram information provides context for retrieval.
+
+- updated model for bigram uncertainty
+
+(b) The model was assessed for relatively small amounts of practice, whereas the subjects who provided the typing data likely had extensive pre-study practice in standard typing. Considering the practice-related compression in simulated RTs in Figure 4 (i.e., the range in RT seems to become narrower with practice), I wonder whether the key trends (first-letter and mid-word slowing) would still occur after much more practice. For example, in the "500" practice condition, mid-word slowing already seems somewhat muted. What happens if the model is simulated for much longer periods of practice (e.g., 10,000 keystrokes)?
+
+- added 10,000 to model
+
+(c) Beyond visual inspection of Figure 4, can the authors provide any sort of quantitative comparison between the simulation results and the empirical IKSI data?
+
+(d) I think there should be more discussion about how the present modeling effort is connected with other models in the literature; specifically, Jamieson and Mewhort (2009) and Logan (2018), both of which are cited but not adequately discussed. Jamieson and Mewhort showed that an instance model using recent context could produce the Hick-Hyman law, which seems very much related to what the present authors wanted to demonstrate. Logan showed that an instance-based, context-driven retrieval process could account for various kinds of error data in typing. Even though he did not model keystroke timing, he discussed how his model might handle it.
+
+Minor Comments (chronological)
+
+4. p. 4: "IKSIs" should appear in parentheses after the first occurrence of "interkeystroke intervals" because the abbreviation is used later.
+
+5. p. 8, Design and Procedure: It is unclear why "the task took around 30 to 45 minutes" when subjects only had to type five short paragraphs, which likely would have taken about 10 to 15 minutes at typical typing speeds. (This was clarified only when I consulted the Behmer and Crump chapter, and discovered that subjects also typed other texts.)
+
+6. p. 8, Data Analysis: Is it really necessary to list all the R packages used? I think it would be simpler to state that R was used to analyze the data, then direct the reader to the GitHub repository in the Author Note for more details.
+
+- removed
+
+7. Considering that this manuscript involves reanalyzing data from Behmer and Crump (2017), it might be useful to briefly summarize the data analyses and results from that chapter (perhaps in a footnote).
+
+8. p. 11: "Visual inspection of the graph shows that variation in letter uncertainty maps closely onto variation in mean IKSI…" I would not say that "maps closely" accurately describes the correspondence (or lack thereof) between Figures 1A and 2A, as indicated by Figure 2B.
+
+9. p. 15: "causal claim" The correlational data in Figure 3 cannot be used to infer causality.
+
+10. p. 17: "This assumes traces for specific letters are stored and retrieved in a context-dependent fashion." This seems consistent with the context-based retrieval mechanism in Logan's (2018) model of typing.
+
+11. The conditionalized aspects of the results (i.e., that IKSI depends on letter position, word length, and n-1 letter identity) fit well with the Logan-Crump two-loop theory of typing, in which the critical unit for typing is the word rather than individual letters. Letter position, word length, and n-1 letter identity make sense as useful predicators of typing performance for word units but not for single-letter units, so it might be worth mentioning this connection to the two-loop theory.
+
+12. (a) Figure 1: It is unclear what the error bars represent in Panel A. (b) Figures 2 and 3: It is unclear what the shaded area around the regression line represents in Panel B of each figure.
+
+13. Figures: It is difficult to distinguish between nine levels of grayscale shading. The authors might want to consider using different symbols (circle, square, triangle, diamond, etc.) to make it easier for the reader to distinguish between conditions.
+
+14. Grammatical nitpicks: (a) All three occurrences of "it's" in the manuscript are grammatically incorrect (should be "its" without an apostrophe). (b) Reaction times or retrieval times can be short or long, not fast or slow. The underlying process can be fast or slow.
+
+
+
+Reviewer #3: The authors provide a convincing demonstration that time between keystrokes during typing is closely related to the uncertainty associated with the typed letter, given the letter's position, the word's length, and the identity of the preceding letter. This result is consistent with Logan's instance theory of skill acquisition, which in turn links to information theory.
+
+This is a very interesting proposal and the argument is convincing. I have only a few minor suggestions for improving the presentation.
+
+Minor points
+
+1. p. 13, bottom. The H calculation for the n-1 distributions is based on the mean of all 26 possible distributions. But taking the simple, unweighted mean implies that all 26 letters are equally likely at a given position in a word with a given length. The authors have shown, however, that these likelihoods vary, so it might be better to generate weighted averages for H with each letter weighted by its context-specific probability.
+
+2. p. 21, second paragraph. The authors mention that it is possible that the first trace entered into memory is one that has a short retrieval time. This implies that in the model, each trace has a fixed RT associated with it. I do not think that is how the instance theory is modeled. I believe each trace has an independently determined RT each time a retrieval attempt is made. So a short RT after much practice comes from having many chances for at least one of the traces to have a short RT on a given retrieval attempt. But the RT for a particular trace may vary across retrievals.
+____________________
